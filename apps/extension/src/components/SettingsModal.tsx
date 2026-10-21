@@ -3,7 +3,7 @@ import { getApiBaseUrl, setApiBaseUrl } from '@/lib/api';
 import { useI18n } from '@/lib/I18nContext';
 import { SUPPORTED_LOCALES, SupportedLocale } from '@/lib/i18n';
 import { Button } from './ui/button';
-import { Check, X, Server, RefreshCw, Languages } from 'lucide-react';
+import { Check, X, Server, RefreshCw, Languages, Cloud } from 'lucide-react';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -13,6 +13,8 @@ interface SettingsModalProps {
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onSaved }) => {
   const { locale, setLocale, isAuto, t } = useI18n();
+  const isDev = import.meta.env.DEV;
+
   const [urlInput, setUrlInput] = useState(getApiBaseUrl());
   const [selectedLang, setSelectedLang] = useState<string>(isAuto ? 'auto' : locale);
   const [statusMsg, setStatusMsg] = useState<{ text: string; ok: boolean } | null>(null);
@@ -21,7 +23,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
   if (!isOpen) return null;
 
   const handleSave = () => {
-    setApiBaseUrl(urlInput);
+    if (isDev) {
+      setApiBaseUrl(urlInput);
+    }
     if (selectedLang === 'auto') {
       setLocale(null);
     } else {
@@ -90,24 +94,47 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
           </select>
         </div>
 
-        {/* Gateway URL */}
-        <div className="space-y-1.5">
-          <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
-            {t('gatewayUrlLabel')}
-          </label>
-          <input
-            type="text"
-            value={urlInput}
-            onChange={(e) => setUrlInput(e.target.value)}
-            placeholder="http://localhost:3000"
-            className="w-full h-7 rounded-[7px] border border-border bg-background px-2.5 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 macos-button"
-          />
-          <p className="text-[10px] text-muted-foreground">
-            {t('gatewayDesc')}
-          </p>
-        </div>
+        {/* In Production (dist): Show clean Cloud Service status badge instead of URL input */}
+        {!isDev && (
+          <div className="rounded-[9px] bg-muted/40 p-2.5 border border-border/60 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Cloud className="h-3.5 w-3.5 text-primary" />
+              <div>
+                <div className="text-[11px] font-medium text-foreground">Domain Pulse Cloud</div>
+                <div className="text-[10px] text-muted-foreground">Volcano Serverless Gateway</div>
+              </div>
+            </div>
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-500 border border-emerald-500/30">
+              Active
+            </span>
+          </div>
+        )}
 
-        {statusMsg && (
+        {/* In Development: Allow overriding Gateway URL for local testing */}
+        {isDev && (
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between">
+              <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
+                {t('gatewayUrlLabel')}
+              </label>
+              <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-500 font-semibold">
+                DEV ONLY
+              </span>
+            </div>
+            <input
+              type="text"
+              value={urlInput}
+              onChange={(e) => setUrlInput(e.target.value)}
+              placeholder="http://localhost:3000"
+              className="w-full h-7 rounded-[7px] border border-border bg-background px-2.5 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 macos-button font-mono"
+            />
+            <p className="text-[10px] text-muted-foreground">
+              {t('gatewayDesc')}
+            </p>
+          </div>
+        )}
+
+        {isDev && statusMsg && (
           <div
             className={`rounded-[7px] p-2 text-[11px] flex items-center gap-1.5 ${
               statusMsg.ok
@@ -121,17 +148,21 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
         )}
 
         <div className="flex items-center justify-between pt-1 border-t border-border/40">
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={handleTestConnection}
-            disabled={isTesting}
-            className="h-6 text-[11px]"
-          >
-            <RefreshCw className={`mr-1 h-2.5 w-2.5 ${isTesting ? 'animate-spin text-primary' : ''}`} />
-            {t('testButton')}
-          </Button>
+          {isDev ? (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={handleTestConnection}
+              disabled={isTesting}
+              className="h-6 text-[11px]"
+            >
+              <RefreshCw className={`mr-1 h-2.5 w-2.5 ${isTesting ? 'animate-spin text-primary' : ''}`} />
+              {t('testButton')}
+            </Button>
+          ) : (
+            <div />
+          )}
 
           <div className="flex gap-1.5">
             <Button type="button" variant="ghost" size="sm" onClick={onClose} className="h-6 text-[11px]">
