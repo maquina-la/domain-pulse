@@ -4137,55 +4137,73 @@ app.get("/v1/audit", async (c) => {
   }
   c.header("X-Cache-Status", "MISS");
   try {
-    const [dnsResult, rdapResult, tlsResult, httpProbeResult] = await Promise.all([
+    const [dnsResult, tlsResult, httpProbeResult] = await Promise.all([
       fetchAllDnsRecords(targetDomain),
-      fetchRdapInfo(targetDomain),
       inspectTls(targetDomain),
       probeHttpAndTech(targetDomain)
     ]);
-    const subdomainsResult = await discoverRealSubdomains(targetDomain, tlsResult.san_domains);
-    const dnsProvider = detectDnsProvider(dnsResult.records.NS);
-    const emailProvider = detectEmailProvider(dnsResult.records.MX);
-    const spf = parseSpf(dnsResult.records.TXT);
-    const dmarc = parseDmarc(dnsResult.records.DMARC);
-    const mta_sts = parseMtaSts(dnsResult.records.MTA_STS);
-    const bimi = parseBimi(dnsResult.records.BIMI);
-    const scoreResult = calculateHealthScore({
-      dns: {
-        records: dnsResult.records,
-        dnssec: dnsResult.dnssec,
-        provider: dnsProvider
+    const [rdapResult, subdomainsResult] = await Promise.all([
+      fetchRdapInfo(targetDomain, dnsResult.nameservers),
+      discoverRealSubdomains(targetDomain, tlsResult.san_domains)
+    ]);
+    const ssl = {
+      issuer: tlsResult.issuer,
+      valid_from: tlsResult.valid_from,
+      valid_to: tlsResult.valid_to,
+      days_remaining: tlsResult.days_remaining,
+      tls_version: tlsResult.tls_version,
+      hsts_enabled: httpProbeResult.hsts_enabled || tlsResult.hsts_enabled,
+      is_valid: tlsResult.is_valid,
+      error: tlsResult.error
+    };
+    const detected_provider = detectDnsProvider(dnsResult.a_records, dnsResult.nameservers);
+    const spf = parseSpf(dnsResult.txt_records);
+    const dmarc = parseDmarc(dnsResult.dmarc_txt_records, dnsResult.txt_records);
+    const mta_sts = parseMtaSts(dnsResult.mta_sts_txt_records);
+    const bimi = parseBimi(dnsResult.bimi_txt_records);
+    const emailProvider = detectEmailProvider(dnsResult.mx_records);
+    const email = {
+      mx_records: dnsResult.mx_records,
+      provider: emailProvider,
+      spf,
+      dmarc,
+      mta_sts,
+      bimi
+    };
+    const dns = {
+      a_records: dnsResult.a_records,
+      aaaa_records: dnsResult.aaaa_records,
+      detected_provider,
+      has_ipv6: dnsResult.aaaa_records.length > 0,
+      nameservers: dnsResult.nameservers,
+      dnssec: {
+        enabled: dnsResult.dnssec_ds_records.length > 0 || dnsResult.dnssec_ad_flag,
+        ds_records: dnsResult.dnssec_ds_records
       },
-      whois: rdapResult,
-      ssl: tlsResult,
-      email: {
-        provider: emailProvider,
-        spf,
-        dmarc,
-        mta_sts,
-        bimi
-      },
-      security_headers: httpProbeResult.security_headers
-    });
+      caa: {
+        configured: dnsResult.caa_records.length > 0,
+        records: dnsResult.caa_records
+      }
+    };
+    const registration = {
+      ...rdapResult,
+      nameservers: rdapResult.nameservers.length > 0 ? rdapResult.nameservers : dnsResult.nameservers
+    };
+    const scoreResult = calculateHealthScore(
+      registration,
+      dns,
+      ssl,
+      email,
+      httpProbeResult.security_headers
+    );
     const auditResponse = {
       domain: targetDomain,
-      health_score: scoreResult.score,
-      overall_status: scoreResult.status,
+      score: scoreResult.score,
       timestamp: (/* @__PURE__ */ new Date()).toISOString(),
-      dns: {
-        records: dnsResult.records,
-        dnssec: dnsResult.dnssec,
-        provider: dnsProvider
-      },
-      whois: rdapResult,
-      ssl: tlsResult,
-      email: {
-        provider: emailProvider,
-        spf,
-        dmarc,
-        mta_sts,
-        bimi
-      },
+      registration,
+      dns,
+      ssl,
+      email,
       security_headers: httpProbeResult.security_headers,
       tech_stack: httpProbeResult.tech_stack,
       subdomains: subdomainsResult,

@@ -103,64 +103,91 @@ app.get('/v1/audit', async (c) => {
   c.header('X-Cache-Status', 'MISS');
 
   try {
-    // Parallel Execution of Core Audits (DNS, RDAP, TLS, HTTP/Tech)
-    const [dnsResult, rdapResult, tlsResult, httpProbeResult] = await Promise.all([
+    // Parallel Fan-out:
+    // 1. DoH queries (A, AAAA, MX, TXT, DMARC, MTA-STS, BIMI, NS, DS, CAA)
+    // 2. TLS handshake on port 443 with SAN extraction
+    // 3. HTTP & Tech Stack probe (Security Headers, Tech Stack, HTTP->HTTPS redirect)
+    const [dnsResult, tlsResult, httpProbeResult] = await Promise.all([
       fetchAllDnsRecords(targetDomain),
-      fetchRdapInfo(targetDomain),
       inspectTls(targetDomain),
       probeHttpAndTech(targetDomain),
     ]);
 
-    // Discover real subdomains
-    const subdomainsResult = await discoverRealSubdomains(targetDomain, tlsResult.san_domains);
+    // Discover real subdomains (Passive DNS OSINT + TLS SANs + DoH verification)
+    const [rdapResult, subdomainsResult] = await Promise.all([
+      fetchRdapInfo(targetDomain, dnsResult.nameservers),
+      discoverRealSubdomains(targetDomain, tlsResult.san_domains),
+    ]);
 
-    // Parse security records & providers
-    const dnsProvider = detectDnsProvider(dnsResult.records.NS);
-    const emailProvider = detectEmailProvider(dnsResult.records.MX);
-    const spf = parseSpf(dnsResult.records.TXT);
-    const dmarc = parseDmarc(dnsResult.records.DMARC);
-    const mta_sts = parseMtaSts(dnsResult.records.MTA_STS);
-    const bimi = parseBimi(dnsResult.records.BIMI);
+    // Merge SSL info with HSTS check
+    const ssl = {
+      issuer: tlsResult.issuer,
+      valid_from: tlsResult.valid_from,
+      valid_to: tlsResult.valid_to,
+      days_remaining: tlsResult.days_remaining,
+      tls_version: tlsResult.tls_version,
+      hsts_enabled: httpProbeResult.hsts_enabled || tlsResult.hsts_enabled,
+      is_valid: tlsResult.is_valid,
+      error: tlsResult.error,
+    };
 
-    // Compute Health Score & Security Warnings
-    const scoreResult = calculateHealthScore({
-      dns: {
-        records: dnsResult.records,
-        dnssec: dnsResult.dnssec,
-        provider: dnsProvider,
+    // Detected DNS / CDN Provider
+    const detected_provider = detectDnsProvider(dnsResult.a_records, dnsResult.nameservers);
+
+    // Email parsing (SPF with lookup count, DMARC, MTA-STS, BIMI)
+    const spf = parseSpf(dnsResult.txt_records);
+    const dmarc = parseDmarc(dnsResult.dmarc_txt_records, dnsResult.txt_records);
+    const mta_sts = parseMtaSts(dnsResult.mta_sts_txt_records);
+    const bimi = parseBimi(dnsResult.bimi_txt_records);
+    const emailProvider = detectEmailProvider(dnsResult.mx_records);
+
+    const email = {
+      mx_records: dnsResult.mx_records,
+      provider: emailProvider,
+      spf,
+      dmarc,
+      mta_sts,
+      bimi,
+    };
+
+    const dns = {
+      a_records: dnsResult.a_records,
+      aaaa_records: dnsResult.aaaa_records,
+      detected_provider,
+      has_ipv6: dnsResult.aaaa_records.length > 0,
+      nameservers: dnsResult.nameservers,
+      dnssec: {
+        enabled: dnsResult.dnssec_ds_records.length > 0 || dnsResult.dnssec_ad_flag,
+        ds_records: dnsResult.dnssec_ds_records,
       },
-      whois: rdapResult,
-      ssl: tlsResult,
-      email: {
-        provider: emailProvider,
-        spf,
-        dmarc,
-        mta_sts,
-        bimi,
+      caa: {
+        configured: dnsResult.caa_records.length > 0,
+        records: dnsResult.caa_records,
       },
-      security_headers: httpProbeResult.security_headers,
-    });
+    };
 
-    // Assemble unified AuditResponse
+    const registration = {
+      ...rdapResult,
+      nameservers: rdapResult.nameservers.length > 0 ? rdapResult.nameservers : dnsResult.nameservers,
+    };
+
+    // Calculate Domain Health Score
+    const scoreResult = calculateHealthScore(
+      registration,
+      dns,
+      ssl,
+      email,
+      httpProbeResult.security_headers
+    );
+
     const auditResponse: AuditResponse = {
       domain: targetDomain,
-      health_score: scoreResult.score,
-      overall_status: scoreResult.status,
+      score: scoreResult.score,
       timestamp: new Date().toISOString(),
-      dns: {
-        records: dnsResult.records,
-        dnssec: dnsResult.dnssec,
-        provider: dnsProvider,
-      },
-      whois: rdapResult,
-      ssl: tlsResult,
-      email: {
-        provider: emailProvider,
-        spf,
-        dmarc,
-        mta_sts,
-        bimi,
-      },
+      registration,
+      dns,
+      ssl,
+      email,
       security_headers: httpProbeResult.security_headers,
       tech_stack: httpProbeResult.tech_stack,
       subdomains: subdomainsResult,
