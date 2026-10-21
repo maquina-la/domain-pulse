@@ -1,132 +1,39 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%" fill="none">
   <defs>
-    <!-- Pulse Gradient (Cyan to Emerald) -->
-    <linearGradient id="dpPulseGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#06b6d4" />
-      <stop offset="35%" stop-color="#0ea5e9" />
-      <stop offset="65%" stop-color="#10b981" />
-      <stop offset="85%" stop-color="#34d399" />
-      <stop offset="100%" stop-color="#06b6d4" />
+    <!-- Crisp, high-contrast linear gradient (No blur, pure color) -->
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="50%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#06B6D4" />
     </linearGradient>
-
-    <!-- Globe Grid Gradient -->
-    <linearGradient id="dpGlobeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.65" />
-      <stop offset="50%" stop-color="#10b981" stop-opacity="0.45" />
-      <stop offset="100%" stop-color="#34d399" stop-opacity="0.3" />
-    </linearGradient>
-
-    <!-- Ambient Core Glow -->
-    <radialGradient id="dpCoreGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#10b981" stop-opacity="0.25" />
-      <stop offset="45%" stop-color="#06b6d4" stop-opacity="0.12" />
-      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0" />
-    </radialGradient>
-
-    <!-- High-Tech Neon Glow Filter -->
-    <filter id="dpNeonGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="7" result="glow1" />
-      <feGaussianBlur stdDeviation="14" result="glow2" />
-      <feMerge>
-        <feMergeNode in="glow2" />
-        <feMergeNode in="glow1" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-
-    <!-- Subtle Aura for Latitude/Longitude -->
-    <filter id="dpSoftAura" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="3" result="aura" />
-      <feMerge>
-        <feMergeNode in="aura" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
   </defs>
 
-  <!-- Ambient Radial Glow around Center -->
-  <circle cx="256" cy="256" r="185" fill="url(#dpCoreGlow)" />
-
-  <!-- Freestanding Domain Network Sphere (Wireframe & Meridians) -->
-  <!-- Outer Globe Boundary / Orbital Ring -->
-  <circle
-    cx="256"
-    cy="256"
-    r="165"
-    fill="none"
-    stroke="url(#dpGlobeGrad)"
-    stroke-width="3.5"
-    stroke-dasharray="10 6"
-    filter="url(#dpSoftAura)"
-  />
-
-  <!-- Latitude Ellipse (Upper Orbit) -->
-  <ellipse
-    cx="256"
-    cy="200"
-    rx="138"
-    ry="54"
-    fill="none"
-    stroke="url(#dpGlobeGrad)"
-    stroke-width="2.5"
-    stroke-opacity="0.55"
-  />
-
-  <!-- Latitude Ellipse (Lower Orbit) -->
-  <ellipse
-    cx="256"
-    cy="312"
-    rx="138"
-    ry="54"
-    fill="none"
-    stroke="url(#dpGlobeGrad)"
-    stroke-width="2.5"
-    stroke-opacity="0.55"
-  />
-
-  <!-- Central Longitude Meridian -->
-  <ellipse
-    cx="256"
-    cy="256"
-    rx="68"
-    ry="165"
-    fill="none"
-    stroke="url(#dpGlobeGrad)"
-    stroke-width="3"
-    stroke-opacity="0.7"
-    filter="url(#dpSoftAura)"
-  />
-
-  <!-- The Vital Pulse / Heartbeat Waveform (Freestanding & Dynamic) -->
+  <!-- Upper Domain Arc (The Web / Network Sphere) -->
   <path
-    d="M 52 256 H 158 L 188 214 L 222 312 L 258 114 L 298 392 L 332 222 L 354 256 H 460"
-    fill="none"
-    stroke="url(#dpPulseGrad)"
-    stroke-width="18"
+    d="M 78 208 A 184 184 0 0 1 434 208"
+    stroke="url(#brandGrad)"
+    stroke-width="32"
+    stroke-linecap="round"
+  />
+
+  <!-- Lower Domain Arc (The Web / Network Sphere) -->
+  <path
+    d="M 434 304 A 184 184 0 0 1 78 304"
+    stroke="url(#brandGrad)"
+    stroke-width="32"
+    stroke-linecap="round"
+  />
+
+  <!-- High-Energy Cardiogram Pulse Waveform (The Vital Health Signs) -->
+  <path
+    d="M 44 256 H 168 L 208 308 L 256 108 L 304 404 L 344 204 L 372 256 H 468"
+    stroke="url(#brandGrad)"
+    stroke-width="36"
     stroke-linecap="round"
     stroke-linejoin="round"
-    filter="url(#dpNeonGlow)"
   />
 
-  <!-- Pulse Core White Inner Track for High Definition -->
-  <path
-    d="M 52 256 H 158 L 188 214 L 222 312 L 258 114 L 298 392 L 332 222 L 354 256 H 460"
-    fill="none"
-    stroke="#ffffff"
-    stroke-width="4.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    stroke-opacity="0.75"
-  />
-
-  <!-- Apex Vital Node (Health Peak Beacon) -->
-  <circle cx="258" cy="114" r="10" fill="#ffffff" filter="url(#dpNeonGlow)" />
-  <circle cx="258" cy="114" r="5" fill="#10b981" />
-
-  <!-- Terminal Connection Nodes -->
-  <circle cx="52" cy="256" r="7" fill="#06b6d4" />
-  <circle cx="52" cy="256" r="3.5" fill="#ffffff" />
-
-  <circle cx="460" cy="256" r="7" fill="#10b981" />
-  <circle cx="460" cy="256" r="3.5" fill="#ffffff" />
+  <!-- Apex Peak Beacon -->
+  <circle cx="256" cy="108" r="16" fill="#FFFFFF" />
+  <circle cx="256" cy="108" r="8" fill="#10B981" />
 </svg>
