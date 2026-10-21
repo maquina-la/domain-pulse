@@ -4,70 +4,104 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 240 5% 96%;
+    --foreground: 240 10% 12%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 240 10% 12%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 160 84% 39%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 160 84% 39%;
-    --radius: 0.5rem;
+    --popover-foreground: 240 10% 12%;
+    --primary: 211 100% 50%; /* macOS System Blue #007AFF */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 4% 92%;
+    --secondary-foreground: 240 10% 12%;
+    --muted: 240 5% 92%;
+    --muted-foreground: 240 4% 46%;
+    --accent: 211 100% 95%;
+    --accent-foreground: 211 100% 45%;
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 5% 88%;
+    --input: 240 5% 88%;
+    --ring: 211 100% 50%;
+    --radius: 0.625rem;
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
-    --card: 224 71% 6%;
-    --card-foreground: 213 31% 91%;
-    --popover: 224 71% 6%;
-    --popover-foreground: 213 31% 91%;
-    --primary: 160 70% 45%;
-    --primary-foreground: 222.2 47.4% 1.2%;
-    --secondary: 222.2 47.4% 13.2%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 223 47% 11%;
-    --muted-foreground: 215.4 16.3% 65%;
-    --accent: 216 34% 17%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 216 34% 17%;
-    --input: 216 34% 17%;
-    --ring: 160 70% 45%;
+    --background: 240 5% 11%; /* macOS Graphite #1C1C1E */
+    --foreground: 240 5% 96%;
+    --card: 240 4% 16%; /* macOS Dark Window Card #28282B */
+    --card-foreground: 240 5% 96%;
+    --popover: 240 4% 16%;
+    --popover-foreground: 240 5% 96%;
+    --primary: 211 100% 54%; /* macOS Dark System Blue #0A84FF */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 4% 20%;
+    --secondary-foreground: 240 5% 96%;
+    --muted: 240 4% 20%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 211 100% 18%;
+    --accent-foreground: 211 100% 70%;
+    --destructive: 0 75% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 4% 22%;
+    --input: 240 4% 22%;
+    --ring: 211 100% 54%;
   }
 }
 
 body {
   @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   user-select: text;
 }
 
-/* Custom scrollbars for side panel */
+/* macOS SF Mono for code and records */
+code, pre, .font-mono {
+  font-family: ui-monospace, "SF Mono", "Monaco", "Menlo", "Consolas", monospace;
+}
+
+/* macOS Native Smooth Scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted-foreground) / 0.2);
+  background: rgba(120, 120, 128, 0.25);
   border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground) / 0.4);
+  background: rgba(120, 120, 128, 0.45);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* macOS Vibrancy & Card Highlight */
+.macos-window {
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+.dark .macos-window {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.macos-card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+.dark .macos-card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), inset 0 0.5px 0 rgba(255, 255, 255, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.macos-button {
+  box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.08), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+  transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.macos-button:active {
+  transform: scale(0.98);
 }

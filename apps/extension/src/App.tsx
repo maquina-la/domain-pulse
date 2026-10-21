@@ -13,7 +13,7 @@ import { SettingsModal } from './components/SettingsModal';
 import { Button } from './components/ui/button';
 import { AlertCircle, RefreshCw, Sparkles } from 'lucide-react';
 
-const PRESET_DOMAINS = ['github.com', 'cloudflare.com', 'vercel.com', 'google.com', 'stripe.com'];
+const PRESET_DOMAINS = ['github.com', 'apple.com', 'cloudflare.com', 'vercel.com', 'google.com'];
 
 export const App: React.FC = () => {
   const [currentDomain, setCurrentDomain] = useState<string>('');
@@ -22,6 +22,7 @@ export const App: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [copiedMarkdown, setCopiedMarkdown] = useState<boolean>(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<'all' | 'dns_ssl' | 'email' | 'alerts'>('all');
 
   // Theme state
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
@@ -69,7 +70,6 @@ export const App: React.FC = () => {
         setCurrentDomain(detected.apexDomain);
         runAudit(detected.apexDomain);
       } else {
-        // Fallback demo domain if internal page (e.g. chrome://)
         const fallback = 'github.com';
         setCurrentDomain(fallback);
         runAudit(fallback);
@@ -118,7 +118,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
+    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans select-text">
       <HeaderHUD
         currentDomain={currentDomain}
         onRefresh={() => runAudit(currentDomain)}
@@ -129,41 +129,42 @@ export const App: React.FC = () => {
         onToggleTheme={toggleTheme}
         onOpenSettings={() => setIsSettingsOpen(true)}
         isLoading={isLoading}
+        activeTab={activeTab}
+        onChangeTab={setActiveTab}
+        warningsCount={audit?.warnings.length || 0}
       />
 
-      <main className="flex-1 p-4 space-y-4 max-w-2xl mx-auto w-full">
+      <main className="flex-1 p-3.5 space-y-3.5 max-w-xl mx-auto w-full">
         {/* Loading Skeleton */}
         {isLoading && (
-          <div className="space-y-4 animate-pulse">
-            <div className="h-32 rounded-2xl bg-muted/60" />
-            <div className="grid grid-cols-1 gap-3">
-              <div className="h-36 rounded-xl bg-muted/40" />
-              <div className="h-36 rounded-xl bg-muted/40" />
-              <div className="h-36 rounded-xl bg-muted/40" />
-              <div className="h-36 rounded-xl bg-muted/40" />
+          <div className="space-y-3 animate-pulse">
+            <div className="h-28 rounded-2xl bg-card/60 macos-card" />
+            <div className="space-y-3">
+              <div className="h-32 rounded-xl bg-card/40 macos-card" />
+              <div className="h-32 rounded-xl bg-card/40 macos-card" />
             </div>
           </div>
         )}
 
         {/* Error State */}
         {!isLoading && error && (
-          <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 p-5 text-center space-y-3">
-            <AlertCircle className="mx-auto h-8 w-8 text-rose-500" />
-            <div className="space-y-1">
-              <h3 className="font-bold text-sm text-foreground">No se pudo completar la auditoría</h3>
-              <p className="text-xs text-muted-foreground">{error}</p>
+          <div className="rounded-2xl macos-card bg-[#ff3b30]/10 border border-[#ff3b30]/25 p-4 text-center space-y-2.5">
+            <AlertCircle className="mx-auto h-7 w-7 text-[#ff3b30]" />
+            <div className="space-y-0.5">
+              <h3 className="font-bold text-xs text-foreground">Fallo al conectar con el Gateway</h3>
+              <p className="text-[11px] text-muted-foreground">{error}</p>
             </div>
-            <div className="flex items-center justify-center gap-2 pt-2">
-              <Button size="sm" onClick={() => runAudit(currentDomain)} className="text-xs">
-                <RefreshCw className="mr-1.5 h-3 w-3" /> Reintentar
+            <div className="flex items-center justify-center gap-2 pt-1">
+              <Button size="sm" onClick={() => runAudit(currentDomain)} className="text-[11px] h-6">
+                <RefreshCw className="mr-1 h-3 w-3" /> Reintentar
               </Button>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setIsSettingsOpen(true)}
-                className="text-xs"
+                className="text-[11px] h-6"
               >
-                Configurar Gateway
+                Ajustes
               </Button>
             </div>
           </div>
@@ -171,7 +172,7 @@ export const App: React.FC = () => {
 
         {/* Audit Results */}
         {!isLoading && audit && (
-          <div className="space-y-4">
+          <div className="space-y-3.5">
             {/* Health Score Gauge */}
             <ScoreGauge
               score={audit.score}
@@ -180,18 +181,18 @@ export const App: React.FC = () => {
               latencyMs={audit.latency_ms}
             />
 
-            {/* Quick Preset Domains bar for swift testing */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px] text-muted-foreground">
-              <Sparkles className="h-3 w-3 shrink-0 text-emerald-500" />
-              <span className="shrink-0 font-medium">Probar:</span>
+            {/* Quick Preset Domains (macOS pill tags) */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 text-[11px] text-muted-foreground select-none">
+              <Sparkles className="h-3 w-3 shrink-0 text-[#007aff]" />
+              <span className="shrink-0 text-[10px] font-medium uppercase tracking-wider">Presets:</span>
               {PRESET_DOMAINS.map((d) => (
                 <button
                   key={d}
                   onClick={() => handleSearchDomain(d)}
-                  className={`rounded-full px-2 py-0.5 transition-colors whitespace-nowrap ${
+                  className={`rounded-[6px] px-2 py-0.5 transition-all text-[11px] font-mono macos-button ${
                     d === currentDomain
-                      ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-semibold'
-                      : 'bg-muted hover:bg-muted/80 text-foreground'
+                      ? 'bg-primary text-primary-foreground font-semibold shadow-sm'
+                      : 'bg-card/70 hover:bg-card text-foreground border border-border/50'
                   }`}
                 >
                   {d}
@@ -199,26 +200,53 @@ export const App: React.FC = () => {
               ))}
             </div>
 
-            {/* 4 Core Category Cards (FR-04) */}
-            <div className="grid grid-cols-1 gap-3">
-              <RegistrationCard registration={audit.registration} />
-              <DnsCard dns={audit.dns} />
-              <SslCard ssl={audit.ssl} />
-              <EmailCard email={audit.email} />
-            </div>
+            {/* Tab: Overview (All 4 categories) */}
+            {activeTab === 'all' && (
+              <div className="space-y-3">
+                <RegistrationCard registration={audit.registration} />
+                <DnsCard dns={audit.dns} />
+                <SslCard ssl={audit.ssl} />
+                <EmailCard email={audit.email} />
+                <WarningsList warnings={audit.warnings} />
+              </div>
+            )}
 
-            {/* Diagnostics & Warnings */}
-            <WarningsList warnings={audit.warnings} />
+            {/* Tab: DNS & SSL */}
+            {activeTab === 'dns_ssl' && (
+              <div className="space-y-3">
+                <DnsCard dns={audit.dns} />
+                <SslCard ssl={audit.ssl} />
+                <RegistrationCard registration={audit.registration} />
+              </div>
+            )}
+
+            {/* Tab: Email */}
+            {activeTab === 'email' && (
+              <div className="space-y-3">
+                <EmailCard email={audit.email} />
+              </div>
+            )}
+
+            {/* Tab: Alerts & Recommendations */}
+            {activeTab === 'alerts' && (
+              <div className="space-y-3">
+                <WarningsList warnings={audit.warnings} />
+              </div>
+            )}
           </div>
         )}
       </main>
 
-      {/* Footer info */}
-      <footer className="border-t border-border/60 py-3 px-4 text-center text-[10px] text-muted-foreground">
-        PulseDomain • Chrome Manifest V3 Side Panel • DoH & RDAP Orchestrator
+      {/* macOS Status Bar */}
+      <footer className="border-t border-border/60 py-2 px-3 text-center text-[10px] text-muted-foreground bg-background/80 backdrop-blur-md flex items-center justify-between select-none">
+        <span className="flex items-center gap-1 font-medium">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#34c759]" />
+          PulseDomain HUD
+        </span>
+        <span className="font-mono text-[9px]">macOS Native Engine</span>
       </footer>
 
-      {/* Settings Modal */}
+      {/* Settings Modal Sheet */}
       <SettingsModal
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}

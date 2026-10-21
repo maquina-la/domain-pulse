@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { DnsInfo } from '@domain-pulse/shared';
-import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
 import { Globe, CheckCircle2, XCircle, Copy, Check } from 'lucide-react';
 
@@ -18,42 +17,43 @@ export const DnsCard: React.FC<DnsCardProps> = ({ dns }) => {
   };
 
   return (
-    <Card className="border-border/80">
-      <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <CardTitle>
-            <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500">
-              <Globe className="h-3.5 w-3.5" />
-            </div>
-            <span>Infraestructura DNS</span>
-          </CardTitle>
-          <Badge variant="outline" className="font-semibold text-xs border-emerald-500/30 text-emerald-600 dark:text-emerald-400">
-            {dns.detected_provider}
-          </Badge>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        {/* IPv6 status */}
-        <div className="flex items-center justify-between text-xs">
-          <span className="text-muted-foreground">Soporte IPv6 (AAAA):</span>
+    <div className="space-y-1.5">
+      {/* macOS Section Header */}
+      <div className="flex items-center justify-between px-1">
+        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+          <span className="flex h-3.5 w-3.5 items-center justify-center rounded-sm bg-[#34c759]/15 text-[#34c759]">
+            <Globe className="h-2.5 w-2.5" />
+          </span>
+          Infraestructura DNS
+        </span>
+        <Badge variant="outline" className="font-semibold text-[10px] py-0 px-2 text-[#007aff] dark:text-[#0a84ff] border-[#007aff]/30">
+          {dns.detected_provider}
+        </Badge>
+      </div>
+
+      {/* macOS Inset Grouped Container */}
+      <div className="rounded-xl macos-card bg-card/75 backdrop-blur-md overflow-hidden divide-y divide-border/50 text-xs">
+        {/* Row: IPv6 Support */}
+        <div className="flex items-center justify-between p-2.5">
+          <span className="text-muted-foreground">Soporte IPv6 (AAAA)</span>
           {dns.has_ipv6 ? (
-            <Badge variant="success" className="text-[10px]">
+            <Badge variant="success" className="text-[10px] py-0">
               <CheckCircle2 className="mr-1 h-3 w-3" />
-              Habilitado
+              Disponible
             </Badge>
           ) : (
-            <Badge variant="danger" className="text-[10px]">
+            <Badge variant="danger" className="text-[10px] py-0">
               <XCircle className="mr-1 h-3 w-3" />
               Sin registros AAAA
             </Badge>
           )}
         </div>
 
-        {/* A records (IPv4) */}
-        <div className="space-y-1">
+        {/* Row: A Records */}
+        <div className="p-2.5 space-y-1.5">
           <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-            <span>Registros A (IPv4):</span>
-            <span className="font-mono text-[10px]">{dns.a_records.length} IP(s)</span>
+            <span>Registros A (IPv4)</span>
+            <span className="font-mono text-[10px]">{dns.a_records.length} host(s)</span>
           </div>
           <div className="flex flex-wrap gap-1">
             {dns.a_records.length > 0 ? (
@@ -61,36 +61,35 @@ export const DnsCard: React.FC<DnsCardProps> = ({ dns }) => {
                 <button
                   key={idx}
                   onClick={() => copyToClipboard(ip)}
-                  title="Clic para copiar IP"
-                  className="group flex items-center gap-1 rounded bg-muted px-2 py-0.5 font-mono text-xs text-foreground transition-colors hover:bg-muted/80"
+                  title="Copiar dirección IP"
+                  className="group flex items-center gap-1.5 rounded-[5px] bg-muted/60 hover:bg-muted border border-border/50 px-2 py-0.5 font-mono text-[11px] text-foreground transition-all macos-button"
                 >
                   <span>{ip}</span>
                   {copiedIp === ip ? (
-                    <Check className="h-2.5 w-2.5 text-emerald-500" />
+                    <Check className="h-2.5 w-2.5 text-[#34c759]" />
                   ) : (
-                    <Copy className="h-2.5 w-2.5 opacity-40 group-hover:opacity-100" />
+                    <Copy className="h-2.5 w-2.5 opacity-30 group-hover:opacity-80" />
                   )}
                 </button>
               ))
             ) : (
-              <span className="text-xs text-muted-foreground">No se detectaron registros A</span>
+              <span className="text-[11px] text-muted-foreground">Sin registros A detectados</span>
             )}
           </div>
         </div>
 
-        {/* AAAA records (IPv6) */}
+        {/* Row: AAAA Records */}
         {dns.aaaa_records.length > 0 && (
-          <div className="space-y-1">
+          <div className="p-2.5 space-y-1.5">
             <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-              <span>Registros AAAA (IPv6):</span>
-              <span className="font-mono text-[10px]">{dns.aaaa_records.length} IP(s)</span>
+              <span>Registros AAAA (IPv6)</span>
+              <span className="font-mono text-[10px]">{dns.aaaa_records.length} host(s)</span>
             </div>
             <div className="flex flex-wrap gap-1">
               {dns.aaaa_records.map((ip, idx) => (
                 <span
                   key={idx}
-                  className="rounded bg-muted px-2 py-0.5 font-mono text-[11px] text-muted-foreground truncate max-w-full"
-                  title={ip}
+                  className="rounded-[5px] bg-muted/60 border border-border/40 px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground truncate max-w-full"
                 >
                   {ip}
                 </span>
@@ -98,7 +97,7 @@ export const DnsCard: React.FC<DnsCardProps> = ({ dns }) => {
             </div>
           </div>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };

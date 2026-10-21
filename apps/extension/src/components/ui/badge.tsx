@@ -3,25 +3,28 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const badgeVariants = cva(
-  'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+  'inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-medium tracking-tight transition-colors',
   {
     variants: {
       variant: {
         default:
-          'border-transparent bg-primary text-primary-foreground hover:bg-primary/80',
+          'bg-primary text-primary-foreground shadow-sm',
         secondary:
-          'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80',
+          'bg-secondary text-secondary-foreground',
         destructive:
-          'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80',
-        outline: 'text-foreground',
+          'bg-[#ff3b30]/15 text-[#ff3b30] dark:bg-[#ff453a]/20 dark:text-[#ff453a]',
+        outline:
+          'border border-border/80 text-foreground bg-muted/30',
         success:
-          'border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+          'bg-[#34c759]/15 text-[#248a3d] dark:bg-[#30d158]/20 dark:text-[#30d158]',
         warning:
-          'border-amber-500/20 bg-amber-500/10 text-amber-600 dark:text-amber-400',
+          'bg-[#ff9500]/15 text-[#b26a00] dark:bg-[#ff9f0a]/20 dark:text-[#ff9f0a]',
         danger:
-          'border-rose-500/20 bg-rose-500/10 text-rose-600 dark:text-rose-400',
+          'bg-[#ff3b30]/15 text-[#d70015] dark:bg-[#ff453a]/20 dark:text-[#ff453a]',
         info:
-          'border-blue-500/20 bg-blue-500/10 text-blue-600 dark:text-blue-400',
+          'bg-[#007aff]/15 text-[#0062cc] dark:bg-[#0a84ff]/20 dark:text-[#0a84ff]',
+        purple:
+          'bg-[#af52de]/15 text-[#8923be] dark:bg-[#bf5af2]/20 dark:text-[#bf5af2]',
       },
     },
     defaultVariants: {
