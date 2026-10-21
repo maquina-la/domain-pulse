@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { DnsInfo } from '@domain-pulse/shared';
 import { Badge } from './ui/badge';
 import { Globe, CheckCircle2, XCircle, Copy, Check, ShieldCheck, FileCheck } from 'lucide-react';
+import { useI18n } from '@/lib/I18nContext';
 
 interface DnsCardProps {
   dns: DnsInfo;
 }
 
 export const DnsCard: React.FC<DnsCardProps> = ({ dns }) => {
+  const { t } = useI18n();
   const [copiedIp, setCopiedIp] = useState<string | null>(null);
 
   const copyToClipboard = (text: string) => {
@@ -24,7 +26,7 @@ export const DnsCard: React.FC<DnsCardProps> = ({ dns }) => {
           <span className="flex h-3.5 w-3.5 items-center justify-center rounded-sm bg-[#34c759]/15 text-[#34c759]">
             <Globe className="h-2.5 w-2.5" />
           </span>
-          Infraestructura DNS & Seguridad
+          {t('dnsTitle')}
         </span>
         <Badge variant="outline" className="font-semibold text-[10px] py-0 px-2 text-[#007aff] dark:text-[#0a84ff] border-[#007aff]/30">
           {dns.detected_provider}
@@ -37,17 +39,17 @@ export const DnsCard: React.FC<DnsCardProps> = ({ dns }) => {
         <div className="flex items-center justify-between p-2.5">
           <div className="flex items-center gap-2">
             <ShieldCheck className="h-3.5 w-3.5 text-muted-foreground" />
-            <span>Firma Criptográfica (DNSSEC)</span>
+            <span>{t('dnssec')}</span>
           </div>
           {dns.dnssec?.enabled ? (
             <Badge variant="success" className="text-[10px] py-0">
               <CheckCircle2 className="mr-1 h-3 w-3" />
-              Habilitado
+              {t('dnssecEnabled')}
             </Badge>
           ) : (
             <Badge variant="warning" className="text-[10px] py-0">
               <XCircle className="mr-1 h-3 w-3" />
-              Deshabilitado
+              {t('dnssecDisabled')}
             </Badge>
           )}
         </div>
@@ -56,32 +58,32 @@ export const DnsCard: React.FC<DnsCardProps> = ({ dns }) => {
         <div className="flex items-center justify-between p-2.5">
           <div className="flex items-center gap-2">
             <FileCheck className="h-3.5 w-3.5 text-muted-foreground" />
-            <span>Restricción de Emisión (CAA)</span>
+            <span>{t('caa')}</span>
           </div>
           {dns.caa?.configured ? (
             <Badge variant="success" className="text-[10px] py-0">
               <CheckCircle2 className="mr-1 h-3 w-3" />
-              Configurado ({dns.caa.records.length})
+              {t('caaConfigured', { count: dns.caa.records.length })}
             </Badge>
           ) : (
             <Badge variant="outline" className="text-[10px] py-0 text-muted-foreground">
-              Sin registros CAA
+              {t('noCaa')}
             </Badge>
           )}
         </div>
 
         {/* Row: IPv6 Support */}
         <div className="flex items-center justify-between p-2.5">
-          <span className="text-muted-foreground">Soporte IPv6 (AAAA)</span>
+          <span className="text-muted-foreground">{t('ipv6Support')}</span>
           {dns.has_ipv6 ? (
             <Badge variant="success" className="text-[10px] py-0">
               <CheckCircle2 className="mr-1 h-3 w-3" />
-              Disponible
+              {t('available')}
             </Badge>
           ) : (
             <Badge variant="danger" className="text-[10px] py-0">
               <XCircle className="mr-1 h-3 w-3" />
-              Sin registros AAAA
+              {t('noAaaa')}
             </Badge>
           )}
         </div>
@@ -89,8 +91,8 @@ export const DnsCard: React.FC<DnsCardProps> = ({ dns }) => {
         {/* Row: A Records */}
         <div className="p-2.5 space-y-1.5">
           <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-            <span>Registros A (IPv4)</span>
-            <span className="font-mono text-[10px]">{dns.a_records.length} host(s)</span>
+            <span>{t('aRecords')}</span>
+            <span className="font-mono text-[10px]">{t('hostsCount', { count: dns.a_records.length })}</span>
           </div>
           <div className="flex flex-wrap gap-1">
             {dns.a_records.length > 0 ? (
@@ -98,7 +100,7 @@ export const DnsCard: React.FC<DnsCardProps> = ({ dns }) => {
                 <button
                   key={idx}
                   onClick={() => copyToClipboard(ip)}
-                  title="Copiar dirección IP"
+                  title={t('copyIp')}
                   className="group flex items-center gap-1.5 rounded-[5px] bg-muted/60 hover:bg-muted border border-border/50 px-2 py-0.5 font-mono text-[11px] text-foreground transition-all macos-button"
                 >
                   <span>{ip}</span>
@@ -110,7 +112,7 @@ export const DnsCard: React.FC<DnsCardProps> = ({ dns }) => {
                 </button>
               ))
             ) : (
-              <span className="text-[11px] text-muted-foreground">Sin registros A detectados</span>
+              <span className="text-[11px] text-muted-foreground">{t('noARecords')}</span>
             )}
           </div>
         </div>
@@ -119,8 +121,8 @@ export const DnsCard: React.FC<DnsCardProps> = ({ dns }) => {
         {dns.aaaa_records.length > 0 && (
           <div className="p-2.5 space-y-1.5">
             <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-              <span>Registros AAAA (IPv6)</span>
-              <span className="font-mono text-[10px]">{dns.aaaa_records.length} host(s)</span>
+              <span>{t('aaaaRecords')}</span>
+              <span className="font-mono text-[10px]">{t('hostsCount', { count: dns.aaaa_records.length })}</span>
             </div>
             <div className="flex flex-wrap gap-1">
               {dns.aaaa_records.map((ip, idx) => (

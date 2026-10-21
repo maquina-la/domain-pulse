@@ -1,17 +1,20 @@
 import React from 'react';
 import { WarningItem } from '@domain-pulse/shared';
 import { AlertOctagon, AlertTriangle, Info, CheckCircle2 } from 'lucide-react';
+import { useI18n } from '@/lib/I18nContext';
 
 interface WarningsListProps {
   warnings: WarningItem[];
 }
 
 export const WarningsList: React.FC<WarningsListProps> = ({ warnings }) => {
+  const { t } = useI18n();
+
   if (!warnings || warnings.length === 0) {
     return (
       <div className="rounded-xl macos-card bg-[#34c759]/10 border border-[#34c759]/20 p-3 flex items-center gap-2 text-xs text-[#248a3d] dark:text-[#30d158]">
         <CheckCircle2 className="h-4 w-4 shrink-0" />
-        <span>Sin problemas ni advertencias de configuración detectadas.</span>
+        <span>{t('noIssues')}</span>
       </div>
     );
   }
@@ -48,8 +51,8 @@ export const WarningsList: React.FC<WarningsListProps> = ({ warnings }) => {
   return (
     <div className="space-y-1.5">
       <div className="px-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground flex items-center justify-between">
-        <span>Diagnóstico & Recomendaciones</span>
-        <span className="font-mono text-[10px]">{warnings.length} alerta(s)</span>
+        <span>{t('diagnosticsTitle')}</span>
+        <span className="font-mono text-[10px]">{t('alertsSummary', { count: warnings.length })}</span>
       </div>
 
       <div className="space-y-1.5">

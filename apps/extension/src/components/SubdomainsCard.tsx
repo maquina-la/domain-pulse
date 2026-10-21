@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { SubdomainItem } from '@domain-pulse/shared';
 import { Badge } from './ui/badge';
 import { Network, CheckCircle2, XCircle, Search, ExternalLink, Copy, Check } from 'lucide-react';
+import { useI18n } from '@/lib/I18nContext';
 
 interface SubdomainsCardProps {
   subdomains: SubdomainItem[];
 }
 
 export const SubdomainsCard: React.FC<SubdomainsCardProps> = ({ subdomains }) => {
+  const { t } = useI18n();
   const [filterQuery, setFilterQuery] = useState('');
   const [copiedText, setCopiedText] = useState<string | null>(null);
 
@@ -32,10 +34,10 @@ export const SubdomainsCard: React.FC<SubdomainsCardProps> = ({ subdomains }) =>
           <span className="flex h-3.5 w-3.5 items-center justify-center rounded-sm bg-[#007aff]/15 text-[#007aff]">
             <Network className="h-2.5 w-2.5" />
           </span>
-          Subdominios Reales ({subdomains.length})
+          {t('subdomainsTitle')} ({subdomains.length})
         </span>
         <Badge variant="outline" className="text-[10px] py-0 px-2 font-mono">
-          {activeCount} activos
+          {t('activeCount', { active: activeCount, total: subdomains.length })}
         </Badge>
       </div>
 
@@ -45,7 +47,7 @@ export const SubdomainsCard: React.FC<SubdomainsCardProps> = ({ subdomains }) =>
           <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground" />
           <input
             type="text"
-            placeholder="Filtrar subdominios (ej. admin, api, auth)..."
+            placeholder={t('filterSubdomains')}
             value={filterQuery}
             onChange={(e) => setFilterQuery(e.target.value)}
             className="w-full h-7 rounded-[7px] border border-border bg-card/80 pl-7 pr-3 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 macos-button"
@@ -81,7 +83,7 @@ export const SubdomainsCard: React.FC<SubdomainsCardProps> = ({ subdomains }) =>
                 {sub.ip && (
                   <button
                     onClick={() => handleCopy(sub.ip!)}
-                    title="Copiar IP"
+                    title={t('copyIp')}
                     className="font-mono text-[10px] text-muted-foreground bg-muted/60 hover:bg-muted border border-border/40 px-1.5 py-0.5 rounded-[4px] flex items-center gap-1"
                   >
                     <span>{sub.ip}</span>
@@ -100,19 +102,19 @@ export const SubdomainsCard: React.FC<SubdomainsCardProps> = ({ subdomains }) =>
                       target="_blank"
                       rel="noreferrer"
                       className="p-1 rounded-[4px] hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                      title="Abrir en nueva pestaña"
+                      title={t('openTab')}
                     >
                       <ExternalLink className="h-3 w-3" />
                     </a>
                     <Badge variant="success" className="text-[9px] py-0 px-1.5">
                       <CheckCircle2 className="mr-0.5 h-2.5 w-2.5" />
-                      Live
+                      {t('live')}
                     </Badge>
                   </>
                 ) : (
                   <Badge variant="outline" className="text-[9px] py-0 px-1.5 text-muted-foreground opacity-60">
                     <XCircle className="mr-0.5 h-2.5 w-2.5" />
-                    Offline
+                    {t('offline')}
                   </Badge>
                 )}
               </div>
@@ -120,7 +122,7 @@ export const SubdomainsCard: React.FC<SubdomainsCardProps> = ({ subdomains }) =>
           ))
         ) : (
           <div className="p-4 text-center text-xs text-muted-foreground">
-            No se encontraron subdominios que coincidan con &quot;{filterQuery}&quot;.
+            {t('noSubdomainsMatch', { query: filterQuery })}
           </div>
         )}
       </div>

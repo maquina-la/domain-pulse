@@ -17,6 +17,7 @@ import {
   AlertTriangle,
 } from 'lucide-react';
 import { Button } from './ui/button';
+import { useI18n } from '@/lib/I18nContext';
 
 export type TabKey = 'all' | 'tech' | 'security' | 'subdomains' | 'dns_email' | 'alerts';
 
@@ -37,7 +38,7 @@ interface HeaderHUDProps {
 
 interface TabOption {
   key: TabKey;
-  label: string;
+  labelKey: 'tabAll' | 'tabTech' | 'tabSecurity' | 'tabSubdomains' | 'tabDnsEmail' | 'tabAlerts';
   icon: React.ReactNode;
 }
 
@@ -55,12 +56,13 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
   onChangeTab,
   warningsCount,
 }) => {
+  const { t } = useI18n();
   const [searchInput, setSearchInput] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown on outside click
+  // Close dropdown on outside click or escape
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -97,32 +99,32 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
   const tabOptions: TabOption[] = [
     {
       key: 'all',
-      label: 'Resumen General',
+      labelKey: 'tabAll',
       icon: <LayoutDashboard className="h-3.5 w-3.5 text-primary" />,
     },
     {
       key: 'tech',
-      label: 'Stack Tecnológico',
+      labelKey: 'tabTech',
       icon: <Layers className="h-3.5 w-3.5 text-[#007aff]" />,
     },
     {
       key: 'security',
-      label: 'Seguridad & Encabezados',
+      labelKey: 'tabSecurity',
       icon: <ShieldCheck className="h-3.5 w-3.5 text-[#34c759]" />,
     },
     {
       key: 'subdomains',
-      label: 'Subdominios Descubiertos',
+      labelKey: 'tabSubdomains',
       icon: <Network className="h-3.5 w-3.5 text-[#ff9500]" />,
     },
     {
       key: 'dns_email',
-      label: 'Email & Infraestructura DNS',
+      labelKey: 'tabDnsEmail',
       icon: <Mail className="h-3.5 w-3.5 text-[#af52de]" />,
     },
     {
       key: 'alerts',
-      label: 'Diagnóstico & Alertas',
+      labelKey: 'tabAlerts',
       icon: <AlertTriangle className="h-3.5 w-3.5 text-[#ff3b30]" />,
     },
   ];
@@ -140,7 +142,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
               <input
                 type="text"
                 autoFocus
-                placeholder="ejemplo.com"
+                placeholder={t('searchPlaceholder')}
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 className="w-full h-7 rounded-[7px] border border-border bg-card/90 pl-8 pr-7 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 macos-button"
@@ -156,7 +158,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
               )}
             </div>
             <Button type="submit" size="sm" className="h-7 text-[11px]">
-              Auditar
+              {t('auditButton')}
             </Button>
             <Button
               type="button"
@@ -165,14 +167,14 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
               onClick={() => setIsSearching(false)}
               className="h-7 text-[11px]"
             >
-              Cancelar
+              {t('cancel')}
             </Button>
           </form>
         ) : (
           <button
             onClick={() => setIsSearching(true)}
             className="flex-1 flex items-center justify-between h-7 px-2.5 rounded-[7px] border border-border/70 bg-card/70 hover:bg-card text-xs text-foreground transition-all macos-button shadow-xs"
-            title="Haz clic para buscar o cambiar de dominio"
+            title={t('searchPlaceholder')}
           >
             <div className="flex items-center gap-2 truncate">
               {faviconUrl ? (
@@ -186,7 +188,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
                 <Search className="h-3 w-3 text-muted-foreground shrink-0" />
               )}
               <span className="font-mono font-medium truncate text-[11px]">
-                {currentDomain || 'Buscar dominio...'}
+                {currentDomain || t('searchPlaceholder')}
               </span>
             </div>
             <span className="text-[10px] font-medium text-muted-foreground bg-muted/60 px-1.5 py-0.2 rounded border border-border/40">
@@ -206,17 +208,17 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
               ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-600 dark:text-emerald-400'
               : ''
           }`}
-          title="Copiar reporte completo en Markdown"
+          title={t('copyMarkdown')}
         >
           {copiedMarkdown ? (
             <>
               <Check className="mr-1 h-3 w-3 text-emerald-500" />
-              <span>Copiado</span>
+              <span>{t('copied')}</span>
             </>
           ) : (
             <>
               <Copy className="mr-1 h-3 w-3 opacity-70" />
-              <span>Markdown</span>
+              <span>{t('copyMarkdown')}</span>
             </>
           )}
         </Button>
@@ -228,7 +230,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
           onClick={onRefresh}
           disabled={isLoading}
           className="h-7 w-7 text-muted-foreground hover:text-foreground shrink-0"
-          title="Recargar auditoría"
+          title={t('refresh')}
         >
           <RefreshCw className={`h-3.5 w-3.5 ${isLoading ? 'animate-spin text-primary' : ''}`} />
         </Button>
@@ -239,7 +241,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
           size="icon"
           onClick={onToggleTheme}
           className="h-7 w-7 text-muted-foreground hover:text-foreground shrink-0"
-          title="Cambiar tema"
+          title={t('themeToggle')}
         >
           {isDarkMode ? <Sun className="h-3 w-3" /> : <Moon className="h-3 w-3" />}
         </Button>
@@ -250,13 +252,13 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
           size="icon"
           onClick={onOpenSettings}
           className="h-7 w-7 text-muted-foreground hover:text-foreground shrink-0"
-          title="Ajustes de Gateway API"
+          title={t('settings')}
         >
           <Settings className="h-3 w-3" />
         </Button>
       </div>
 
-      {/* Category View Dropdown (macOS NSPopUpButton style) */}
+      {/* Category View Dropdown (macOS PopUp Menu) */}
       <div className="relative" ref={dropdownRef}>
         <button
           type="button"
@@ -265,7 +267,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
         >
           <div className="flex items-center gap-2 truncate">
             {currentOption.icon}
-            <span className="font-medium text-[11px] truncate">{currentOption.label}</span>
+            <span className="font-medium text-[11px] truncate">{t(currentOption.labelKey)}</span>
             {activeTab === 'alerts' && warningsCount > 0 && (
               <span className="h-4 min-w-[16px] px-1 rounded-full bg-[#ff3b30] text-white text-[9px] font-bold flex items-center justify-center">
                 {warningsCount}
@@ -301,7 +303,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
                   >
                     <div className="flex items-center gap-2">
                       {opt.icon}
-                      <span className="text-[11px]">{opt.label}</span>
+                      <span className="text-[11px]">{t(opt.labelKey)}</span>
                     </div>
 
                     <div className="flex items-center gap-1.5">

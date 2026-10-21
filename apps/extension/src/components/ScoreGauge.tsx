@@ -2,6 +2,7 @@ import React from 'react';
 import { ScorePenalty } from '@domain-pulse/shared';
 import { Badge } from './ui/badge';
 import { ShieldCheck, AlertTriangle, AlertOctagon, Zap } from 'lucide-react';
+import { useI18n } from '@/lib/I18nContext';
 
 interface ScoreGaugeProps {
   score: number;
@@ -16,6 +17,7 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
   cached = false,
   latencyMs,
 }) => {
+  const { t } = useI18n();
   const radius = 38;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (score / 100) * circumference;
@@ -36,7 +38,11 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
     : 'text-[#d70015] dark:text-[#ff453a]';
 
   const StatusIcon = isGreen ? ShieldCheck : isYellow ? AlertTriangle : AlertOctagon;
-  const statusLabel = isGreen ? 'Salud Óptima' : isYellow ? 'Atención Requerida' : 'Estado Crítico';
+  const statusLabel = isGreen
+    ? t('optimalHealth')
+    : isYellow
+    ? t('attentionRequired')
+    : t('criticalState');
 
   return (
     <div className="rounded-2xl macos-card bg-card/75 backdrop-blur-md p-4 transition-all">
@@ -87,16 +93,16 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
           </div>
 
           <p className="text-[11px] text-muted-foreground leading-snug">
-            {isGreen && 'Seguridad TLS, registros DNS y autenticación de email en estado óptimo.'}
-            {isYellow && 'Configuración funcional pero con advertencias en políticas o certificados.'}
-            {!isGreen && !isYellow && 'Faltan certificados válidos o existen vulnerabilidades críticas.'}
+            {isGreen && t('optimalDesc')}
+            {isYellow && t('warningDesc')}
+            {!isGreen && !isYellow && t('criticalDesc')}
           </p>
 
           <div className="flex items-center gap-1.5 pt-1">
             {cached && (
               <Badge variant="outline" className="text-[9px] py-0 px-1.5 text-muted-foreground">
                 <Zap className="mr-0.5 h-2.5 w-2.5 text-[#ff9500]" />
-                Caché Edge (2h)
+                {t('edgeCache')}
               </Badge>
             )}
             {latencyMs !== undefined && (
@@ -112,7 +118,9 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
       {penalties.length > 0 && (
         <div className="mt-3 pt-2.5 border-t border-border/50">
           <div className="text-[10px] font-semibold text-muted-foreground mb-1.5 flex items-center justify-between">
-            <span className="uppercase tracking-wider">Deducciones ({penalties.length}):</span>
+            <span className="uppercase tracking-wider">
+              {t('deductions')} ({penalties.length}):
+            </span>
             <span className="text-[#ff3b30] font-mono font-medium">
               -{penalties.reduce((sum, p) => sum + p.deduction, 0)} pts
             </span>

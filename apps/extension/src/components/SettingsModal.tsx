@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { getApiBaseUrl, setApiBaseUrl } from '@/lib/api';
+import { useI18n } from '@/lib/I18nContext';
+import { SUPPORTED_LOCALES, SupportedLocale } from '@/lib/i18n';
 import { Button } from './ui/button';
-import { Check, X, Server, RefreshCw } from 'lucide-react';
+import { Check, X, Server, RefreshCw, Languages } from 'lucide-react';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -10,7 +12,9 @@ interface SettingsModalProps {
 }
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onSaved }) => {
+  const { locale, setLocale, isAuto, t } = useI18n();
   const [urlInput, setUrlInput] = useState(getApiBaseUrl());
+  const [selectedLang, setSelectedLang] = useState<string>(isAuto ? 'auto' : locale);
   const [statusMsg, setStatusMsg] = useState<{ text: string; ok: boolean } | null>(null);
   const [isTesting, setIsTesting] = useState(false);
 
@@ -18,6 +22,11 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
 
   const handleSave = () => {
     setApiBaseUrl(urlInput);
+    if (selectedLang === 'auto') {
+      setLocale(null);
+    } else {
+      setLocale(selectedLang as SupportedLocale);
+    }
     onSaved();
     onClose();
   };
@@ -29,13 +38,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
       const clean = urlInput.trim().replace(/\/+$/, '');
       const res = await fetch(`${clean}/health`, { method: 'GET' });
       if (res.ok) {
-        setStatusMsg({ text: 'Conexión exitosa con el Gateway.', ok: true });
+        setStatusMsg({ text: t('connectionSuccess'), ok: true });
       } else {
-        setStatusMsg({ text: `Respuesta HTTP ${res.status}`, ok: false });
+        setStatusMsg({ text: `HTTP ${res.status}`, ok: false });
       }
-    } catch (err: any) {
+    } catch {
       setStatusMsg({
-        text: 'Error de conexión. Verifica que el backend esté activo.',
+        text: t('connectionError'),
         ok: false,
       });
     } finally {
@@ -51,7 +60,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
             <div className="flex h-5 w-5 items-center justify-center rounded-md bg-[#007aff]/15 text-[#007aff]">
               <Server className="h-3 w-3" />
             </div>
-            <h3 className="font-bold text-foreground">Ajustes de Gateway API</h3>
+            <h3 className="font-bold text-foreground">{t('settingsTitle')}</h3>
           </div>
           <button
             onClick={onClose}
@@ -61,9 +70,30 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
           </button>
         </div>
 
+        {/* Language Selection */}
+        <div className="space-y-1.5">
+          <div className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
+            <Languages className="h-3 w-3 text-primary" />
+            <span>{t('languageLabel')}</span>
+          </div>
+          <select
+            value={selectedLang}
+            onChange={(e) => setSelectedLang(e.target.value)}
+            className="w-full h-7 rounded-[7px] border border-border bg-background px-2 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 macos-button"
+          >
+            <option value="auto">🌐 {t('languageAuto')}</option>
+            {SUPPORTED_LOCALES.map((l) => (
+              <option key={l.code} value={l.code}>
+                {l.flag} {l.name} ({l.code})
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Gateway URL */}
         <div className="space-y-1.5">
           <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
-            Endpoint URL
+            {t('gatewayUrlLabel')}
           </label>
           <input
             type="text"
@@ -73,7 +103,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
             className="w-full h-7 rounded-[7px] border border-border bg-background px-2.5 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 macos-button"
           />
           <p className="text-[10px] text-muted-foreground">
-            Servicio orquestador DoH (Cloudflare), RDAP Whois y handshake TLS.
+            {t('gatewayDesc')}
           </p>
         </div>
 
@@ -100,15 +130,15 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
             className="h-6 text-[11px]"
           >
             <RefreshCw className={`mr-1 h-2.5 w-2.5 ${isTesting ? 'animate-spin text-primary' : ''}`} />
-            Probar
+            {t('testButton')}
           </Button>
 
           <div className="flex gap-1.5">
             <Button type="button" variant="ghost" size="sm" onClick={onClose} className="h-6 text-[11px]">
-              Cancelar
+              {t('cancel')}
             </Button>
             <Button type="button" size="sm" onClick={handleSave} className="h-6 text-[11px]">
-              Guardar
+              {t('saveButton')}
             </Button>
           </div>
         </div>

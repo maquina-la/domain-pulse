@@ -2,12 +2,14 @@ import React from 'react';
 import { SecurityHeadersInfo } from '@domain-pulse/shared';
 import { Badge } from './ui/badge';
 import { ShieldCheck, CheckCircle2, XCircle, ArrowRightLeft } from 'lucide-react';
+import { useI18n } from '@/lib/I18nContext';
 
 interface SecurityHeadersCardProps {
   headers: SecurityHeadersInfo;
 }
 
 export const SecurityHeadersCard: React.FC<SecurityHeadersCardProps> = ({ headers }) => {
+  const { t } = useI18n();
   const isOptimal = headers.score_percentage >= 80;
 
   return (
@@ -17,13 +19,13 @@ export const SecurityHeadersCard: React.FC<SecurityHeadersCardProps> = ({ header
           <span className="flex h-3.5 w-3.5 items-center justify-center rounded-sm bg-[#34c759]/15 text-[#34c759]">
             <ShieldCheck className="h-2.5 w-2.5" />
           </span>
-          Encabezados de Seguridad Web
+          {t('securityTitle')}
         </span>
         <Badge
           variant={isOptimal ? 'success' : 'warning'}
           className="text-[10px] py-0 px-2 font-mono"
         >
-          {headers.score_percentage}% Protegido
+          {t('protected', { percent: headers.score_percentage })}
         </Badge>
       </div>
 
@@ -32,15 +34,15 @@ export const SecurityHeadersCard: React.FC<SecurityHeadersCardProps> = ({ header
         <div className="flex items-center justify-between p-2.5">
           <div className="flex items-center gap-2">
             <ArrowRightLeft className="h-3.5 w-3.5 text-muted-foreground" />
-            <span>Forzado HTTP ➔ HTTPS (Puerto 80)</span>
+            <span>{t('httpRedirect')}</span>
           </div>
           {headers.http_redirects_to_https ? (
             <Badge variant="success" className="text-[10px] py-0">
-              <CheckCircle2 className="mr-1 h-2.5 w-2.5" /> Redirección 301/308
+              <CheckCircle2 className="mr-1 h-2.5 w-2.5" /> {t('redirectActive')}
             </Badge>
           ) : (
             <Badge variant="warning" className="text-[10px] py-0">
-              <XCircle className="mr-1 h-2.5 w-2.5" /> Sin redirección
+              <XCircle className="mr-1 h-2.5 w-2.5" /> {t('noRedirect')}
             </Badge>
           )}
         </div>
@@ -48,16 +50,16 @@ export const SecurityHeadersCard: React.FC<SecurityHeadersCardProps> = ({ header
         {/* HSTS */}
         <div className="flex items-center justify-between p-2.5">
           <div>
-            <div className="font-medium text-foreground">Strict-Transport-Security (HSTS)</div>
-            <div className="text-[10px] text-muted-foreground">Fuerza conexiones TLS automáticas</div>
+            <div className="font-medium text-foreground">{t('hsts')}</div>
+            <div className="text-[10px] text-muted-foreground">{t('hstsDesc')}</div>
           </div>
           {headers.hsts ? (
             <Badge variant="success" className="text-[10px] py-0">
-              <CheckCircle2 className="mr-1 h-2.5 w-2.5" /> Presente
+              <CheckCircle2 className="mr-1 h-2.5 w-2.5" /> {t('present')}
             </Badge>
           ) : (
             <Badge variant="danger" className="text-[10px] py-0">
-              <XCircle className="mr-1 h-2.5 w-2.5" /> Ausente
+              <XCircle className="mr-1 h-2.5 w-2.5" /> {t('missing')}
             </Badge>
           )}
         </div>
@@ -65,16 +67,16 @@ export const SecurityHeadersCard: React.FC<SecurityHeadersCardProps> = ({ header
         {/* Content-Security-Policy (CSP) */}
         <div className="flex items-center justify-between p-2.5">
           <div>
-            <div className="font-medium text-foreground">Content-Security-Policy (CSP)</div>
-            <div className="text-[10px] text-muted-foreground">Mitiga ataques XSS e inyecciones</div>
+            <div className="font-medium text-foreground">{t('csp')}</div>
+            <div className="text-[10px] text-muted-foreground">{t('cspDesc')}</div>
           </div>
           {headers.csp ? (
             <Badge variant="success" className="text-[10px] py-0">
-              <CheckCircle2 className="mr-1 h-2.5 w-2.5" /> Presente
+              <CheckCircle2 className="mr-1 h-2.5 w-2.5" /> {t('present')}
             </Badge>
           ) : (
             <Badge variant="warning" className="text-[10px] py-0">
-              <XCircle className="mr-1 h-2.5 w-2.5" /> Ausente
+              <XCircle className="mr-1 h-2.5 w-2.5" /> {t('missing')}
             </Badge>
           )}
         </div>
@@ -82,16 +84,16 @@ export const SecurityHeadersCard: React.FC<SecurityHeadersCardProps> = ({ header
         {/* X-Frame-Options */}
         <div className="flex items-center justify-between p-2.5">
           <div>
-            <div className="font-medium text-foreground">X-Frame-Options</div>
-            <div className="text-[10px] text-muted-foreground">Previene ataques de Clickjacking</div>
+            <div className="font-medium text-foreground">{t('xframe')}</div>
+            <div className="text-[10px] text-muted-foreground">{t('xframeDesc')}</div>
           </div>
           {headers.x_frame_options ? (
             <Badge variant="success" className="text-[10px] py-0">
-              <CheckCircle2 className="mr-1 h-2.5 w-2.5" /> Presente
+              <CheckCircle2 className="mr-1 h-2.5 w-2.5" /> {t('present')}
             </Badge>
           ) : (
             <Badge variant="warning" className="text-[10px] py-0">
-              <XCircle className="mr-1 h-2.5 w-2.5" /> Ausente
+              <XCircle className="mr-1 h-2.5 w-2.5" /> {t('missing')}
             </Badge>
           )}
         </div>
@@ -99,16 +101,16 @@ export const SecurityHeadersCard: React.FC<SecurityHeadersCardProps> = ({ header
         {/* X-Content-Type-Options */}
         <div className="flex items-center justify-between p-2.5">
           <div>
-            <div className="font-medium text-foreground">X-Content-Type-Options</div>
-            <div className="text-[10px] text-muted-foreground">Bloquea sniffing de tipos MIME</div>
+            <div className="font-medium text-foreground">{t('xcontent')}</div>
+            <div className="text-[10px] text-muted-foreground">{t('xcontentDesc')}</div>
           </div>
           {headers.x_content_type_options ? (
             <Badge variant="success" className="text-[10px] py-0">
-              <CheckCircle2 className="mr-1 h-2.5 w-2.5" /> nosniff
+              <CheckCircle2 className="mr-1 h-2.5 w-2.5" /> {t('nosniff')}
             </Badge>
           ) : (
             <Badge variant="outline" className="text-[10px] py-0 text-muted-foreground">
-              Ausente
+              {t('missing')}
             </Badge>
           )}
         </div>
@@ -116,16 +118,16 @@ export const SecurityHeadersCard: React.FC<SecurityHeadersCardProps> = ({ header
         {/* Referrer-Policy */}
         <div className="flex items-center justify-between p-2.5">
           <div>
-            <div className="font-medium text-foreground">Referrer-Policy</div>
-            <div className="text-[10px] text-muted-foreground">Control de telemetría de URLs salientes</div>
+            <div className="font-medium text-foreground">{t('referrer')}</div>
+            <div className="text-[10px] text-muted-foreground">{t('referrerDesc')}</div>
           </div>
           {headers.referrer_policy ? (
             <Badge variant="success" className="text-[10px] py-0">
-              <CheckCircle2 className="mr-1 h-2.5 w-2.5" /> Configurado
+              <CheckCircle2 className="mr-1 h-2.5 w-2.5" /> {t('configured')}
             </Badge>
           ) : (
             <Badge variant="outline" className="text-[10px] py-0 text-muted-foreground">
-              Por defecto
+              {t('defaultVal')}
             </Badge>
           )}
         </div>

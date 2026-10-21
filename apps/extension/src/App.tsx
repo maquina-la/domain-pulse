@@ -15,8 +15,10 @@ import { WarningsList } from './components/WarningsList';
 import { SettingsModal } from './components/SettingsModal';
 import { Button } from './components/ui/button';
 import { AlertCircle, RefreshCw } from 'lucide-react';
+import { useI18n } from './lib/I18nContext';
 
 export const App: React.FC = () => {
+  const { t } = useI18n();
   const [currentDomain, setCurrentDomain] = useState<string>('');
   const [audit, setAudit] = useState<AuditResponse | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -152,12 +154,12 @@ export const App: React.FC = () => {
           <div className="rounded-2xl macos-card bg-[#ff3b30]/10 border border-[#ff3b30]/25 p-4 text-center space-y-2.5">
             <AlertCircle className="mx-auto h-7 w-7 text-[#ff3b30]" />
             <div className="space-y-0.5">
-              <h3 className="font-bold text-xs text-foreground">Fallo al conectar con el Gateway</h3>
+              <h3 className="font-bold text-xs text-foreground">{t('auditFailedTitle')}</h3>
               <p className="text-[11px] text-muted-foreground">{error}</p>
             </div>
             <div className="flex items-center justify-center gap-2 pt-1">
               <Button size="sm" onClick={() => runAudit(currentDomain)} className="text-[11px] h-6">
-                <RefreshCw className="mr-1 h-3 w-3" /> Reintentar
+                <RefreshCw className="mr-1 h-3 w-3" /> {t('retry')}
               </Button>
               <Button
                 variant="outline"
@@ -165,7 +167,7 @@ export const App: React.FC = () => {
                 onClick={() => setIsSettingsOpen(true)}
                 className="text-[11px] h-6"
               >
-                Ajustes
+                {t('settings')}
               </Button>
             </div>
           </div>
@@ -241,7 +243,7 @@ export const App: React.FC = () => {
       <footer className="border-t border-border/50 py-2 px-3 text-[10px] text-muted-foreground bg-background/80 backdrop-blur-md flex items-center justify-between select-none">
         <div className="flex items-center gap-1.5 font-medium">
           <span className="h-1.5 w-1.5 rounded-full bg-[#34c759]" />
-          <span>Domain Pulse</span>
+          <span>{t('footerLive')}</span>
         </div>
         {audit && audit.latency_ms !== undefined && (
           <span className="font-mono text-[10px] text-muted-foreground/80">
