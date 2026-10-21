@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "PulseDomain - Domain Health & Audit HUD",
+  "version": "1.0.0",
+  "description": "Audita en tiempo real la salud de cualquier dominio web activo con un solo clic desde el Side Panel.",
+  "action": {
+    "default_title": "PulseDomain HUD",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "sidePanel",
+    "tabs",
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  }
+}
