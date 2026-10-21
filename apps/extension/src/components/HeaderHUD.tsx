@@ -64,7 +64,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </span>
-          <span className="truncate max-w-[140px] font-mono">{currentDomain || 'PulseDomain'}</span>
+          <span className="truncate max-w-[140px] font-mono">{currentDomain || 'Domain Pulse'}</span>
         </div>
 
         {/* Right side quick actions */}

@@ -8,7 +8,7 @@ export function generateAuditMarkdown(audit: AuditResponse): string {
 
   const dateStr = new Date(timestamp).toUTCString();
 
-  let md = `# ⚡ Domain-pulse Audit: \`${domain}\`\n\n`;
+  let md = `# ⚡ Domain Pulse Audit: \`${domain}\`\n\n`;
   md += `> **Health Score:** ${scoreEmoji} **${score}/100** (${scoreLabel})  \n`;
   md += `> **Audit Timestamp:** ${dateStr}  \n`;
   if (audit.cached) {
@@ -69,7 +69,7 @@ export function generateAuditMarkdown(audit: AuditResponse): string {
   }
 
   md += `---\n`;
-  md += `*Generado automáticamente por [Domain-pulse](https://domain-pulse.dev) - Chrome Extension Side Panel Audit*\n`;
+  md += `*Generado automáticamente por [Domain Pulse](https://domainpulse.dev) - Chrome Extension Side Panel Audit*\n`;
 
   return md;
 }

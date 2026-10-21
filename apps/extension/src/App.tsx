@@ -11,9 +11,7 @@ import { EmailCard } from './components/EmailCard';
 import { WarningsList } from './components/WarningsList';
 import { SettingsModal } from './components/SettingsModal';
 import { Button } from './components/ui/button';
-import { AlertCircle, RefreshCw, Sparkles } from 'lucide-react';
-
-const PRESET_DOMAINS = ['github.com', 'apple.com', 'cloudflare.com', 'vercel.com', 'google.com'];
+import { AlertCircle, RefreshCw } from 'lucide-react';
 
 export const App: React.FC = () => {
   const [currentDomain, setCurrentDomain] = useState<string>('');
@@ -181,25 +179,6 @@ export const App: React.FC = () => {
               latencyMs={audit.latency_ms}
             />
 
-            {/* Quick Preset Domains (macOS pill tags) */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 text-[11px] text-muted-foreground select-none">
-              <Sparkles className="h-3 w-3 shrink-0 text-[#007aff]" />
-              <span className="shrink-0 text-[10px] font-medium uppercase tracking-wider">Presets:</span>
-              {PRESET_DOMAINS.map((d) => (
-                <button
-                  key={d}
-                  onClick={() => handleSearchDomain(d)}
-                  className={`rounded-[6px] px-2 py-0.5 transition-all text-[11px] font-mono macos-button ${
-                    d === currentDomain
-                      ? 'bg-primary text-primary-foreground font-semibold shadow-sm'
-                      : 'bg-card/70 hover:bg-card text-foreground border border-border/50'
-                  }`}
-                >
-                  {d}
-                </button>
-              ))}
-            </div>
-
             {/* Tab: Overview (All 4 categories) */}
             {activeTab === 'all' && (
               <div className="space-y-3">
@@ -238,12 +217,16 @@ export const App: React.FC = () => {
       </main>
 
       {/* macOS Status Bar */}
-      <footer className="border-t border-border/60 py-2 px-3 text-center text-[10px] text-muted-foreground bg-background/80 backdrop-blur-md flex items-center justify-between select-none">
-        <span className="flex items-center gap-1 font-medium">
+      <footer className="border-t border-border/50 py-2 px-3 text-[10px] text-muted-foreground bg-background/80 backdrop-blur-md flex items-center justify-between select-none">
+        <div className="flex items-center gap-1.5 font-medium">
           <span className="h-1.5 w-1.5 rounded-full bg-[#34c759]" />
-          PulseDomain HUD
-        </span>
-        <span className="font-mono text-[9px]">macOS Native Engine</span>
+          <span>Domain Pulse</span>
+        </div>
+        {audit && audit.latency_ms !== undefined && (
+          <span className="font-mono text-[10px] text-muted-foreground/80">
+            {audit.latency_ms}ms
+          </span>
+        )}
       </footer>
 
       {/* Settings Modal Sheet */}

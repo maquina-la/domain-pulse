@@ -1,10 +1,10 @@
 {
   "manifest_version": 3,
-  "name": "PulseDomain - Domain Health & Audit HUD",
+  "name": "Domain Pulse - Domain Health & Audit HUD",
   "version": "1.0.0",
   "description": "Audita en tiempo real la salud de cualquier dominio web activo con un solo clic desde el Side Panel.",
   "action": {
-    "default_title": "PulseDomain HUD",
+    "default_title": "Domain Pulse HUD",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
