@@ -99,10 +99,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
           <div className="rounded-[9px] bg-muted/40 p-2.5 border border-border/60 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Cloud className="h-3.5 w-3.5 text-primary" />
-              <div>
-                <div className="text-[11px] font-medium text-foreground">Domain Pulse Cloud</div>
-                <div className="text-[10px] text-muted-foreground">Volcano Serverless Gateway</div>
-              </div>
+              <span className="text-[11px] font-medium text-foreground">Domain Pulse Cloud</span>
             </div>
             <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-500 border border-emerald-500/30">
               Active

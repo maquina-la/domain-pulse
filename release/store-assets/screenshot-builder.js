@@ -159,7 +159,7 @@ function generateHtml(activeView) {
         <!-- Side Panel Footer -->
         <div class="p-2.5 bg-[#121217] border-t border-zinc-800 flex items-center justify-between text-[10px] text-zinc-400">
           <span class="flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Gateway: Volcano Cloud (US-East)
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Domain Pulse Cloud (Global Edge)
           </span>
           <span class="font-mono text-zinc-500">v1.0.0</span>
         </div>
