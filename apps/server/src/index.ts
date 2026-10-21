@@ -3,7 +3,8 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { parse } from 'tldts';
 import { AuditResponse, calculateHealthScore } from '@domain-pulse/shared';
-import { fetchAllDnsRecords, reconSubdomains } from './services/doh.js';
+import { fetchAllDnsRecords } from './services/doh.js';
+import { discoverRealSubdomains } from './services/subdomains.js';
 import { fetchRdapInfo } from './services/rdap.js';
 import { inspectTls } from './services/tls.js';
 import { probeHttpAndTech } from './services/http-probe.js';
@@ -105,23 +106,30 @@ app.get('/v1/audit', async (c) => {
   try {
     // Parallel Fan-out:
     // 1. DoH queries (A, AAAA, MX, TXT, DMARC, MTA-STS, BIMI, NS, DS, CAA)
-    // 2. Subdomain Recon (www, api, admin, app, mail, dev, staging, portal)
-    // 3. TLS handshake on port 443
-    // 4. HTTP & Tech Stack probe (Security Headers, Tech Stack, HTTP->HTTPS redirect)
-    const [dnsResult, subdomainsResult, tlsResult, httpProbeResult] = await Promise.all([
+    // 2. TLS handshake on port 443 with SAN extraction
+    // 3. HTTP & Tech Stack probe (Security Headers, Tech Stack, HTTP->HTTPS redirect)
+    const [dnsResult, tlsResult, httpProbeResult] = await Promise.all([
       fetchAllDnsRecords(targetDomain),
-      reconSubdomains(targetDomain),
       inspectTls(targetDomain),
       probeHttpAndTech(targetDomain),
     ]);
 
-    // RDAP query (Whois) can use the NS records from DNS as fallback if needed
-    const rdapResult = await fetchRdapInfo(targetDomain, dnsResult.nameservers);
+    // Discover real subdomains (Passive DNS OSINT + TLS SANs + DoH verification)
+    const [rdapResult, subdomainsResult] = await Promise.all([
+      fetchRdapInfo(targetDomain, dnsResult.nameservers),
+      discoverRealSubdomains(targetDomain, tlsResult.san_domains),
+    ]);
 
     // Merge SSL info with HSTS check
     const ssl = {
-      ...tlsResult,
+      issuer: tlsResult.issuer,
+      valid_from: tlsResult.valid_from,
+      valid_to: tlsResult.valid_to,
+      days_remaining: tlsResult.days_remaining,
+      tls_version: tlsResult.tls_version,
       hsts_enabled: httpProbeResult.hsts_enabled || tlsResult.hsts_enabled,
+      is_valid: tlsResult.is_valid,
+      error: tlsResult.error,
     };
 
     // Detected DNS / CDN Provider

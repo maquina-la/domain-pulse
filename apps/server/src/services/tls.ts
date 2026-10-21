@@ -1,11 +1,15 @@
 import * as tls from 'node:tls';
 import { SslInfo } from '@domain-pulse/shared';
 
-export async function inspectTls(domain: string, timeoutMs: number = 4000): Promise<SslInfo> {
+export interface TlsInspectionResult extends SslInfo {
+  san_domains: string[];
+}
+
+export async function inspectTls(domain: string, timeoutMs: number = 4000): Promise<TlsInspectionResult> {
   return new Promise((resolve) => {
     let resolved = false;
 
-    const cleanup = (info: SslInfo) => {
+    const cleanup = (info: TlsInspectionResult) => {
       if (!resolved) {
         resolved = true;
         resolve(info);
@@ -40,6 +44,7 @@ export async function inspectTls(domain: string, timeoutMs: number = 4000): Prom
                 hsts_enabled: false,
                 is_valid: false,
                 error: 'No se pudo obtener el certificado del servidor TLS.',
+                san_domains: [],
               });
               return;
             }
@@ -61,19 +66,32 @@ export async function inspectTls(domain: string, timeoutMs: number = 4000): Prom
             const isExpired = days_remaining !== null && days_remaining < 0;
             const is_valid = authorized && !isExpired;
 
+            // Extract Subject Alternative Names (SANs)
+            const san_domains: string[] = [];
+            if (cert.subjectaltname && typeof cert.subjectaltname === 'string') {
+              const parts = cert.subjectaltname.split(', ');
+              for (const part of parts) {
+                if (part.startsWith('DNS:')) {
+                  const name = part.slice(4).trim().toLowerCase();
+                  san_domains.push(name);
+                }
+              }
+            }
+
             cleanup({
               issuer,
               valid_from,
               valid_to,
               days_remaining,
               tls_version: tls_version || 'TLSv1.2',
-              hsts_enabled: false, // will be combined with hsts inspection
+              hsts_enabled: false,
               is_valid,
               error: !is_valid
                 ? isExpired
                   ? 'El certificado SSL ha caducado.'
                   : authError || 'Certificado no confiable o no emitido por una CA raíz válida.'
                 : null,
+              san_domains,
             });
           } catch (err: any) {
             cleanup({
@@ -85,6 +103,7 @@ export async function inspectTls(domain: string, timeoutMs: number = 4000): Prom
               hsts_enabled: false,
               is_valid: false,
               error: err?.message || 'Error al inspeccionar certificado TLS',
+              san_domains: [],
             });
           }
         }
@@ -101,6 +120,7 @@ export async function inspectTls(domain: string, timeoutMs: number = 4000): Prom
           hsts_enabled: false,
           is_valid: false,
           error: 'Tiempo de espera agotado al conectar al puerto 443.',
+          san_domains: [],
         });
       });
 
@@ -115,6 +135,7 @@ export async function inspectTls(domain: string, timeoutMs: number = 4000): Prom
           hsts_enabled: false,
           is_valid: false,
           error: `Error de conexión TLS: ${err.message}`,
+          san_domains: [],
         });
       });
     } catch (err: any) {
@@ -127,6 +148,7 @@ export async function inspectTls(domain: string, timeoutMs: number = 4000): Prom
         hsts_enabled: false,
         is_valid: false,
         error: err?.message || 'Fallo general al iniciar handshake TLS',
+        san_domains: [],
       });
     }
   });
