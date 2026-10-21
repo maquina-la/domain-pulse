@@ -1,0 +1,84 @@
+version: 1
+project:
+    name: domain-pulse
+    all_regions: true
+    selected_regions:
+        - ap-northeast-1
+        - ap-southeast-1
+        - ap-southeast-2
+        - eu-central-1
+        - eu-west-1
+        - sa-east-1
+        - us-east-1
+        - us-west-2
+databases: []
+shared_variables: []
+frontend_shared_variables: []
+buckets: []
+realtime:
+    enabled: false
+    broadcast_enabled: true
+    presence_enabled: true
+    postgres_changes_enabled: true
+auth:
+    tokens:
+        access_token_lifetime: 3600
+        refresh_token_lifetime: 2592000
+        refresh_token_reuse_interval: 10
+        platform_token_ttl: 2592000
+    sessions:
+        inactivity_timeout: 0
+        max_session_duration: 0
+    signup:
+        enable_signup: true
+        enable_anonymous_signins: false
+        allowed_email_domains: []
+        allowed_email_domains_mode: signup
+    rate_limits:
+        signup: 100
+        signin: 100
+        token_refresh: 1000
+        password_reset: 10
+    password:
+        min_length: 15
+        require_uppercase: false
+        require_lowercase: false
+        require_numbers: false
+        require_special_chars: false
+    password_reset:
+        allow: true
+        timeout: 3600
+        max_history: 0
+    email_verification:
+        require_confirmation: false
+        confirmation_timeout: 86400
+    cors:
+        enabled: false
+        allowed_origins: []
+        allow_credentials: true
+        max_age: 86400
+    providers:
+        email_password:
+            enabled: true
+        oauth: []
+    email:
+        enabled: false
+        templates:
+            confirmation:
+                subject: Confirm your email address
+            password_reset:
+                subject: Reset your password
+            password_changed:
+                subject: Your password was changed
+    managed_pages:
+        enabled: false
+        redirects:
+            allowed: []
+functions:
+    - name: api
+      visibility: public
+      invocation_mode: http
+      http_auth_mode: none
+      variable_scope: all
+      schedulers: []
+frontends: []

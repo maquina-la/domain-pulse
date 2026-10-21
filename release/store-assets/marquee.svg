@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 560" width="1400" height="560" fill="none">
+  <defs>
+    <linearGradient id="bgM" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141418" />
+      <stop offset="50%" stop-color="#0e0e12" />
+      <stop offset="100%" stop-color="#08080a" />
+    </linearGradient>
+    <linearGradient id="brandM" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="50%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#34D399" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1400" height="560" fill="url(#bgM)" />
+
+  <!-- Left Icon Mark -->
+  <g transform="translate(180, 140) scale(0.546)">
+    <path d="M 78 208 A 184 184 0 0 1 434 208" stroke="url(#brandM)" stroke-width="32" stroke-linecap="round" />
+    <path d="M 434 304 A 184 184 0 0 1 78 304" stroke="url(#brandM)" stroke-width="32" stroke-linecap="round" />
+    <path d="M 44 256 H 168 L 208 308 L 256 108 L 304 404 L 344 204 L 372 256 H 468" stroke="url(#brandM)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="256" cy="108" r="16" fill="#FFFFFF" />
+    <circle cx="256" cy="108" r="8" fill="#10B981" />
+  </g>
+
+  <!-- Right Typography & Value Prop -->
+  <g transform="translate(520, 220)">
+    <text x="0" y="50" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="76" font-weight="800" letter-spacing="-2" fill="#FFFFFF">
+      Domain<tspan fill="url(#brandM)">Pulse</tspan>
+    </text>
+    <text x="4" y="98" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif" font-size="22" font-weight="600" letter-spacing="1" fill="#38BDF8">
+      Real-Time Health &amp; Infrastructure HUD for Chrome
+    </text>
+    <text x="4" y="140" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif" font-size="16" font-weight="400" fill="#94A3B8">
+      Instant DNSSEC, TLS/SSL, Email Auth (SPF/DMARC/MTA-STS), Real Subdomains &amp; Tech Stack.
+    </text>
+  </g>
+</svg>

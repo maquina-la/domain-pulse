@@ -1,6 +1,9 @@
 import { AuditResponse } from '@domain-pulse/shared';
 
-const DEFAULT_API_BASE = 'http://localhost:3000';
+export const VOLCANO_CLOUD_API_BASE = 'https://7cf17484-33bf-4348-9159-048674bdc509.functions.volcano.run';
+export const LOCAL_DEV_API_BASE = 'http://localhost:3000';
+
+const DEFAULT_API_BASE = VOLCANO_CLOUD_API_BASE;
 const STORAGE_KEY_API_BASE = 'pulse_domain_api_base';
 
 export function getApiBaseUrl(): string {
@@ -37,10 +40,9 @@ export async function fetchDomainAudit(domain: string): Promise<AuditResponse> {
     const data = (await res.json()) as AuditResponse;
     return data;
   } catch (err: any) {
-    // If connection refused (backend not yet running or demoing), check if mock should be used or throw
     if (err.message?.includes('Failed to fetch') || err.message?.includes('NetworkError')) {
       throw new Error(
-        `No se pudo conectar con el Gateway (${apiBase}). Asegúrate de que el backend de Domain-pulse esté corriendo en el puerto 3000.`
+        `No se pudo conectar con el Gateway (${apiBase}). Verifica tu conexión o revisa los ajustes del gateway.`
       );
     }
     throw err;
