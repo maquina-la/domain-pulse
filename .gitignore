@@ -4,3 +4,8 @@ dist/
 *.log
 .env
 .env.local
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+

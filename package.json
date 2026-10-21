@@ -9,6 +9,8 @@
     "dev:server": "pnpm --filter @domain-pulse/server dev",
     "dev:extension": "pnpm --filter @domain-pulse/extension dev",
     "build:extension": "pnpm --filter @domain-pulse/shared build && pnpm --filter @domain-pulse/extension build",
+    "build:safari": "pnpm build:extension && DEVELOPER_DIR=/Applications/Xcode.app xcrun safari-web-extension-converter apps/extension/dist --project-location apps/safari --app-name DomainPulse --bundle-identifier im.carlosrivera.DomainPulse --macos-only --no-open --force && DEVELOPER_DIR=/Applications/Xcode.app xcodebuild -project apps/safari/DomainPulse/DomainPulse.xcodeproj -scheme DomainPulse -configuration Debug build CODE_SIGN_IDENTITY=\"\" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO",
+    "open:safari": "open /Users/carlos/Library/Developer/Xcode/DerivedData/DomainPulse-*/Build/Products/Debug/DomainPulse.app",
     "test": "pnpm --recursive test"
   },
   "devDependencies": {

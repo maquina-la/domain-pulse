@@ -1,0 +1,601 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 110;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		07B1F517308977E100AA3A68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F516308977E100AA3A68 /* AppDelegate.swift */; };
+		07B1F51B308977E100AA3A68 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 07B1F519308977E100AA3A68 /* Main.html */; };
+		07B1F51D308977E100AA3A68 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 07B1F51C308977E100AA3A68 /* Icon.png */; };
+		07B1F51F308977E100AA3A68 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 07B1F51E308977E100AA3A68 /* Style.css */; };
+		07B1F521308977E100AA3A68 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 07B1F520308977E100AA3A68 /* Script.js */; };
+		07B1F523308977E100AA3A68 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F522308977E100AA3A68 /* ViewController.swift */; };
+		07B1F526308977E100AA3A68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B1F524308977E100AA3A68 /* Main.storyboard */; };
+		07B1F528308977E100AA3A68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07B1F527308977E100AA3A68 /* Assets.xcassets */; };
+		07B1F52F308977E100AA3A68 /* DomainPulse Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 07B1F52E308977E100AA3A68 /* DomainPulse Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		07B1F534308977E100AA3A68 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1F533308977E100AA3A68 /* SafariWebExtensionHandler.swift */; };
+		07B1F547308977E100AA3A68 /* branding in Resources */ = {isa = PBXBuildFile; fileRef = 07B1F540308977E100AA3A68 /* branding */; };
+		07B1F548308977E100AA3A68 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 07B1F541308977E100AA3A68 /* index.html */; };
+		07B1F549308977E100AA3A68 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 07B1F542308977E100AA3A68 /* background.js */; };
+		07B1F54A308977E100AA3A68 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 07B1F543308977E100AA3A68 /* icons */; };
+		07B1F54B308977E100AA3A68 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 07B1F544308977E100AA3A68 /* manifest.json */; };
+		07B1F54C308977E100AA3A68 /* sidepanel.html in Resources */ = {isa = PBXBuildFile; fileRef = 07B1F545308977E100AA3A68 /* sidepanel.html */; };
+		07B1F54D308977E100AA3A68 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 07B1F546308977E100AA3A68 /* assets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		07B1F530308977E100AA3A68 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07B1F50B308977E100AA3A68 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 07B1F52D308977E100AA3A68;
+			remoteInfo = "DomainPulse Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		07B1F53B308977E100AA3A68 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "";
+			dstSubfolder = PlugIns;
+			files = (
+				07B1F52F308977E100AA3A68 /* DomainPulse Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		07B1F513308977E100AA3A68 /* DomainPulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DomainPulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		07B1F516308977E100AA3A68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		07B1F51A308977E100AA3A68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
+		07B1F51C308977E100AA3A68 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		07B1F51E308977E100AA3A68 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		07B1F520308977E100AA3A68 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		07B1F522308977E100AA3A68 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		07B1F525308977E100AA3A68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		07B1F527308977E100AA3A68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		07B1F529308977E100AA3A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07B1F52E308977E100AA3A68 /* DomainPulse Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DomainPulse Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		07B1F533308977E100AA3A68 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		07B1F535308977E100AA3A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07B1F540308977E100AA3A68 /* branding */ = {isa = PBXFileReference; lastKnownFileType = folder; name = branding; path = ../../../extension/dist/branding; sourceTree = "<group>"; };
+		07B1F541308977E100AA3A68 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = index.html; path = ../../../extension/dist/index.html; sourceTree = "<group>"; };
+		07B1F542308977E100AA3A68 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../../extension/dist/background.js; sourceTree = "<group>"; };
+		07B1F543308977E100AA3A68 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../../extension/dist/icons; sourceTree = "<group>"; };
+		07B1F544308977E100AA3A68 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../../extension/dist/manifest.json; sourceTree = "<group>"; };
+		07B1F545308977E100AA3A68 /* sidepanel.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = sidepanel.html; path = ../../../extension/dist/sidepanel.html; sourceTree = "<group>"; };
+		07B1F546308977E100AA3A68 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../../../extension/dist/assets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		07B1F510308977E100AA3A68 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		07B1F52B308977E100AA3A68 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		07B1F50A308977E100AA3A68 = {
+			isa = PBXGroup;
+			children = (
+				07B1F515308977E100AA3A68 /* DomainPulse */,
+				07B1F532308977E100AA3A68 /* DomainPulse Extension */,
+				07B1F514308977E100AA3A68 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		07B1F514308977E100AA3A68 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07B1F513308977E100AA3A68 /* DomainPulse.app */,
+				07B1F52E308977E100AA3A68 /* DomainPulse Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		07B1F515308977E100AA3A68 /* DomainPulse */ = {
+			isa = PBXGroup;
+			children = (
+				07B1F516308977E100AA3A68 /* AppDelegate.swift */,
+				07B1F522308977E100AA3A68 /* ViewController.swift */,
+				07B1F524308977E100AA3A68 /* Main.storyboard */,
+				07B1F527308977E100AA3A68 /* Assets.xcassets */,
+				07B1F529308977E100AA3A68 /* Info.plist */,
+				07B1F518308977E100AA3A68 /* Resources */,
+			);
+			path = DomainPulse;
+			sourceTree = "<group>";
+		};
+		07B1F518308977E100AA3A68 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				07B1F519308977E100AA3A68 /* Main.html */,
+				07B1F51C308977E100AA3A68 /* Icon.png */,
+				07B1F51E308977E100AA3A68 /* Style.css */,
+				07B1F520308977E100AA3A68 /* Script.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		07B1F532308977E100AA3A68 /* DomainPulse Extension */ = {
+			isa = PBXGroup;
+			children = (
+				07B1F53F308977E100AA3A68 /* Resources */,
+				07B1F533308977E100AA3A68 /* SafariWebExtensionHandler.swift */,
+				07B1F535308977E100AA3A68 /* Info.plist */,
+			);
+			path = "DomainPulse Extension";
+			sourceTree = "<group>";
+		};
+		07B1F53F308977E100AA3A68 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				07B1F540308977E100AA3A68 /* branding */,
+				07B1F541308977E100AA3A68 /* index.html */,
+				07B1F542308977E100AA3A68 /* background.js */,
+				07B1F543308977E100AA3A68 /* icons */,
+				07B1F544308977E100AA3A68 /* manifest.json */,
+				07B1F545308977E100AA3A68 /* sidepanel.html */,
+				07B1F546308977E100AA3A68 /* assets */,
+			);
+			name = Resources;
+			path = "DomainPulse Extension";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		07B1F512308977E100AA3A68 /* DomainPulse */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07B1F53C308977E100AA3A68 /* Build configuration list for PBXNativeTarget "DomainPulse" */;
+			buildPhases = (
+				07B1F50F308977E100AA3A68 /* Sources */,
+				07B1F510308977E100AA3A68 /* Frameworks */,
+				07B1F511308977E100AA3A68 /* Resources */,
+				07B1F53B308977E100AA3A68 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				07B1F531308977E100AA3A68 /* PBXTargetDependency */,
+			);
+			name = DomainPulse;
+			productName = DomainPulse;
+			productReference = 07B1F513308977E100AA3A68 /* DomainPulse.app */;
+			productType = "com.apple.product-type.application";
+		};
+		07B1F52D308977E100AA3A68 /* DomainPulse Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07B1F538308977E100AA3A68 /* Build configuration list for PBXNativeTarget "DomainPulse Extension" */;
+			buildPhases = (
+				07B1F52A308977E100AA3A68 /* Sources */,
+				07B1F52B308977E100AA3A68 /* Frameworks */,
+				07B1F52C308977E100AA3A68 /* Resources */,
+			);
+			buildRules = (
+			);
+			name = "DomainPulse Extension";
+			productName = "DomainPulse Extension";
+			productReference = 07B1F52E308977E100AA3A68 /* DomainPulse Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		07B1F50B308977E100AA3A68 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2700;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					07B1F512308977E100AA3A68 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+					07B1F52D308977E100AA3A68 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+				};
+			};
+			buildConfigurationList = 07B1F50E308977E100AA3A68 /* Build configuration list for PBXProject "DomainPulse" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 07B1F50A308977E100AA3A68;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 07B1F514308977E100AA3A68 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				07B1F512308977E100AA3A68 /* DomainPulse */,
+				07B1F52D308977E100AA3A68 /* DomainPulse Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		07B1F511308977E100AA3A68 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				07B1F51D308977E100AA3A68 /* Icon.png in Resources */,
+				07B1F526308977E100AA3A68 /* Main.storyboard in Resources */,
+				07B1F521308977E100AA3A68 /* Script.js in Resources */,
+				07B1F51B308977E100AA3A68 /* Main.html in Resources */,
+				07B1F528308977E100AA3A68 /* Assets.xcassets in Resources */,
+				07B1F51F308977E100AA3A68 /* Style.css in Resources */,
+			);
+		};
+		07B1F52C308977E100AA3A68 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				07B1F547308977E100AA3A68 /* branding in Resources */,
+				07B1F54A308977E100AA3A68 /* icons in Resources */,
+				07B1F54D308977E100AA3A68 /* assets in Resources */,
+				07B1F54B308977E100AA3A68 /* manifest.json in Resources */,
+				07B1F549308977E100AA3A68 /* background.js in Resources */,
+				07B1F54C308977E100AA3A68 /* sidepanel.html in Resources */,
+				07B1F548308977E100AA3A68 /* index.html in Resources */,
+			);
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		07B1F50F308977E100AA3A68 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				07B1F523308977E100AA3A68 /* ViewController.swift in Sources */,
+				07B1F517308977E100AA3A68 /* AppDelegate.swift in Sources */,
+			);
+		};
+		07B1F52A308977E100AA3A68 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				07B1F534308977E100AA3A68 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		07B1F531308977E100AA3A68 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 07B1F52D308977E100AA3A68 /* DomainPulse Extension */;
+			targetProxy = 07B1F530308977E100AA3A68 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		07B1F519308977E100AA3A68 /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07B1F51A308977E100AA3A68 /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+		07B1F524308977E100AA3A68 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07B1F525308977E100AA3A68 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		07B1F536308977E100AA3A68 /* Debug configuration for PBXProject "DomainPulse" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		07B1F537308977E100AA3A68 /* Release configuration for PBXProject "DomainPulse" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		07B1F539308977E100AA3A68 /* Debug configuration for PBXNativeTarget "DomainPulse Extension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "DomainPulse Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "DomainPulse Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = im.carlosrivera.DomainPulse.Extension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		07B1F53A308977E100AA3A68 /* Release configuration for PBXNativeTarget "DomainPulse Extension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "DomainPulse Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "DomainPulse Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = im.carlosrivera.DomainPulse.Extension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		07B1F53D308977E100AA3A68 /* Debug configuration for PBXNativeTarget "DomainPulse" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DomainPulse/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DomainPulse;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				INFOPLIST_KEY_NSViewGestureRecognizerIsExclusive = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = im.carlosrivera.DomainPulse;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		07B1F53E308977E100AA3A68 /* Release configuration for PBXNativeTarget "DomainPulse" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DomainPulse/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DomainPulse;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				INFOPLIST_KEY_NSViewGestureRecognizerIsExclusive = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = im.carlosrivera.DomainPulse;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		07B1F50E308977E100AA3A68 /* Build configuration list for PBXProject "DomainPulse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07B1F536308977E100AA3A68 /* Debug configuration for PBXProject "DomainPulse" */,
+				07B1F537308977E100AA3A68 /* Release configuration for PBXProject "DomainPulse" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		07B1F538308977E100AA3A68 /* Build configuration list for PBXNativeTarget "DomainPulse Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07B1F539308977E100AA3A68 /* Debug configuration for PBXNativeTarget "DomainPulse Extension" */,
+				07B1F53A308977E100AA3A68 /* Release configuration for PBXNativeTarget "DomainPulse Extension" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		07B1F53C308977E100AA3A68 /* Build configuration list for PBXNativeTarget "DomainPulse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07B1F53D308977E100AA3A68 /* Debug configuration for PBXNativeTarget "DomainPulse" */,
+				07B1F53E308977E100AA3A68 /* Release configuration for PBXNativeTarget "DomainPulse" */,
+			);
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 07B1F50B308977E100AA3A68 /* Project object */;
+	validationLevel = 1;
+}
