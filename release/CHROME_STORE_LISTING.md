@@ -8,7 +8,7 @@ Este documento contiene todos los metadatos, textos de ficha, justificación de 
 
 - **Archivo Zip:** [`release/domain-pulse-v1.0.0.zip`](file:///Users/carlos/code/domain-pulse/release/domain-pulse-v1.0.0.zip)
 - **Manifest:** Manifest V3 (`side_panel` native API)
-- **Tamaño:** ~2.0 MB (incluye assets vectoriales y bundles optimizados)
+- **Tamaño:** ~2.0 MB (incluye iconos vectoriales y bundles optimizados)
 
 ---
 
@@ -54,9 +54,33 @@ Domain Pulse does not track you, does not inject ads, does not collect cookies o
 
 ---
 
-## 🔒 3. Justificación de Permisos (*Privacy & Permissions Disclosure*)
+## 📸 3. Capturas de Pantalla Oficiales (*Store Screenshots - 1280 x 800 px*)
 
-En la pestaña **Privacy** de la consola de desarrolladores de Google, te solicitarán justificar cada permiso declarado:
+Los siguientes 4 screenshots han sido generados en resolución exacta **1280 x 800 px** exigida por Google:
+
+| # | Vista | Archivo | Descripción |
+|---|---|---|---|
+| **1** | **Overview & Health Meter** | [`release/store-assets/screenshot-1-overview.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/screenshot-1-overview.png) | Medidor de salud 0–100 (94/100 Grado A), resumen de DNSSEC, SSL y recomendaciones. |
+| **2** | **DNS & Security Headers** | [`release/store-assets/screenshot-2-dns-headers.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/screenshot-2-dns-headers.png) | Validación DNSSEC ECDSA P-256, registros A/AAAA/CAA/NS y cabeceras HSTS/CSP. |
+| **3** | **Email Deliverability** | [`release/store-assets/screenshot-3-email-auth.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/screenshot-3-email-auth.png) | Contador RFC SPF (4/10 lookups), política estricta DMARC (p=reject), MTA-STS y BIMI. |
+| **4** | **Subdomains & Tech Stack** | [`release/store-assets/screenshot-4-subdomains-stack.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/screenshot-4-subdomains-stack.png) | Descubrimiento OSINT de subdominios reales (`admin`, `api`, `mail`) y stack de tecnologías. |
+
+---
+
+## 🖼️ 4. Activos Promocionales (*Promotional Tiles*)
+
+| Tipo de Activo | Dimensiones Requeridas | Archivo Generado |
+|---|---|---|
+| **Icono de la Tienda** | 128 x 128 px | [`release/store-assets/icon-128x128.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/icon-128x128.png) |
+| **Mosaico Pequeño (*Small Promo Tile*)** | 440 x 280 px | [`release/store-assets/promo-small-440x280.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/promo-small-440x280.png) |
+| **Pancarta Grande (*Marquee Banner*)** | 1400 x 560 px | [`release/store-assets/marquee-1400x560.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/marquee-1400x560.png) |
+| **Política de Privacidad** | URL / Documento | [`release/PRIVACY_POLICY.md`](file:///Users/carlos/code/domain-pulse/release/PRIVACY_POLICY.md) |
+
+---
+
+## 🔒 5. Justificación de Permisos (*Privacy & Permissions Disclosure*)
+
+En la pestaña **Privacy** de la consola de desarrolladores de Google:
 
 1. **`sidePanel`**:
    - *Justification:* Used to render the real-time audit HUD inside Chrome's native Side Panel adjacent to active browsing tabs without obstructing page content.
@@ -68,31 +92,3 @@ En la pestaña **Privacy** de la consola de desarrolladores de Google, te solici
    - *Justification:* The extension audits any public website the user navigates to. To query public DNS over HTTPS, certificate transparency records, and HTTP security response headers across any apex domain, broad host permission is necessary.
 5. **Single Purpose Description**:
    - *"Domain Pulse provides real-time web infrastructure, DNS, and security health auditing for web domains via the Chrome Side Panel."*
-
----
-
-## 🖼️ 4. Activos Gráficos Generados (*Store Promotional Assets*)
-
-Los siguientes gráficos cumplen exactamente con las especificaciones de la Chrome Web Store:
-
-| Tipo de Activo | Dimensiones Requeridas | Archivo Generado |
-|---|---|---|
-| **Icono de la Tienda** | 128 x 128 px | [`release/store-assets/icon-128x128.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/icon-128x128.png) |
-| **Mosaico Pequeño (*Small Promo Tile*)** | 440 x 280 px | [`release/store-assets/promo-small-440x280.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/promo-small-440x280.png) |
-| **Pancarta Grande (*Marquee Banner*)** | 1400 x 560 px | [`release/store-assets/marquee-1400x560.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/marquee-1400x560.png) |
-| **Política de Privacidad** | URL / Documento | [`release/PRIVACY_POLICY.md`](file:///Users/carlos/code/domain-pulse/release/PRIVACY_POLICY.md) |
-
----
-
-## 🧭 5. Pasos para Publicar en la Chrome Web Store
-
-1. Ve a [Chrome Web Store Developer Console](https://chrome.google.com/webstore/devconsole).
-2. Haz clic en **"Nuevo elemento" (*New Item*)**.
-3. Sube el archivo zip: [`release/domain-pulse-v1.0.0.zip`](file:///Users/carlos/code/domain-pulse/release/domain-pulse-v1.0.0.zip).
-4. En la pestaña **Listing**:
-   - Pega el Nombre, Resumen Breve y Descripción detallada provistos arriba.
-   - Sube los activos gráficos de [`release/store-assets/`](file:///Users/carlos/code/domain-pulse/release/store-assets/).
-5. En la pestaña **Privacy**:
-   - Pega las justificaciones de permisos indicadas arriba.
-   - Declara la Política de Privacidad de [`release/PRIVACY_POLICY.md`](file:///Users/carlos/code/domain-pulse/release/PRIVACY_POLICY.md).
-6. Haz clic en **"Enviar para revisión" (*Submit for Review*)**.
