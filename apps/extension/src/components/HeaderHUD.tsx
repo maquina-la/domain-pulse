@@ -1,5 +1,21 @@
-import React, { useState } from 'react';
-import { RefreshCw, Copy, Check, Moon, Sun, Settings, Search, X } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import {
+  RefreshCw,
+  Copy,
+  Check,
+  Moon,
+  Sun,
+  Settings,
+  Search,
+  X,
+  ChevronsUpDown,
+  LayoutDashboard,
+  Layers,
+  ShieldCheck,
+  Network,
+  Mail,
+  AlertTriangle,
+} from 'lucide-react';
 import { Button } from './ui/button';
 
 export type TabKey = 'all' | 'tech' | 'security' | 'subdomains' | 'dns_email' | 'alerts';
@@ -19,6 +35,12 @@ interface HeaderHUDProps {
   warningsCount: number;
 }
 
+interface TabOption {
+  key: TabKey;
+  label: string;
+  icon: React.ReactNode;
+}
+
 export const HeaderHUD: React.FC<HeaderHUDProps> = ({
   currentDomain,
   onRefresh,
@@ -35,6 +57,29 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
 }) => {
   const [searchInput, setSearchInput] = useState('');
   const [isSearching, setIsSearching] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,15 +94,43 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
     ? `https://www.google.com/s2/favicons?domain=${currentDomain}&sz=32`
     : null;
 
-  const tabClass = (key: TabKey) =>
-    `py-1 px-2 rounded-[6px] text-[11px] font-medium transition-all whitespace-nowrap ${
-      activeTab === key
-        ? 'bg-card text-foreground shadow-sm'
-        : 'text-muted-foreground hover:text-foreground'
-    }`;
+  const tabOptions: TabOption[] = [
+    {
+      key: 'all',
+      label: 'Resumen General',
+      icon: <LayoutDashboard className="h-3.5 w-3.5 text-primary" />,
+    },
+    {
+      key: 'tech',
+      label: 'Stack Tecnológico',
+      icon: <Layers className="h-3.5 w-3.5 text-[#007aff]" />,
+    },
+    {
+      key: 'security',
+      label: 'Seguridad & Encabezados',
+      icon: <ShieldCheck className="h-3.5 w-3.5 text-[#34c759]" />,
+    },
+    {
+      key: 'subdomains',
+      label: 'Subdominios Descubiertos',
+      icon: <Network className="h-3.5 w-3.5 text-[#ff9500]" />,
+    },
+    {
+      key: 'dns_email',
+      label: 'Email & Infraestructura DNS',
+      icon: <Mail className="h-3.5 w-3.5 text-[#af52de]" />,
+    },
+    {
+      key: 'alerts',
+      label: 'Diagnóstico & Alertas',
+      icon: <AlertTriangle className="h-3.5 w-3.5 text-[#ff3b30]" />,
+    },
+  ];
+
+  const currentOption = tabOptions.find((t) => t.key === activeTab) || tabOptions[0];
 
   return (
-    <header className="sticky top-0 z-30 border-b border-border/80 bg-background/90 backdrop-blur-xl p-3 space-y-2.5">
+    <header className="sticky top-0 z-30 border-b border-border/80 bg-background/90 backdrop-blur-xl p-3 space-y-2">
       {/* Top row: Domain search & Action tools */}
       <div className="flex items-center gap-1.5">
         {isSearching ? (
@@ -98,7 +171,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
         ) : (
           <button
             onClick={() => setIsSearching(true)}
-            className="flex-1 flex items-center justify-between h-7 px-2.5 rounded-[7px] border border-border/70 bg-card/70 hover:bg-card text-xs text-foreground transition-all macos-button shadow-sm"
+            className="flex-1 flex items-center justify-between h-7 px-2.5 rounded-[7px] border border-border/70 bg-card/70 hover:bg-card text-xs text-foreground transition-all macos-button shadow-xs"
             title="Haz clic para buscar o cambiar de dominio"
           >
             <div className="flex items-center gap-2 truncate">
@@ -183,34 +256,72 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
         </Button>
       </div>
 
-      {/* Segmented Control Tabs (Horizontally scrollable if constrained) */}
-      <div className="flex items-center p-0.5 rounded-[8px] bg-muted/70 border border-border/60 text-xs select-none overflow-x-auto gap-0.5">
-        <button onClick={() => onChangeTab('all')} className={tabClass('all')}>
-          Resumen
-        </button>
-        <button onClick={() => onChangeTab('tech')} className={tabClass('tech')}>
-          Stack
-        </button>
-        <button onClick={() => onChangeTab('security')} className={tabClass('security')}>
-          Seguridad
-        </button>
-        <button onClick={() => onChangeTab('subdomains')} className={tabClass('subdomains')}>
-          Subdominios
-        </button>
-        <button onClick={() => onChangeTab('dns_email')} className={tabClass('dns_email')}>
-          Email & DNS
-        </button>
+      {/* Category View Dropdown (macOS NSPopUpButton style) */}
+      <div className="relative" ref={dropdownRef}>
         <button
-          onClick={() => onChangeTab('alerts')}
-          className={`${tabClass('alerts')} flex items-center justify-center gap-1`}
+          type="button"
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          className="w-full flex items-center justify-between h-7 px-2.5 rounded-[7px] border border-border/80 bg-card/80 hover:bg-card text-xs text-foreground transition-all macos-button shadow-xs select-none"
         >
-          <span>Alertas</span>
-          {warningsCount > 0 && (
-            <span className="h-4 min-w-[16px] px-1 rounded-full bg-[#ff3b30] text-white text-[9px] font-bold flex items-center justify-center">
-              {warningsCount}
-            </span>
-          )}
+          <div className="flex items-center gap-2 truncate">
+            {currentOption.icon}
+            <span className="font-medium text-[11px] truncate">{currentOption.label}</span>
+            {activeTab === 'alerts' && warningsCount > 0 && (
+              <span className="h-4 min-w-[16px] px-1 rounded-full bg-[#ff3b30] text-white text-[9px] font-bold flex items-center justify-center">
+                {warningsCount}
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-1.5 shrink-0 text-muted-foreground">
+            {warningsCount > 0 && activeTab !== 'alerts' && (
+              <span className="h-1.5 w-1.5 rounded-full bg-[#ff3b30]" title={`${warningsCount} alertas`} />
+            )}
+            <ChevronsUpDown className="h-3.5 w-3.5 opacity-60" />
+          </div>
         </button>
+
+        {/* Dropdown Menu Popover */}
+        {isDropdownOpen && (
+          <div className="absolute top-full left-0 right-0 mt-1 z-40 rounded-xl macos-window bg-card/95 border border-border/90 p-1 backdrop-blur-xl shadow-xl animate-in fade-in zoom-in-95 duration-100">
+            <div className="space-y-0.5">
+              {tabOptions.map((opt) => {
+                const isSelected = activeTab === opt.key;
+                return (
+                  <button
+                    key={opt.key}
+                    onClick={() => {
+                      onChangeTab(opt.key);
+                      setIsDropdownOpen(false);
+                    }}
+                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-[6px] text-xs transition-colors text-left ${
+                      isSelected
+                        ? 'bg-primary text-primary-foreground font-medium'
+                        : 'hover:bg-muted/70 text-foreground'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      {opt.icon}
+                      <span className="text-[11px]">{opt.label}</span>
+                    </div>
+
+                    <div className="flex items-center gap-1.5">
+                      {opt.key === 'alerts' && warningsCount > 0 && (
+                        <span
+                          className={`h-4 min-w-[16px] px-1 rounded-full text-[9px] font-bold flex items-center justify-center ${
+                            isSelected ? 'bg-white text-primary' : 'bg-[#ff3b30] text-white'
+                          }`}
+                        >
+                          {warningsCount}
+                        </span>
+                      )}
+                      {isSelected && <Check className="h-3 w-3 shrink-0" />}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );
