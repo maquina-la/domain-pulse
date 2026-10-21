@@ -1,35 +1,32 @@
 # 🚀 Chrome Web Store Publication Guide — Domain Pulse
 
-Este documento contiene todos los metadatos, textos de ficha, justificación de permisos y activos listos para subir en la [Chrome Web Store Developer Console](https://chrome.google.com/webstore/devconsole).
+This document contains all listing metadata, store descriptions, permissions disclosures, and assets ready for submission to the [Chrome Web Store Developer Console](https://chrome.google.com/webstore/devconsole).
 
 ---
 
-## 📦 1. Archivo para Subir (*Package Upload*)
+## 📦 1. Package Upload
 
-- **Archivo Zip:** [`release/domain-pulse-v1.0.0.zip`](file:///Users/carlos/code/domain-pulse/release/domain-pulse-v1.0.0.zip)
+- **Zip File:** [`release/domain-pulse-v1.0.0.zip`](file:///Users/carlos/code/domain-pulse/release/domain-pulse-v1.0.0.zip)
 - **Manifest:** Manifest V3 (`side_panel` native API)
-- **Tamaño:** ~2.0 MB (incluye iconos vectoriales y bundles optimizados)
+- **Size:** ~2.0 MB (includes vector branding and optimized assets)
 
 ---
 
-## 📝 2. Ficha del Producto (*Store Listing Metadata*)
+## 📝 2. Store Listing Metadata
 
-### Nombre de la Extensión
+### Extension Name
 `Domain Pulse - Domain Health & Audit HUD`
 
-### Resumen Breve (*Short Summary* — máx. 132 caracteres)
-`Audita en tiempo real la salud de cualquier dominio: DNS, SSL/TLS, SPF/DMARC, subdominios reales y stack web desde el Side Panel.`
-
-*(En inglés)*:
+### Short Summary (max 132 characters)
 `Real-time domain health & infrastructure audit HUD in Chrome Side Panel: DNS, SSL/TLS, SPF/DMARC, real subdomains & tech stack.`
 
-### Categoría
-- **Categoría principal:** Developer Tools (*Herramientas para desarrolladores*)
-- **Categoría secundaria:** Productivity (*Productividad*)
+### Category
+- **Primary Category:** Developer Tools
+- **Secondary Category:** Productivity
 
 ---
 
-### Descripción Detallada (*Detailed Description*)
+### Detailed Description
 
 ```markdown
 ⚡ Domain Pulse — Your Real-Time Web Infrastructure & Domain Health HUD
@@ -54,33 +51,33 @@ Domain Pulse does not track you, does not inject ads, does not collect cookies o
 
 ---
 
-## 📸 3. Capturas de Pantalla Oficiales (*Store Screenshots - 1280 x 800 px*)
+## 📸 3. Official Store Screenshots (1280 x 800 px)
 
-Los siguientes 4 screenshots han sido generados en resolución exacta **1280 x 800 px** exigida por Google:
+The following 4 screenshots have been generated at the exact **1280 x 800 px** resolution required by Google:
 
-| # | Vista | Archivo | Descripción |
+| # | View | File | Description |
 |---|---|---|---|
-| **1** | **Overview & Health Meter** | [`release/store-assets/screenshot-1-overview.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/screenshot-1-overview.png) | Medidor de salud 0–100 (94/100 Grado A), resumen de DNSSEC, SSL y recomendaciones. |
-| **2** | **DNS & Security Headers** | [`release/store-assets/screenshot-2-dns-headers.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/screenshot-2-dns-headers.png) | Validación DNSSEC ECDSA P-256, registros A/AAAA/CAA/NS y cabeceras HSTS/CSP. |
-| **3** | **Email Deliverability** | [`release/store-assets/screenshot-3-email-auth.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/screenshot-3-email-auth.png) | Contador RFC SPF (4/10 lookups), política estricta DMARC (p=reject), MTA-STS y BIMI. |
-| **4** | **Subdomains & Tech Stack** | [`release/store-assets/screenshot-4-subdomains-stack.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/screenshot-4-subdomains-stack.png) | Descubrimiento OSINT de subdominios reales (`admin`, `api`, `mail`) y stack de tecnologías. |
+| **1** | **Overview & Health Meter** | [`release/store-assets/screenshot-1-overview.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/screenshot-1-overview.png) | 0–100 Health Gauge (94/100 Grade A), DNSSEC status, SSL countdown, and security warnings. |
+| **2** | **DNS & Security Headers** | [`release/store-assets/screenshot-2-dns-headers.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/screenshot-2-dns-headers.png) | DNSSEC ECDSA P-256 validation, A/AAAA/CAA/NS records, and HSTS/CSP security response headers. |
+| **3** | **Email Deliverability** | [`release/store-assets/screenshot-3-email-auth.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/screenshot-3-email-auth.png) | RFC SPF counter (4/10 lookups), strict DMARC enforcement (p=reject), MTA-STS, and BIMI trust seals. |
+| **4** | **Subdomains & Tech Stack** | [`release/store-assets/screenshot-4-subdomains-stack.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/screenshot-4-subdomains-stack.png) | OSINT discovery of real subdomains (`admin`, `api`, `mail`) and detected technologies. |
 
 ---
 
-## 🖼️ 4. Activos Promocionales (*Promotional Tiles*)
+## 🖼️ 4. Promotional Tiles
 
-| Tipo de Activo | Dimensiones Requeridas | Archivo Generado |
+| Asset Type | Required Dimensions | Generated File |
 |---|---|---|
-| **Icono de la Tienda** | 128 x 128 px | [`release/store-assets/icon-128x128.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/icon-128x128.png) |
-| **Mosaico Pequeño (*Small Promo Tile*)** | 440 x 280 px | [`release/store-assets/promo-small-440x280.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/promo-small-440x280.png) |
-| **Pancarta Grande (*Marquee Banner*)** | 1400 x 560 px | [`release/store-assets/marquee-1400x560.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/marquee-1400x560.png) |
-| **Política de Privacidad** | URL / Documento | [`release/PRIVACY_POLICY.md`](file:///Users/carlos/code/domain-pulse/release/PRIVACY_POLICY.md) |
+| **Store Icon** | 128 x 128 px | [`release/store-assets/icon-128x128.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/icon-128x128.png) |
+| **Small Promo Tile** | 440 x 280 px | [`release/store-assets/promo-small-440x280.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/promo-small-440x280.png) |
+| **Marquee Banner** | 1400 x 560 px | [`release/store-assets/marquee-1400x560.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/marquee-1400x560.png) |
+| **Privacy Policy** | URL / Document | [`release/PRIVACY_POLICY.md`](file:///Users/carlos/code/domain-pulse/release/PRIVACY_POLICY.md) |
 
 ---
 
-## 🔒 5. Justificación de Permisos (*Privacy & Permissions Disclosure*)
+## 🔒 5. Privacy & Permissions Disclosure
 
-En la pestaña **Privacy** de la consola de desarrolladores de Google:
+In the **Privacy** tab of the Google Chrome Web Store Developer Console:
 
 1. **`sidePanel`**:
    - *Justification:* Used to render the real-time audit HUD inside Chrome's native Side Panel adjacent to active browsing tabs without obstructing page content.
