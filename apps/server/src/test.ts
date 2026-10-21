@@ -1,18 +1,19 @@
-import { fetchAllDnsRecords } from './services/doh.js';
+import { fetchAllDnsRecords, reconSubdomains } from './services/doh.js';
 import { inspectTls } from './services/tls.js';
-import { checkHsts } from './services/hsts.js';
+import { probeHttpAndTech } from './services/http-probe.js';
 import { fetchRdapInfo } from './services/rdap.js';
-import { detectDnsProvider, detectEmailProvider, parseSpf, parseDmarc } from './services/providers.js';
+import { detectDnsProvider, detectEmailProvider, parseSpf, parseDmarc, parseMtaSts, parseBimi } from './services/providers.js';
 import { calculateHealthScore } from '@domain-pulse/shared';
 
 async function run() {
   const testDomain = 'github.com';
   console.log(`Auditing ${testDomain}...`);
 
-  const [dns, tls, hsts] = await Promise.all([
+  const [dns, subdomains, tls, httpProbe] = await Promise.all([
     fetchAllDnsRecords(testDomain),
+    reconSubdomains(testDomain),
     inspectTls(testDomain),
-    checkHsts(testDomain),
+    probeHttpAndTech(testDomain),
   ]);
 
   const rdap = await fetchRdapInfo(testDomain, dns.nameservers);
@@ -20,6 +21,8 @@ async function run() {
   const emailProv = detectEmailProvider(dns.mx_records);
   const spf = parseSpf(dns.txt_records);
   const dmarc = parseDmarc(dns.dmarc_txt_records, dns.txt_records);
+  const mta_sts = parseMtaSts(dns.mta_sts_txt_records);
+  const bimi = parseBimi(dns.bimi_txt_records);
 
   const regInfo = { ...rdap };
   const dnsInfo = {
@@ -28,27 +31,37 @@ async function run() {
     detected_provider: provider,
     has_ipv6: dns.aaaa_records.length > 0,
     nameservers: dns.nameservers,
+    dnssec: {
+      enabled: dns.dnssec_ds_records.length > 0 || dns.dnssec_ad_flag,
+      ds_records: dns.dnssec_ds_records,
+    },
+    caa: {
+      configured: dns.caa_records.length > 0,
+      records: dns.caa_records,
+    },
   };
   const sslInfo = {
     ...tls,
-    hsts_enabled: hsts,
+    hsts_enabled: httpProbe.hsts_enabled,
   };
   const emailInfo = {
     mx_records: dns.mx_records,
     provider: emailProv,
     spf,
     dmarc,
+    mta_sts,
+    bimi,
   };
 
-  const score = calculateHealthScore(regInfo, dnsInfo, sslInfo, emailInfo);
+  const score = calculateHealthScore(regInfo, dnsInfo, sslInfo, emailInfo, httpProbe.security_headers);
 
   console.log('Result for', testDomain, ':');
   console.log('Health Score:', score.score, score.grade);
-  console.log('DNS Provider:', provider);
-  console.log('Email Provider:', emailProv);
-  console.log('SSL Issuer:', sslInfo.issuer, 'TLS:', sslInfo.tls_version, 'Days remaining:', sslInfo.days_remaining);
-  console.log('Penalties:', score.penalties);
-  console.log('Warnings count:', score.warnings.length);
+  console.log('DNSSEC enabled:', dnsInfo.dnssec.enabled);
+  console.log('CAA configured:', dnsInfo.caa.configured);
+  console.log('Tech Stack detected:', httpProbe.tech_stack.detected);
+  console.log('Active Subdomains:', subdomains.filter(s => s.active).map(s => s.subdomain));
+  console.log('Security Headers score:', httpProbe.security_headers.score_percentage + '%');
 }
 
 run().catch(console.error);

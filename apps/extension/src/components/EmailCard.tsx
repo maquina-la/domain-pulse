@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { EmailInfo } from '@domain-pulse/shared';
 import { Badge } from './ui/badge';
-import { Mail, CheckCircle2, AlertTriangle, XCircle, ChevronDown, ChevronRight } from 'lucide-react';
+import { Mail, CheckCircle2, AlertTriangle, XCircle, ChevronDown, ChevronRight, ShieldCheck, Image } from 'lucide-react';
 
 interface EmailCardProps {
   email: EmailInfo;
@@ -15,6 +15,13 @@ export const EmailCard: React.FC<EmailCardProps> = ({ email }) => {
       return (
         <Badge variant="danger" className="text-[10px] py-0">
           <XCircle className="mr-1 h-3 w-3" /> Sin SPF
+        </Badge>
+      );
+    }
+    if (email.spf.lookup_limit_exceeded) {
+      return (
+        <Badge variant="danger" className="text-[10px] py-0">
+          <AlertTriangle className="mr-1 h-3 w-3" /> &gt;10 Lookups (Fallo)
         </Badge>
       );
     }
@@ -76,7 +83,7 @@ export const EmailCard: React.FC<EmailCardProps> = ({ email }) => {
           <span className="flex h-3.5 w-3.5 items-center justify-center rounded-sm bg-[#af52de]/15 text-[#af52de]">
             <Mail className="h-2.5 w-2.5" />
           </span>
-          Email Deliverability
+          Email Deliverability & Autenticación
         </span>
         <Badge variant="outline" className="font-semibold text-[10px] py-0 px-2 text-[#af52de] dark:text-[#bf5af2] border-[#af52de]/30">
           {email.provider}
@@ -87,14 +94,64 @@ export const EmailCard: React.FC<EmailCardProps> = ({ email }) => {
       <div className="rounded-xl macos-card bg-card/75 backdrop-blur-md overflow-hidden divide-y divide-border/50 text-xs">
         {/* Row: SPF */}
         <div className="flex items-center justify-between p-2.5">
-          <span className="text-muted-foreground">Autenticación SPF</span>
+          <div>
+            <div className="font-medium text-foreground">Autenticación SPF</div>
+            <div className="text-[10px] text-muted-foreground font-mono">
+              {email.spf.configured ? `${email.spf.lookup_count}/10 consultas DNS usadas` : 'No configurado'}
+            </div>
+          </div>
           {getSpfBadge()}
         </div>
 
         {/* Row: DMARC */}
         <div className="flex items-center justify-between p-2.5">
-          <span className="text-muted-foreground">Política DMARC</span>
+          <div>
+            <div className="font-medium text-foreground">Política DMARC</div>
+            <div className="text-[10px] text-muted-foreground">Protección de identidad y spoofing</div>
+          </div>
           {getDmarcBadge()}
+        </div>
+
+        {/* Row: MTA-STS */}
+        <div className="flex items-center justify-between p-2.5">
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="h-3.5 w-3.5 text-muted-foreground" />
+            <div>
+              <div className="font-medium text-foreground">MTA-STS (RFC 8461)</div>
+              <div className="text-[10px] text-muted-foreground">Cifrado TLS estricto en tránsito</div>
+            </div>
+          </div>
+          {email.mta_sts?.configured ? (
+            <Badge variant="success" className="text-[10px] py-0">
+              <CheckCircle2 className="mr-1 h-3 w-3" />
+              {email.mta_sts.mode ? `mode=${email.mta_sts.mode}` : 'Activo'}
+            </Badge>
+          ) : (
+            <Badge variant="outline" className="text-[10px] py-0 text-muted-foreground">
+              No configurado
+            </Badge>
+          )}
+        </div>
+
+        {/* Row: BIMI */}
+        <div className="flex items-center justify-between p-2.5">
+          <div className="flex items-center gap-2">
+            <Image className="h-3.5 w-3.5 text-muted-foreground" />
+            <div>
+              <div className="font-medium text-foreground">BIMI (Logo Verificado)</div>
+              <div className="text-[10px] text-muted-foreground">Avatar oficial en bandejas de correo</div>
+            </div>
+          </div>
+          {email.bimi?.configured ? (
+            <Badge variant="success" className="text-[10px] py-0">
+              <CheckCircle2 className="mr-1 h-3 w-3" />
+              Configurado
+            </Badge>
+          ) : (
+            <Badge variant="outline" className="text-[10px] py-0 text-muted-foreground">
+              No configurado
+            </Badge>
+          )}
         </div>
 
         {/* Row: MX Servers */}
@@ -130,7 +187,7 @@ export const EmailCard: React.FC<EmailCardProps> = ({ email }) => {
         </div>
 
         {/* Disclosure: Raw TXT records */}
-        {(email.spf.raw || email.dmarc.raw) && (
+        {(email.spf.raw || email.dmarc.raw || email.mta_sts?.raw) && (
           <div className="p-2.5 bg-muted/20">
             <button
               onClick={() => setShowRaw(!showRaw)}
@@ -141,7 +198,7 @@ export const EmailCard: React.FC<EmailCardProps> = ({ email }) => {
               ) : (
                 <ChevronRight className="h-3 w-3 text-muted-foreground" />
               )}
-              <span>Registros TXT brutos</span>
+              <span>Ver registros TXT brutos</span>
             </button>
 
             {showRaw && (
@@ -156,6 +213,12 @@ export const EmailCard: React.FC<EmailCardProps> = ({ email }) => {
                   <div className="rounded-[5px] bg-card border border-border/60 p-2 break-all text-muted-foreground">
                     <strong className="text-foreground">DMARC: </strong>
                     {email.dmarc.raw}
+                  </div>
+                )}
+                {email.mta_sts?.raw && (
+                  <div className="rounded-[5px] bg-card border border-border/60 p-2 break-all text-muted-foreground">
+                    <strong className="text-foreground">MTA-STS: </strong>
+                    {email.mta_sts.raw}
                   </div>
                 )}
               </div>

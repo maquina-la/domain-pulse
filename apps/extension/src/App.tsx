@@ -2,12 +2,15 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { AuditResponse, generateAuditMarkdown } from '@domain-pulse/shared';
 import { extractApexDomain, getActiveTabDomain } from './lib/domain';
 import { fetchDomainAudit } from './lib/api';
-import { HeaderHUD } from './components/HeaderHUD';
+import { HeaderHUD, TabKey } from './components/HeaderHUD';
 import { ScoreGauge } from './components/ScoreGauge';
 import { RegistrationCard } from './components/RegistrationCard';
 import { DnsCard } from './components/DnsCard';
 import { SslCard } from './components/SslCard';
 import { EmailCard } from './components/EmailCard';
+import { SecurityHeadersCard } from './components/SecurityHeadersCard';
+import { TechStackCard } from './components/TechStackCard';
+import { SubdomainsCard } from './components/SubdomainsCard';
 import { WarningsList } from './components/WarningsList';
 import { SettingsModal } from './components/SettingsModal';
 import { Button } from './components/ui/button';
@@ -20,7 +23,7 @@ export const App: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [copiedMarkdown, setCopiedMarkdown] = useState<boolean>(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<'all' | 'dns_ssl' | 'email' | 'alerts'>('all');
+  const [activeTab, setActiveTab] = useState<TabKey>('all');
 
   // Theme state
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
@@ -179,30 +182,48 @@ export const App: React.FC = () => {
               latencyMs={audit.latency_ms}
             />
 
-            {/* Tab: Overview (All 4 categories) */}
+            {/* Tab: Resumen (Overview) */}
             {activeTab === 'all' && (
               <div className="space-y-3">
+                <TechStackCard techStack={audit.tech_stack} />
+                <SecurityHeadersCard headers={audit.security_headers} />
                 <RegistrationCard registration={audit.registration} />
                 <DnsCard dns={audit.dns} />
                 <SslCard ssl={audit.ssl} />
                 <EmailCard email={audit.email} />
+                <SubdomainsCard subdomains={audit.subdomains} />
                 <WarningsList warnings={audit.warnings} />
               </div>
             )}
 
-            {/* Tab: DNS & SSL */}
-            {activeTab === 'dns_ssl' && (
+            {/* Tab: Tech Stack */}
+            {activeTab === 'tech' && (
               <div className="space-y-3">
-                <DnsCard dns={audit.dns} />
-                <SslCard ssl={audit.ssl} />
-                <RegistrationCard registration={audit.registration} />
+                <TechStackCard techStack={audit.tech_stack} />
               </div>
             )}
 
-            {/* Tab: Email */}
-            {activeTab === 'email' && (
+            {/* Tab: Seguridad & Headers */}
+            {activeTab === 'security' && (
               <div className="space-y-3">
+                <SecurityHeadersCard headers={audit.security_headers} />
+                <SslCard ssl={audit.ssl} />
+              </div>
+            )}
+
+            {/* Tab: Subdominios */}
+            {activeTab === 'subdomains' && (
+              <div className="space-y-3">
+                <SubdomainsCard subdomains={audit.subdomains} />
+              </div>
+            )}
+
+            {/* Tab: Email & DNS */}
+            {activeTab === 'dns_email' && (
+              <div className="space-y-3">
+                <DnsCard dns={audit.dns} />
                 <EmailCard email={audit.email} />
+                <RegistrationCard registration={audit.registration} />
               </div>
             )}
 

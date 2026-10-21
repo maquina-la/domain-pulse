@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { DnsInfo } from '@domain-pulse/shared';
 import { Badge } from './ui/badge';
-import { Globe, CheckCircle2, XCircle, Copy, Check } from 'lucide-react';
+import { Globe, CheckCircle2, XCircle, Copy, Check, ShieldCheck, FileCheck } from 'lucide-react';
 
 interface DnsCardProps {
   dns: DnsInfo;
@@ -24,7 +24,7 @@ export const DnsCard: React.FC<DnsCardProps> = ({ dns }) => {
           <span className="flex h-3.5 w-3.5 items-center justify-center rounded-sm bg-[#34c759]/15 text-[#34c759]">
             <Globe className="h-2.5 w-2.5" />
           </span>
-          Infraestructura DNS
+          Infraestructura DNS & Seguridad
         </span>
         <Badge variant="outline" className="font-semibold text-[10px] py-0 px-2 text-[#007aff] dark:text-[#0a84ff] border-[#007aff]/30">
           {dns.detected_provider}
@@ -33,6 +33,43 @@ export const DnsCard: React.FC<DnsCardProps> = ({ dns }) => {
 
       {/* macOS Inset Grouped Container */}
       <div className="rounded-xl macos-card bg-card/75 backdrop-blur-md overflow-hidden divide-y divide-border/50 text-xs">
+        {/* Row: DNSSEC */}
+        <div className="flex items-center justify-between p-2.5">
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="h-3.5 w-3.5 text-muted-foreground" />
+            <span>Firma Criptográfica (DNSSEC)</span>
+          </div>
+          {dns.dnssec?.enabled ? (
+            <Badge variant="success" className="text-[10px] py-0">
+              <CheckCircle2 className="mr-1 h-3 w-3" />
+              Habilitado
+            </Badge>
+          ) : (
+            <Badge variant="warning" className="text-[10px] py-0">
+              <XCircle className="mr-1 h-3 w-3" />
+              Deshabilitado
+            </Badge>
+          )}
+        </div>
+
+        {/* Row: CAA Records */}
+        <div className="flex items-center justify-between p-2.5">
+          <div className="flex items-center gap-2">
+            <FileCheck className="h-3.5 w-3.5 text-muted-foreground" />
+            <span>Restricción de Emisión (CAA)</span>
+          </div>
+          {dns.caa?.configured ? (
+            <Badge variant="success" className="text-[10px] py-0">
+              <CheckCircle2 className="mr-1 h-3 w-3" />
+              Configurado ({dns.caa.records.length})
+            </Badge>
+          ) : (
+            <Badge variant="outline" className="text-[10px] py-0 text-muted-foreground">
+              Sin registros CAA
+            </Badge>
+          )}
+        </div>
+
         {/* Row: IPv6 Support */}
         <div className="flex items-center justify-between p-2.5">
           <span className="text-muted-foreground">Soporte IPv6 (AAAA)</span>

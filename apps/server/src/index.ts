@@ -3,15 +3,17 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { parse } from 'tldts';
 import { AuditResponse, calculateHealthScore } from '@domain-pulse/shared';
-import { fetchAllDnsRecords } from './services/doh.js';
+import { fetchAllDnsRecords, reconSubdomains } from './services/doh.js';
 import { fetchRdapInfo } from './services/rdap.js';
 import { inspectTls } from './services/tls.js';
-import { checkHsts } from './services/hsts.js';
+import { probeHttpAndTech } from './services/http-probe.js';
 import {
   detectDnsProvider,
   detectEmailProvider,
   parseSpf,
   parseDmarc,
+  parseMtaSts,
+  parseBimi,
 } from './services/providers.js';
 import { auditCache } from './services/cache.js';
 import { isRateLimited } from './services/rate-limit.js';
@@ -23,7 +25,6 @@ app.use(
   '*',
   cors({
     origin: (origin) => {
-      // Allow Chrome Extension origins and local development
       if (!origin) return '*';
       if (origin.startsWith('chrome-extension://')) return origin;
       if (origin.includes('localhost') || origin.includes('127.0.0.1')) return origin;
@@ -39,7 +40,7 @@ app.get('/health', (c) => {
   return c.json({ status: 'ok', service: 'domain-pulse-gateway', time: new Date().toISOString() });
 });
 
-// Cache purge endpoint for testing / debugging
+// Cache purge endpoint
 app.post('/v1/cache/clear', (c) => {
   auditCache.clear();
   return c.json({ success: true, message: 'Audit cache cleared' });
@@ -77,9 +78,9 @@ app.get('/v1/audit', async (c) => {
 
   // Clean and extract apex domain using Public Suffix List
   let cleanInput = rawDomain.trim().toLowerCase();
-  cleanInput = cleanInput.replace(/^[a-z]+:\/\//, ''); // strip http://, https://
-  cleanInput = cleanInput.replace(/\/.*$/, ''); // strip path
-  cleanInput = cleanInput.replace(/:[0-9]+$/, ''); // strip port
+  cleanInput = cleanInput.replace(/^[a-z]+:\/\//, '');
+  cleanInput = cleanInput.replace(/\/.*$/, '');
+  cleanInput = cleanInput.replace(/:[0-9]+$/, '');
 
   const parsed = parse(cleanInput);
   const targetDomain = parsed.domain || cleanInput;
@@ -102,14 +103,16 @@ app.get('/v1/audit', async (c) => {
   c.header('X-Cache-Status', 'MISS');
 
   try {
-    // FR-07: Parallel Fan-out
-    // 1. DoH queries (A, AAAA, MX, TXT, DMARC, NS)
-    // 2. TLS handshake inspection on port 443
-    // 3. HSTS header detection
-    const [dnsResult, tlsResult, hstsResult] = await Promise.all([
+    // Parallel Fan-out:
+    // 1. DoH queries (A, AAAA, MX, TXT, DMARC, MTA-STS, BIMI, NS, DS, CAA)
+    // 2. Subdomain Recon (www, api, admin, app, mail, dev, staging, portal)
+    // 3. TLS handshake on port 443
+    // 4. HTTP & Tech Stack probe (Security Headers, Tech Stack, HTTP->HTTPS redirect)
+    const [dnsResult, subdomainsResult, tlsResult, httpProbeResult] = await Promise.all([
       fetchAllDnsRecords(targetDomain),
+      reconSubdomains(targetDomain),
       inspectTls(targetDomain),
-      checkHsts(targetDomain),
+      probeHttpAndTech(targetDomain),
     ]);
 
     // RDAP query (Whois) can use the NS records from DNS as fallback if needed
@@ -118,15 +121,17 @@ app.get('/v1/audit', async (c) => {
     // Merge SSL info with HSTS check
     const ssl = {
       ...tlsResult,
-      hsts_enabled: hstsResult,
+      hsts_enabled: httpProbeResult.hsts_enabled || tlsResult.hsts_enabled,
     };
 
     // Detected DNS / CDN Provider
     const detected_provider = detectDnsProvider(dnsResult.a_records, dnsResult.nameservers);
 
-    // Email parsing
+    // Email parsing (SPF with lookup count, DMARC, MTA-STS, BIMI)
     const spf = parseSpf(dnsResult.txt_records);
     const dmarc = parseDmarc(dnsResult.dmarc_txt_records, dnsResult.txt_records);
+    const mta_sts = parseMtaSts(dnsResult.mta_sts_txt_records);
+    const bimi = parseBimi(dnsResult.bimi_txt_records);
     const emailProvider = detectEmailProvider(dnsResult.mx_records);
 
     const email = {
@@ -134,6 +139,8 @@ app.get('/v1/audit', async (c) => {
       provider: emailProvider,
       spf,
       dmarc,
+      mta_sts,
+      bimi,
     };
 
     const dns = {
@@ -142,6 +149,14 @@ app.get('/v1/audit', async (c) => {
       detected_provider,
       has_ipv6: dnsResult.aaaa_records.length > 0,
       nameservers: dnsResult.nameservers,
+      dnssec: {
+        enabled: dnsResult.dnssec_ds_records.length > 0 || dnsResult.dnssec_ad_flag,
+        ds_records: dnsResult.dnssec_ds_records,
+      },
+      caa: {
+        configured: dnsResult.caa_records.length > 0,
+        records: dnsResult.caa_records,
+      },
     };
 
     const registration = {
@@ -149,8 +164,14 @@ app.get('/v1/audit', async (c) => {
       nameservers: rdapResult.nameservers.length > 0 ? rdapResult.nameservers : dnsResult.nameservers,
     };
 
-    // Calculate Domain Health Score (Section 6)
-    const scoreResult = calculateHealthScore(registration, dns, ssl, email);
+    // Calculate Domain Health Score
+    const scoreResult = calculateHealthScore(
+      registration,
+      dns,
+      ssl,
+      email,
+      httpProbeResult.security_headers
+    );
 
     const auditResponse: AuditResponse = {
       domain: targetDomain,
@@ -160,6 +181,9 @@ app.get('/v1/audit', async (c) => {
       dns,
       ssl,
       email,
+      security_headers: httpProbeResult.security_headers,
+      tech_stack: httpProbeResult.tech_stack,
+      subdomains: subdomainsResult,
       warnings: scoreResult.warnings,
       score_breakdown: {
         grade: scoreResult.grade,
@@ -187,7 +211,7 @@ app.get('/v1/audit', async (c) => {
 
 const PORT = Number(process.env.PORT) || 3000;
 
-console.log(`⚡ Domain-pulse API Gateway running at http://localhost:${PORT}`);
+console.log(`⚡ Domain Pulse API Gateway running at http://localhost:${PORT}`);
 serve({
   fetch: app.fetch,
   port: PORT,

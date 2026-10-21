@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { RefreshCw, Copy, Check, Moon, Sun, Settings, Search, X } from 'lucide-react';
 import { Button } from './ui/button';
 
+export type TabKey = 'all' | 'tech' | 'security' | 'subdomains' | 'dns_email' | 'alerts';
+
 interface HeaderHUDProps {
   currentDomain: string;
   onRefresh: () => void;
@@ -12,8 +14,8 @@ interface HeaderHUDProps {
   onToggleTheme: () => void;
   onOpenSettings: () => void;
   isLoading: boolean;
-  activeTab: 'all' | 'dns_ssl' | 'email' | 'alerts';
-  onChangeTab: (tab: 'all' | 'dns_ssl' | 'email' | 'alerts') => void;
+  activeTab: TabKey;
+  onChangeTab: (tab: TabKey) => void;
   warningsCount: number;
 }
 
@@ -46,6 +48,13 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
   const faviconUrl = currentDomain
     ? `https://www.google.com/s2/favicons?domain=${currentDomain}&sz=32`
     : null;
+
+  const tabClass = (key: TabKey) =>
+    `py-1 px-2 rounded-[6px] text-[11px] font-medium transition-all whitespace-nowrap ${
+      activeTab === key
+        ? 'bg-card text-foreground shadow-sm'
+        : 'text-muted-foreground hover:text-foreground'
+    }`;
 
   return (
     <header className="sticky top-0 z-30 border-b border-border/80 bg-background/90 backdrop-blur-xl p-3 space-y-2.5">
@@ -148,7 +157,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
           className="h-7 w-7 text-muted-foreground hover:text-foreground shrink-0"
           title="Recargar auditoría"
         >
-          <RefreshCw className={`h-3 w-3 ${isLoading ? 'animate-spin text-primary' : ''}`} />
+          <RefreshCw className={`h-3.5 w-3.5 ${isLoading ? 'animate-spin text-primary' : ''}`} />
         </Button>
 
         {/* Action: Theme Toggle */}
@@ -174,45 +183,26 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
         </Button>
       </div>
 
-      {/* Segmented Control Tabs */}
-      <div className="flex items-center p-0.5 rounded-[8px] bg-muted/70 border border-border/60 text-xs select-none">
-        <button
-          onClick={() => onChangeTab('all')}
-          className={`flex-1 py-1 px-2 rounded-[6px] text-[11px] font-medium transition-all ${
-            activeTab === 'all'
-              ? 'bg-card text-foreground shadow-sm'
-              : 'text-muted-foreground hover:text-foreground'
-          }`}
-        >
+      {/* Segmented Control Tabs (Horizontally scrollable if constrained) */}
+      <div className="flex items-center p-0.5 rounded-[8px] bg-muted/70 border border-border/60 text-xs select-none overflow-x-auto gap-0.5">
+        <button onClick={() => onChangeTab('all')} className={tabClass('all')}>
           Resumen
         </button>
-        <button
-          onClick={() => onChangeTab('dns_ssl')}
-          className={`flex-1 py-1 px-2 rounded-[6px] text-[11px] font-medium transition-all ${
-            activeTab === 'dns_ssl'
-              ? 'bg-card text-foreground shadow-sm'
-              : 'text-muted-foreground hover:text-foreground'
-          }`}
-        >
-          DNS & SSL
+        <button onClick={() => onChangeTab('tech')} className={tabClass('tech')}>
+          Stack
         </button>
-        <button
-          onClick={() => onChangeTab('email')}
-          className={`flex-1 py-1 px-2 rounded-[6px] text-[11px] font-medium transition-all ${
-            activeTab === 'email'
-              ? 'bg-card text-foreground shadow-sm'
-              : 'text-muted-foreground hover:text-foreground'
-          }`}
-        >
-          Email
+        <button onClick={() => onChangeTab('security')} className={tabClass('security')}>
+          Seguridad
+        </button>
+        <button onClick={() => onChangeTab('subdomains')} className={tabClass('subdomains')}>
+          Subdominios
+        </button>
+        <button onClick={() => onChangeTab('dns_email')} className={tabClass('dns_email')}>
+          Email & DNS
         </button>
         <button
           onClick={() => onChangeTab('alerts')}
-          className={`flex-1 py-1 px-2 rounded-[6px] text-[11px] font-medium transition-all flex items-center justify-center gap-1 ${
-            activeTab === 'alerts'
-              ? 'bg-card text-foreground shadow-sm'
-              : 'text-muted-foreground hover:text-foreground'
-          }`}
+          className={`${tabClass('alerts')} flex items-center justify-center gap-1`}
         >
           <span>Alertas</span>
           {warningsCount > 0 && (

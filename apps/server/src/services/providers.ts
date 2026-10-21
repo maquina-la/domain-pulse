@@ -1,4 +1,4 @@
-import { SpfInfo, DmarcPolicy, MxRecord } from '@domain-pulse/shared';
+import { SpfInfo, DmarcPolicy, MxRecord, MtaStsInfo, BimiInfo } from '@domain-pulse/shared';
 
 export function detectDnsProvider(a_records: string[], nameservers: string[]): string {
   const nsString = nameservers.join(' ').toLowerCase();
@@ -93,6 +93,8 @@ export function parseSpf(txtRecords: string[]): SpfInfo {
       configured: false,
       raw: null,
       strictness: null,
+      lookup_count: 0,
+      lookup_limit_exceeded: false,
     };
   }
 
@@ -109,18 +111,38 @@ export function parseSpf(txtRecords: string[]): SpfInfo {
     strictness = 'none';
   }
 
+  // Count DNS lookups according to RFC 7208:
+  // include:, a, a:, mx, mx:, ptr, exists:, redirect=
+  let lookup_count = 0;
+  const tokens = spfRecord.split(/\s+/);
+  for (const token of tokens) {
+    const t = token.toLowerCase();
+    if (
+      t.startsWith('include:') ||
+      t.startsWith('a:') ||
+      t === 'a' ||
+      t.startsWith('mx:') ||
+      t === 'mx' ||
+      t.startsWith('ptr') ||
+      t.startsWith('exists:') ||
+      t.startsWith('redirect=')
+    ) {
+      lookup_count += 1;
+    }
+  }
+
   return {
     configured: true,
     raw: spfRecord,
     strictness,
+    lookup_count,
+    lookup_limit_exceeded: lookup_count > 10,
   };
 }
 
 export function parseDmarc(dmarcTxtRecords: string[], rootTxtRecords: string[]): DmarcPolicy {
-  // Check _dmarc TXT first
   let dmarcRecord = dmarcTxtRecords.find((txt) => txt.toUpperCase().startsWith('V=DMARC1'));
 
-  // Fallback to root TXT if someone misconfigured it on apex domain
   if (!dmarcRecord) {
     dmarcRecord = rootTxtRecords.find((txt) => txt.toUpperCase().startsWith('V=DMARC1'));
   }
@@ -133,7 +155,6 @@ export function parseDmarc(dmarcTxtRecords: string[], rootTxtRecords: string[]):
     };
   }
 
-  // Parse p= directive
   const policyMatch = dmarcRecord.match(/p=([a-z0-9_-]+)/i);
   let policy: 'reject' | 'quarantine' | 'none' | null = null;
 
@@ -148,5 +169,46 @@ export function parseDmarc(dmarcTxtRecords: string[], rootTxtRecords: string[]):
     configured: true,
     raw: dmarcRecord,
     policy,
+  };
+}
+
+export function parseMtaSts(mtaStsTxtRecords: string[]): MtaStsInfo {
+  const rec = mtaStsTxtRecords.find((txt) => txt.toLowerCase().startsWith('v=stsv1'));
+  if (!rec) {
+    return {
+      configured: false,
+      raw: null,
+      mode: null,
+    };
+  }
+
+  const modeMatch = rec.match(/mode=([a-z]+)/i);
+  let mode: 'enforce' | 'testing' | 'none' | null = null;
+  if (modeMatch) {
+    const val = modeMatch[1].toLowerCase();
+    if (val === 'enforce') mode = 'enforce';
+    else if (val === 'testing') mode = 'testing';
+    else if (val === 'none') mode = 'none';
+  }
+
+  return {
+    configured: true,
+    raw: rec,
+    mode,
+  };
+}
+
+export function parseBimi(bimiTxtRecords: string[]): BimiInfo {
+  const rec = bimiTxtRecords.find((txt) => txt.toLowerCase().startsWith('v=bimi1'));
+  if (!rec) {
+    return {
+      configured: false,
+      raw: null,
+    };
+  }
+
+  return {
+    configured: true,
+    raw: rec,
   };
 }
