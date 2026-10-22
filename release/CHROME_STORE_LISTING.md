@@ -18,7 +18,7 @@ This document contains all listing metadata, store descriptions, permissions dis
 `Domain Pulse - Domain Health & Audit HUD`
 
 ### Short Summary (max 132 characters)
-`Real-time domain health & infrastructure audit HUD in Chrome Side Panel: DNS, SSL/TLS, SPF/DMARC, real subdomains & tech stack.`
+`Audit domain health & web infrastructure in Chrome Side Panel: DNS records, SSL/TLS, SPF/DMARC, active subdomains, and tech stack.`
 
 ### Category
 - **Primary Category:** Developer Tools
@@ -29,9 +29,9 @@ This document contains all listing metadata, store descriptions, permissions dis
 ### Detailed Description
 
 ```markdown
-⚡ Domain Pulse — Your Real-Time Web Infrastructure & Domain Health HUD
+⚡ Instant web infrastructure & domain health diagnosis right in Google Chrome's native Side Panel.
 
-Audit any website's infrastructure, security health, and DNS configuration instantly with a single click in Google Chrome's native Side Panel.
+Domain Pulse combines a DNS checker, SSL certificate inspector, email security analyzer (SPF/DMARC/MTA-STS), passive subdomain finder, and tech stack detector into a single real-time HUD.
 
 Designed for web developers, DevOps engineers, site reliability teams, and cybersecurity enthusiasts, Domain Pulse transforms raw networking protocols into an elegant, real-time diagnostic dashboard.
 

@@ -1,6 +1,6 @@
 # ⚡ Domain Pulse
 
-> **Inspect DNS, SSL, email security, and web infrastructure in real time from your browser.**
+> **Real-time domain health & security audit HUD in Chrome Side Panel. Inspect DNS, SSL/TLS, SPF, DMARC, subdomains, and web tech stack.**
 
 [![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Manifest V3](https://img.shields.io/badge/Chrome%20Extension-Manifest%20V3-4285F4?logo=googlechrome&logoColor=white)](https://developer.chrome.com/docs/extensions/mv3/intro/)

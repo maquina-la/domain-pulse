@@ -2,7 +2,7 @@
   "name": "domain-pulse-monorepo",
   "version": "1.0.1",
   "private": true,
-  "description": "Domain-pulse: Chrome Extension Side Panel + API Gateway for Real-time Domain Health Audits",
+  "description": "Real-time domain health & security audit HUD in Chrome Side Panel. Inspect DNS, SSL/TLS, SPF, DMARC, subdomains, and web tech stack.",
   "scripts": {
     "build": "pnpm --filter @domain-pulse/shared build && pnpm --filter @domain-pulse/server build && pnpm --filter @domain-pulse/extension build",
     "dev": "pnpm --parallel dev",
