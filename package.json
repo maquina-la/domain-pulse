@@ -1,6 +1,6 @@
 {
   "name": "domain-pulse-monorepo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Domain-pulse: Chrome Extension Side Panel + API Gateway for Real-time Domain Health Audits",
   "scripts": {

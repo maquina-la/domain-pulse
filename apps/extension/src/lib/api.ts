@@ -34,7 +34,7 @@ export async function fetchDomainAudit(domain: string): Promise<AuditResponse> {
   try {
     const res = await fetch(url, {
       headers: {
-        'X-Client-Version': '1.0.0',
+        'X-Client-Version': '1.0.1',
         Accept: 'application/json',
       },
     });
@@ -46,7 +46,7 @@ export async function fetchDomainAudit(domain: string): Promise<AuditResponse> {
       if (apiBase !== LOCAL_DEV_API_BASE) {
         try {
           const localRes = await fetch(`${LOCAL_DEV_API_BASE}/v1/audit?domain=${encodeURIComponent(domain)}`, {
-            headers: { 'X-Client-Version': '1.0.0', Accept: 'application/json' },
+            headers: { 'X-Client-Version': '1.0.1', Accept: 'application/json' },
           });
           if (localRes.ok) {
             return (await localRes.json()) as AuditResponse;
@@ -56,7 +56,7 @@ export async function fetchDomainAudit(domain: string): Promise<AuditResponse> {
         }
       }
 
-      throw new Error(errJson?.message || `Error del servidor HTTP ${res.status}: ${res.statusText}`);
+      throw new Error(errJson?.message || `HTTP Server Error ${res.status}: ${res.statusText}`);
     }
 
     const data = (await res.json()) as AuditResponse;
@@ -66,7 +66,7 @@ export async function fetchDomainAudit(domain: string): Promise<AuditResponse> {
     if (apiBase !== LOCAL_DEV_API_BASE) {
       try {
         const localRes = await fetch(`${LOCAL_DEV_API_BASE}/v1/audit?domain=${encodeURIComponent(domain)}`, {
-          headers: { 'X-Client-Version': '1.0.0', Accept: 'application/json' },
+          headers: { 'X-Client-Version': '1.0.1', Accept: 'application/json' },
         });
         if (localRes.ok) {
           return (await localRes.json()) as AuditResponse;
@@ -78,7 +78,7 @@ export async function fetchDomainAudit(domain: string): Promise<AuditResponse> {
 
     if (err.message?.includes('Failed to fetch') || err.message?.includes('NetworkError')) {
       throw new Error(
-        `No se pudo conectar con el Gateway (${apiBase}). Verifica tu conexión o revisa los ajustes del gateway.`
+        `Could not connect to Gateway (${apiBase}). Check your internet connection or gateway settings.`
       );
     }
     throw err;

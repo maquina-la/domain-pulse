@@ -6,7 +6,7 @@ This document contains all listing metadata, store descriptions, permissions dis
 
 ## 📦 1. Package Upload
 
-- **Zip File:** [`release/domain-pulse-v1.0.0.zip`](file:///Users/carlos/code/domain-pulse/release/domain-pulse-v1.0.0.zip)
+- **Zip File:** [`release/domain-pulse-v1.0.1.zip`](file:///Users/carlos/code/domain-pulse/release/domain-pulse-v1.0.1.zip)
 - **Manifest:** Manifest V3 (`side_panel` native API)
 - **Size:** ~2.0 MB (includes vector branding and optimized assets)
 

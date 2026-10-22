@@ -7,77 +7,77 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07E894713089B7FB00DB8BBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E894703089B7FB00DB8BBC /* AppDelegate.swift */; };
-		07E894753089B7FB00DB8BBC /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E894733089B7FB00DB8BBC /* Main.html */; };
-		07E894773089B7FB00DB8BBC /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 07E894763089B7FB00DB8BBC /* Icon.png */; };
-		07E894793089B7FB00DB8BBC /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 07E894783089B7FB00DB8BBC /* Style.css */; };
-		07E8947B3089B7FB00DB8BBC /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 07E8947A3089B7FB00DB8BBC /* Script.js */; };
-		07E8947D3089B7FB00DB8BBC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8947C3089B7FB00DB8BBC /* ViewController.swift */; };
-		07E894803089B7FB00DB8BBC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E8947E3089B7FB00DB8BBC /* Main.storyboard */; };
-		07E894823089B7FC00DB8BBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07E894813089B7FC00DB8BBC /* Assets.xcassets */; };
-		07E894893089B7FC00DB8BBC /* DomainPulse Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 07E894883089B7FC00DB8BBC /* DomainPulse Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		07E8948E3089B7FC00DB8BBC /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8948D3089B7FC00DB8BBC /* SafariWebExtensionHandler.swift */; };
-		07E894A13089B7FC00DB8BBC /* branding in Resources */ = {isa = PBXBuildFile; fileRef = 07E8949A3089B7FC00DB8BBC /* branding */; };
-		07E894A23089B7FC00DB8BBC /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E8949B3089B7FC00DB8BBC /* index.html */; };
-		07E894A33089B7FC00DB8BBC /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 07E8949C3089B7FC00DB8BBC /* background.js */; };
-		07E894A43089B7FC00DB8BBC /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 07E8949D3089B7FC00DB8BBC /* icons */; };
-		07E894A53089B7FC00DB8BBC /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 07E8949E3089B7FC00DB8BBC /* manifest.json */; };
-		07E894A63089B7FC00DB8BBC /* sidepanel.html in Resources */ = {isa = PBXBuildFile; fileRef = 07E8949F3089B7FC00DB8BBC /* sidepanel.html */; };
-		07E894A73089B7FC00DB8BBC /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 07E894A03089B7FC00DB8BBC /* assets */; };
+		079E71963089BC2500DCF8B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079E71953089BC2500DCF8B2 /* AppDelegate.swift */; };
+		079E719A3089BC2500DCF8B2 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 079E71983089BC2500DCF8B2 /* Main.html */; };
+		079E719C3089BC2500DCF8B2 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 079E719B3089BC2500DCF8B2 /* Icon.png */; };
+		079E719E3089BC2500DCF8B2 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 079E719D3089BC2500DCF8B2 /* Style.css */; };
+		079E71A03089BC2500DCF8B2 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 079E719F3089BC2500DCF8B2 /* Script.js */; };
+		079E71A23089BC2500DCF8B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079E71A13089BC2500DCF8B2 /* ViewController.swift */; };
+		079E71A53089BC2500DCF8B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 079E71A33089BC2500DCF8B2 /* Main.storyboard */; };
+		079E71A73089BC2600DCF8B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 079E71A63089BC2600DCF8B2 /* Assets.xcassets */; };
+		079E71AE3089BC2600DCF8B2 /* DomainPulse Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 079E71AD3089BC2600DCF8B2 /* DomainPulse Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		079E71B33089BC2600DCF8B2 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079E71B23089BC2600DCF8B2 /* SafariWebExtensionHandler.swift */; };
+		079E71C63089BC2700DCF8B2 /* branding in Resources */ = {isa = PBXBuildFile; fileRef = 079E71BF3089BC2700DCF8B2 /* branding */; };
+		079E71C73089BC2700DCF8B2 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 079E71C03089BC2700DCF8B2 /* index.html */; };
+		079E71C83089BC2700DCF8B2 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 079E71C13089BC2700DCF8B2 /* background.js */; };
+		079E71C93089BC2700DCF8B2 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 079E71C23089BC2700DCF8B2 /* icons */; };
+		079E71CA3089BC2700DCF8B2 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 079E71C33089BC2700DCF8B2 /* manifest.json */; };
+		079E71CB3089BC2700DCF8B2 /* sidepanel.html in Resources */ = {isa = PBXBuildFile; fileRef = 079E71C43089BC2700DCF8B2 /* sidepanel.html */; };
+		079E71CC3089BC2700DCF8B2 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 079E71C53089BC2700DCF8B2 /* assets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		07E8948A3089B7FC00DB8BBC /* PBXContainerItemProxy */ = {
+		079E71AF3089BC2600DCF8B2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 07E894653089B7FB00DB8BBC /* Project object */;
+			containerPortal = 079E718A3089BC2500DCF8B2 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 07E894873089B7FC00DB8BBC;
+			remoteGlobalIDString = 079E71AC3089BC2600DCF8B2;
 			remoteInfo = "DomainPulse Extension";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		07E894953089B7FC00DB8BBC /* Embed Foundation Extensions */ = {
+		079E71BA3089BC2600DCF8B2 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			dstPath = "";
 			dstSubfolder = PlugIns;
 			files = (
-				07E894893089B7FC00DB8BBC /* DomainPulse Extension.appex in Embed Foundation Extensions */,
+				079E71AE3089BC2600DCF8B2 /* DomainPulse Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		07E8946D3089B7FB00DB8BBC /* DomainPulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DomainPulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		07E894703089B7FB00DB8BBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		07E894743089B7FB00DB8BBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
-		07E894763089B7FB00DB8BBC /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		07E894783089B7FB00DB8BBC /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
-		07E8947A3089B7FB00DB8BBC /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
-		07E8947C3089B7FB00DB8BBC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		07E8947F3089B7FB00DB8BBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		07E894813089B7FC00DB8BBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		07E894833089B7FC00DB8BBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		07E894883089B7FC00DB8BBC /* DomainPulse Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DomainPulse Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		07E8948D3089B7FC00DB8BBC /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
-		07E8948F3089B7FC00DB8BBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		07E8949A3089B7FC00DB8BBC /* branding */ = {isa = PBXFileReference; lastKnownFileType = folder; name = branding; path = ../../../extension/dist/branding; sourceTree = "<group>"; };
-		07E8949B3089B7FC00DB8BBC /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = index.html; path = ../../../extension/dist/index.html; sourceTree = "<group>"; };
-		07E8949C3089B7FC00DB8BBC /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../../extension/dist/background.js; sourceTree = "<group>"; };
-		07E8949D3089B7FC00DB8BBC /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../../extension/dist/icons; sourceTree = "<group>"; };
-		07E8949E3089B7FC00DB8BBC /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../../extension/dist/manifest.json; sourceTree = "<group>"; };
-		07E8949F3089B7FC00DB8BBC /* sidepanel.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = sidepanel.html; path = ../../../extension/dist/sidepanel.html; sourceTree = "<group>"; };
-		07E894A03089B7FC00DB8BBC /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../../../extension/dist/assets; sourceTree = "<group>"; };
+		079E71923089BC2500DCF8B2 /* DomainPulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DomainPulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		079E71953089BC2500DCF8B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		079E71993089BC2500DCF8B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
+		079E719B3089BC2500DCF8B2 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		079E719D3089BC2500DCF8B2 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		079E719F3089BC2500DCF8B2 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		079E71A13089BC2500DCF8B2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		079E71A43089BC2500DCF8B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		079E71A63089BC2600DCF8B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		079E71A83089BC2600DCF8B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		079E71AD3089BC2600DCF8B2 /* DomainPulse Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DomainPulse Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		079E71B23089BC2600DCF8B2 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		079E71B43089BC2600DCF8B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		079E71BF3089BC2700DCF8B2 /* branding */ = {isa = PBXFileReference; lastKnownFileType = folder; name = branding; path = ../../../extension/dist/branding; sourceTree = "<group>"; };
+		079E71C03089BC2700DCF8B2 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = index.html; path = ../../../extension/dist/index.html; sourceTree = "<group>"; };
+		079E71C13089BC2700DCF8B2 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../../extension/dist/background.js; sourceTree = "<group>"; };
+		079E71C23089BC2700DCF8B2 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../../extension/dist/icons; sourceTree = "<group>"; };
+		079E71C33089BC2700DCF8B2 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../../extension/dist/manifest.json; sourceTree = "<group>"; };
+		079E71C43089BC2700DCF8B2 /* sidepanel.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = sidepanel.html; path = ../../../extension/dist/sidepanel.html; sourceTree = "<group>"; };
+		079E71C53089BC2700DCF8B2 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../../../extension/dist/assets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		07E8946A3089B7FB00DB8BBC /* Frameworks */ = {
+		079E718F3089BC2500DCF8B2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
 			);
 		};
-		07E894853089B7FC00DB8BBC /* Frameworks */ = {
+		079E71AA3089BC2600DCF8B2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
 			);
@@ -85,68 +85,68 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		07E894643089B7FB00DB8BBC = {
+		079E71893089BC2500DCF8B2 = {
 			isa = PBXGroup;
 			children = (
-				07E8946F3089B7FB00DB8BBC /* DomainPulse */,
-				07E8948C3089B7FC00DB8BBC /* DomainPulse Extension */,
-				07E8946E3089B7FB00DB8BBC /* Products */,
+				079E71943089BC2500DCF8B2 /* DomainPulse */,
+				079E71B13089BC2600DCF8B2 /* DomainPulse Extension */,
+				079E71933089BC2500DCF8B2 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		07E8946E3089B7FB00DB8BBC /* Products */ = {
+		079E71933089BC2500DCF8B2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				07E8946D3089B7FB00DB8BBC /* DomainPulse.app */,
-				07E894883089B7FC00DB8BBC /* DomainPulse Extension.appex */,
+				079E71923089BC2500DCF8B2 /* DomainPulse.app */,
+				079E71AD3089BC2600DCF8B2 /* DomainPulse Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		07E8946F3089B7FB00DB8BBC /* DomainPulse */ = {
+		079E71943089BC2500DCF8B2 /* DomainPulse */ = {
 			isa = PBXGroup;
 			children = (
-				07E894703089B7FB00DB8BBC /* AppDelegate.swift */,
-				07E8947C3089B7FB00DB8BBC /* ViewController.swift */,
-				07E8947E3089B7FB00DB8BBC /* Main.storyboard */,
-				07E894813089B7FC00DB8BBC /* Assets.xcassets */,
-				07E894833089B7FC00DB8BBC /* Info.plist */,
-				07E894723089B7FB00DB8BBC /* Resources */,
+				079E71953089BC2500DCF8B2 /* AppDelegate.swift */,
+				079E71A13089BC2500DCF8B2 /* ViewController.swift */,
+				079E71A33089BC2500DCF8B2 /* Main.storyboard */,
+				079E71A63089BC2600DCF8B2 /* Assets.xcassets */,
+				079E71A83089BC2600DCF8B2 /* Info.plist */,
+				079E71973089BC2500DCF8B2 /* Resources */,
 			);
 			path = DomainPulse;
 			sourceTree = "<group>";
 		};
-		07E894723089B7FB00DB8BBC /* Resources */ = {
+		079E71973089BC2500DCF8B2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				07E894733089B7FB00DB8BBC /* Main.html */,
-				07E894763089B7FB00DB8BBC /* Icon.png */,
-				07E894783089B7FB00DB8BBC /* Style.css */,
-				07E8947A3089B7FB00DB8BBC /* Script.js */,
+				079E71983089BC2500DCF8B2 /* Main.html */,
+				079E719B3089BC2500DCF8B2 /* Icon.png */,
+				079E719D3089BC2500DCF8B2 /* Style.css */,
+				079E719F3089BC2500DCF8B2 /* Script.js */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		07E8948C3089B7FC00DB8BBC /* DomainPulse Extension */ = {
+		079E71B13089BC2600DCF8B2 /* DomainPulse Extension */ = {
 			isa = PBXGroup;
 			children = (
-				07E894993089B7FC00DB8BBC /* Resources */,
-				07E8948D3089B7FC00DB8BBC /* SafariWebExtensionHandler.swift */,
-				07E8948F3089B7FC00DB8BBC /* Info.plist */,
+				079E71BE3089BC2700DCF8B2 /* Resources */,
+				079E71B23089BC2600DCF8B2 /* SafariWebExtensionHandler.swift */,
+				079E71B43089BC2600DCF8B2 /* Info.plist */,
 			);
 			path = "DomainPulse Extension";
 			sourceTree = "<group>";
 		};
-		07E894993089B7FC00DB8BBC /* Resources */ = {
+		079E71BE3089BC2700DCF8B2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				07E8949A3089B7FC00DB8BBC /* branding */,
-				07E8949B3089B7FC00DB8BBC /* index.html */,
-				07E8949C3089B7FC00DB8BBC /* background.js */,
-				07E8949D3089B7FC00DB8BBC /* icons */,
-				07E8949E3089B7FC00DB8BBC /* manifest.json */,
-				07E8949F3089B7FC00DB8BBC /* sidepanel.html */,
-				07E894A03089B7FC00DB8BBC /* assets */,
+				079E71BF3089BC2700DCF8B2 /* branding */,
+				079E71C03089BC2700DCF8B2 /* index.html */,
+				079E71C13089BC2700DCF8B2 /* background.js */,
+				079E71C23089BC2700DCF8B2 /* icons */,
+				079E71C33089BC2700DCF8B2 /* manifest.json */,
+				079E71C43089BC2700DCF8B2 /* sidepanel.html */,
+				079E71C53089BC2700DCF8B2 /* assets */,
 			);
 			name = Resources;
 			path = "DomainPulse Extension";
@@ -155,141 +155,141 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		07E8946C3089B7FB00DB8BBC /* DomainPulse */ = {
+		079E71913089BC2500DCF8B2 /* DomainPulse */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 07E894963089B7FC00DB8BBC /* Build configuration list for PBXNativeTarget "DomainPulse" */;
+			buildConfigurationList = 079E71BB3089BC2600DCF8B2 /* Build configuration list for PBXNativeTarget "DomainPulse" */;
 			buildPhases = (
-				07E894693089B7FB00DB8BBC /* Sources */,
-				07E8946A3089B7FB00DB8BBC /* Frameworks */,
-				07E8946B3089B7FB00DB8BBC /* Resources */,
-				07E894953089B7FC00DB8BBC /* Embed Foundation Extensions */,
+				079E718E3089BC2500DCF8B2 /* Sources */,
+				079E718F3089BC2500DCF8B2 /* Frameworks */,
+				079E71903089BC2500DCF8B2 /* Resources */,
+				079E71BA3089BC2600DCF8B2 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				07E8948B3089B7FC00DB8BBC /* PBXTargetDependency */,
+				079E71B03089BC2600DCF8B2 /* PBXTargetDependency */,
 			);
 			name = DomainPulse;
 			productName = DomainPulse;
-			productReference = 07E8946D3089B7FB00DB8BBC /* DomainPulse.app */;
+			productReference = 079E71923089BC2500DCF8B2 /* DomainPulse.app */;
 			productType = "com.apple.product-type.application";
 		};
-		07E894873089B7FC00DB8BBC /* DomainPulse Extension */ = {
+		079E71AC3089BC2600DCF8B2 /* DomainPulse Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 07E894923089B7FC00DB8BBC /* Build configuration list for PBXNativeTarget "DomainPulse Extension" */;
+			buildConfigurationList = 079E71B73089BC2600DCF8B2 /* Build configuration list for PBXNativeTarget "DomainPulse Extension" */;
 			buildPhases = (
-				07E894843089B7FC00DB8BBC /* Sources */,
-				07E894853089B7FC00DB8BBC /* Frameworks */,
-				07E894863089B7FC00DB8BBC /* Resources */,
+				079E71A93089BC2600DCF8B2 /* Sources */,
+				079E71AA3089BC2600DCF8B2 /* Frameworks */,
+				079E71AB3089BC2600DCF8B2 /* Resources */,
 			);
 			buildRules = (
 			);
 			name = "DomainPulse Extension";
 			productName = "DomainPulse Extension";
-			productReference = 07E894883089B7FC00DB8BBC /* DomainPulse Extension.appex */;
+			productReference = 079E71AD3089BC2600DCF8B2 /* DomainPulse Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		07E894653089B7FB00DB8BBC /* Project object */ = {
+		079E718A3089BC2500DCF8B2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2700;
 				LastUpgradeCheck = 2700;
 				TargetAttributes = {
-					07E8946C3089B7FB00DB8BBC = {
+					079E71913089BC2500DCF8B2 = {
 						CreatedOnToolsVersion = 27.0;
 					};
-					07E894873089B7FC00DB8BBC = {
+					079E71AC3089BC2600DCF8B2 = {
 						CreatedOnToolsVersion = 27.0;
 					};
 				};
 			};
-			buildConfigurationList = 07E894683089B7FB00DB8BBC /* Build configuration list for PBXProject "DomainPulse" */;
+			buildConfigurationList = 079E718D3089BC2500DCF8B2 /* Build configuration list for PBXProject "DomainPulse" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 07E894643089B7FB00DB8BBC;
+			mainGroup = 079E71893089BC2500DCF8B2;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 07E8946E3089B7FB00DB8BBC /* Products */;
+			productRefGroup = 079E71933089BC2500DCF8B2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				07E8946C3089B7FB00DB8BBC /* DomainPulse */,
-				07E894873089B7FC00DB8BBC /* DomainPulse Extension */,
+				079E71913089BC2500DCF8B2 /* DomainPulse */,
+				079E71AC3089BC2600DCF8B2 /* DomainPulse Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		07E8946B3089B7FB00DB8BBC /* Resources */ = {
+		079E71903089BC2500DCF8B2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
-				07E894773089B7FB00DB8BBC /* Icon.png in Resources */,
-				07E894803089B7FB00DB8BBC /* Main.storyboard in Resources */,
-				07E8947B3089B7FB00DB8BBC /* Script.js in Resources */,
-				07E894753089B7FB00DB8BBC /* Main.html in Resources */,
-				07E894823089B7FC00DB8BBC /* Assets.xcassets in Resources */,
-				07E894793089B7FB00DB8BBC /* Style.css in Resources */,
+				079E719C3089BC2500DCF8B2 /* Icon.png in Resources */,
+				079E71A53089BC2500DCF8B2 /* Main.storyboard in Resources */,
+				079E71A03089BC2500DCF8B2 /* Script.js in Resources */,
+				079E719A3089BC2500DCF8B2 /* Main.html in Resources */,
+				079E71A73089BC2600DCF8B2 /* Assets.xcassets in Resources */,
+				079E719E3089BC2500DCF8B2 /* Style.css in Resources */,
 			);
 		};
-		07E894863089B7FC00DB8BBC /* Resources */ = {
+		079E71AB3089BC2600DCF8B2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
-				07E894A13089B7FC00DB8BBC /* branding in Resources */,
-				07E894A43089B7FC00DB8BBC /* icons in Resources */,
-				07E894A73089B7FC00DB8BBC /* assets in Resources */,
-				07E894A53089B7FC00DB8BBC /* manifest.json in Resources */,
-				07E894A33089B7FC00DB8BBC /* background.js in Resources */,
-				07E894A63089B7FC00DB8BBC /* sidepanel.html in Resources */,
-				07E894A23089B7FC00DB8BBC /* index.html in Resources */,
+				079E71C63089BC2700DCF8B2 /* branding in Resources */,
+				079E71C93089BC2700DCF8B2 /* icons in Resources */,
+				079E71CC3089BC2700DCF8B2 /* assets in Resources */,
+				079E71CA3089BC2700DCF8B2 /* manifest.json in Resources */,
+				079E71C83089BC2700DCF8B2 /* background.js in Resources */,
+				079E71CB3089BC2700DCF8B2 /* sidepanel.html in Resources */,
+				079E71C73089BC2700DCF8B2 /* index.html in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		07E894693089B7FB00DB8BBC /* Sources */ = {
+		079E718E3089BC2500DCF8B2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
-				07E8947D3089B7FB00DB8BBC /* ViewController.swift in Sources */,
-				07E894713089B7FB00DB8BBC /* AppDelegate.swift in Sources */,
+				079E71A23089BC2500DCF8B2 /* ViewController.swift in Sources */,
+				079E71963089BC2500DCF8B2 /* AppDelegate.swift in Sources */,
 			);
 		};
-		07E894843089B7FC00DB8BBC /* Sources */ = {
+		079E71A93089BC2600DCF8B2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
-				07E8948E3089B7FC00DB8BBC /* SafariWebExtensionHandler.swift in Sources */,
+				079E71B33089BC2600DCF8B2 /* SafariWebExtensionHandler.swift in Sources */,
 			);
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		07E8948B3089B7FC00DB8BBC /* PBXTargetDependency */ = {
+		079E71B03089BC2600DCF8B2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 07E894873089B7FC00DB8BBC /* DomainPulse Extension */;
-			targetProxy = 07E8948A3089B7FC00DB8BBC /* PBXContainerItemProxy */;
+			target = 079E71AC3089BC2600DCF8B2 /* DomainPulse Extension */;
+			targetProxy = 079E71AF3089BC2600DCF8B2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		07E894733089B7FB00DB8BBC /* Main.html */ = {
+		079E71983089BC2500DCF8B2 /* Main.html */ = {
 			isa = PBXVariantGroup;
 			children = (
-				07E894743089B7FB00DB8BBC /* Base */,
+				079E71993089BC2500DCF8B2 /* Base */,
 			);
 			name = Main.html;
 			sourceTree = "<group>";
 		};
-		07E8947E3089B7FB00DB8BBC /* Main.storyboard */ = {
+		079E71A33089BC2500DCF8B2 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				07E8947F3089B7FB00DB8BBC /* Base */,
+				079E71A43089BC2500DCF8B2 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -297,7 +297,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		07E894903089B7FC00DB8BBC /* Debug configuration for PBXProject "DomainPulse" */ = {
+		079E71B53089BC2600DCF8B2 /* Debug configuration for PBXProject "DomainPulse" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -360,7 +360,7 @@
 			};
 			name = Debug;
 		};
-		07E894913089B7FC00DB8BBC /* Release configuration for PBXProject "DomainPulse" */ = {
+		079E71B63089BC2600DCF8B2 /* Release configuration for PBXProject "DomainPulse" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -415,7 +415,7 @@
 			};
 			name = Release;
 		};
-		07E894933089B7FC00DB8BBC /* Debug configuration for PBXNativeTarget "DomainPulse Extension" */ = {
+		079E71B83089BC2600DCF8B2 /* Debug configuration for PBXNativeTarget "DomainPulse Extension" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -449,7 +449,7 @@
 			};
 			name = Debug;
 		};
-		07E894943089B7FC00DB8BBC /* Release configuration for PBXNativeTarget "DomainPulse Extension" */ = {
+		079E71B93089BC2600DCF8B2 /* Release configuration for PBXNativeTarget "DomainPulse Extension" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -483,7 +483,7 @@
 			};
 			name = Release;
 		};
-		07E894973089B7FC00DB8BBC /* Debug configuration for PBXNativeTarget "DomainPulse" */ = {
+		079E71BC3089BC2600DCF8B2 /* Debug configuration for PBXNativeTarget "DomainPulse" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -525,7 +525,7 @@
 			};
 			name = Debug;
 		};
-		07E894983089B7FC00DB8BBC /* Release configuration for PBXNativeTarget "DomainPulse" */ = {
+		079E71BD3089BC2600DCF8B2 /* Release configuration for PBXNativeTarget "DomainPulse" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -570,32 +570,32 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		07E894683089B7FB00DB8BBC /* Build configuration list for PBXProject "DomainPulse" */ = {
+		079E718D3089BC2500DCF8B2 /* Build configuration list for PBXProject "DomainPulse" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				07E894903089B7FC00DB8BBC /* Debug configuration for PBXProject "DomainPulse" */,
-				07E894913089B7FC00DB8BBC /* Release configuration for PBXProject "DomainPulse" */,
+				079E71B53089BC2600DCF8B2 /* Debug configuration for PBXProject "DomainPulse" */,
+				079E71B63089BC2600DCF8B2 /* Release configuration for PBXProject "DomainPulse" */,
 			);
 			defaultConfigurationName = Release;
 		};
-		07E894923089B7FC00DB8BBC /* Build configuration list for PBXNativeTarget "DomainPulse Extension" */ = {
+		079E71B73089BC2600DCF8B2 /* Build configuration list for PBXNativeTarget "DomainPulse Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				07E894933089B7FC00DB8BBC /* Debug configuration for PBXNativeTarget "DomainPulse Extension" */,
-				07E894943089B7FC00DB8BBC /* Release configuration for PBXNativeTarget "DomainPulse Extension" */,
+				079E71B83089BC2600DCF8B2 /* Debug configuration for PBXNativeTarget "DomainPulse Extension" */,
+				079E71B93089BC2600DCF8B2 /* Release configuration for PBXNativeTarget "DomainPulse Extension" */,
 			);
 			defaultConfigurationName = Release;
 		};
-		07E894963089B7FC00DB8BBC /* Build configuration list for PBXNativeTarget "DomainPulse" */ = {
+		079E71BB3089BC2600DCF8B2 /* Build configuration list for PBXNativeTarget "DomainPulse" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				07E894973089B7FC00DB8BBC /* Debug configuration for PBXNativeTarget "DomainPulse" */,
-				07E894983089B7FC00DB8BBC /* Release configuration for PBXNativeTarget "DomainPulse" */,
+				079E71BC3089BC2600DCF8B2 /* Debug configuration for PBXNativeTarget "DomainPulse" */,
+				079E71BD3089BC2600DCF8B2 /* Release configuration for PBXNativeTarget "DomainPulse" */,
 			);
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 07E894653089B7FB00DB8BBC /* Project object */;
+	rootObject = 079E718A3089BC2500DCF8B2 /* Project object */;
 	validationLevel = 1;
 }

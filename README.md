@@ -75,7 +75,7 @@ domain-pulse/
 │       └── DomainPulse/      # Xcode project & Swift host app generated with Apple CLI
 │
 ├── release/                  # Production artifacts for store distribution
-│   ├── domain-pulse-v1.0.0.zip # Chrome Web Store upload archive
+│   ├── domain-pulse-v1.0.1.zip # Chrome Web Store upload archive
 │   ├── CHROME_STORE_LISTING.md # Store listing copy, keywords, and permissions disclosure
 │   ├── PRIVACY_POLICY.md       # Zero-data-collection privacy policy
 │   └── store-assets/           # Promo tiles (440x280, 1400x560) and 1280x800 screenshots
