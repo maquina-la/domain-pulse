@@ -7,7 +7,7 @@
 [![Safari Web Extension](https://img.shields.io/badge/Safari-Web%20Extension-000000?logo=safari&logoColor=white)](https://developer.apple.com/documentation/safariservices/safari_web_extensions)
 [![Volcano Cloud](https://img.shields.io/badge/Deployed%20on-Volcano%20Cloud-FF4500)](https://volcano.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-v4-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
 ---
 
@@ -58,7 +58,7 @@ domain-pulse/
 │   │   ├── src/services/rate-limit.ts # Sliding-window rate limiting (30 req/min)
 │   │   └── src/index.ts               # Standalone Hono server entrypoint
 │   │
-│   ├── extension/            # Chrome Extension MV3 (React 18 + Tailwind + Lucide Icons)
+│   ├── extension/            # Chrome Extension MV3 (React 19 + Tailwind v4 + Lucide Icons)
 │   │   ├── public/
 │   │   │   ├── manifest.json # Chrome Manifest V3 with sidePanel & background service worker
 │   │   │   ├── branding/     # Freestanding vector logos and high-res assets
