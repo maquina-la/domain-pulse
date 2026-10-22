@@ -1,6 +1,6 @@
 # ⚡ Domain Pulse
 
-> **Real-time Domain Health, Infrastructure & Security Audit HUD for Google Chrome & Apple Safari.**
+> **Inspect DNS, SSL, email security, and web infrastructure in real time from your browser.**
 
 [![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Manifest V3](https://img.shields.io/badge/Chrome%20Extension-Manifest%20V3-4285F4?logo=googlechrome&logoColor=white)](https://developer.chrome.com/docs/extensions/mv3/intro/)
@@ -17,199 +17,184 @@
 
 ---
 
-## 🚀 Overview
+## 🚀 What is Domain Pulse?
 
-**Domain Pulse** replaces the fragmented workflow of juggling half a dozen bookmarklets and diagnostics tools (WHOIS lookup, DNS checkers, SSL Labs, MXToolbox, security headers analyzers). It centralizes an end-to-end infrastructure and domain health diagnosis right inside your browser's native **Side Panel** in real time:
+Instead of opening separate tabs for WHOIS lookups, DNS checkers, SSL tests, and email deliverability tools, **Domain Pulse** gives you the full picture directly in your browser's **Side Panel**.
 
-- 🌐 **Comprehensive DNS & DNSSEC:** Inspects `A` (IPv4), `AAAA` (IPv6), `MX`, `TXT`, `NS`, `CNAME`, `SOA`, and `CAA` records, complete with cryptographic **DNSSEC** chain-of-trust verification.
-- 🔒 **SSL/TLS Deep Inspection:** Real-time certificate validity countdown, issuing Certificate Authority (CA), Subject Alternative Names (SANs), TLS 1.3 protocol verification, and HTTP Strict-Transport-Security (**HSTS**).
+Open the side panel while visiting any site, and Domain Pulse audits its configuration in real time:
+
+- 🌐 **DNS & DNSSEC:** Check `A`, `AAAA`, `MX`, `TXT`, `NS`, `CNAME`, `SOA`, and `CAA` records, along with cryptographic **DNSSEC** chain-of-trust validation.
+- 🔒 **SSL/TLS Certificates:** View certificate expiration countdowns, the issuing Certificate Authority (CA), Subject Alternative Names (SANs), TLS 1.3 protocol support, and **HSTS** enforcement.
 - 🛡️ **Email Security & Deliverability:** 
-  - **RFC SPF Lookup Counter:** Verifies SPF records and counts DNS lookups against the strict RFC 10-lookup limit.
-  - **DMARC Enforcement:** Detects strict policies (`p=reject`, `p=quarantine`, `p=none`), subdomain inheritance, and reporting endpoints.
-  - **MTA-STS & BIMI:** Verifies mail server transport encryption policies and visual brand trust seals.
-- 🔎 **Real Subdomain Discovery (Passive DNS OSINT):** Discovers live subdomains (`admin`, `api`, `mail`, `staging`, etc.) using Certificate Transparency logs, TLS SAN extraction, and DoH probe verification.
-- 💻 **Automated Tech Stack Profiling:** Identifies CMS platforms (WordPress, Shopify), modern frameworks (Next.js, React, Rails, Nuxt), web servers (Cloudflare, Nginx, Vercel), and analytics tags.
-- 📊 **Domain Health Score (0–100):** Weighted algorithmic rating accompanied by prioritized, actionable security warnings.
-- 📋 **One-Click Markdown Export:** Copies a clean, structured diagnostic report directly to your clipboard for GitHub issues, Slack messages, or client deliverables.
-- 🌍 **Native Multilingual (i18n):** Auto-detects your browser locale with full native translations in **English**, **Spanish**, **Portuguese**, **French**, **German**, and **Japanese** (with automatic English fallback).
+  - **SPF Lookup Counter:** Validates your SPF record and counts DNS lookups against the strict 10-lookup limit (RFC 7208).
+  - **DMARC:** Checks policy enforcement (`p=reject`, `p=quarantine`, or `p=none`), subdomain rules, and reporting addresses.
+  - **MTA-STS & BIMI:** Verifies mail transport security policies and brand indicator trust seals.
+- 🔎 **Active Subdomains:** Discovers live subdomains (`admin`, `api`, `mail`, `staging`, etc.) using Certificate Transparency logs, TLS certificates, and DNS probing.
+- 💻 **Tech Stack Detection:** Identifies CMS platforms (WordPress, Shopify), web frameworks (Next.js, React, Rails), web servers (Cloudflare, Nginx), and analytics scripts.
+- 📊 **Health Score (0–100):** Rates the domain on a simple 0–100 scale, with clear tips on what to fix.
+- 📋 **Export to Markdown:** Copy a clean report to your clipboard to paste into GitHub issues, pull requests, or Slack.
+- 🌍 **Multilingual:** Automatically matches your browser language, with support for **English**, **Spanish**, **Portuguese**, **French**, **German**, and **Japanese**.
 
 ---
 
-## 🏗️ Monorepo Architecture
+## 🏗️ Project Structure
 
-Domain Pulse is structured as a clean, performant TypeScript monorepo powered by `pnpm`:
+Domain Pulse is built as a TypeScript monorepo using `pnpm`:
 
 ```
 domain-pulse/
 ├── packages/
-│   └── shared/               # TypeScript schemas, Health Score algorithm, and Markdown exporter
-│       ├── src/types.ts      # Unified AuditResponse & telemetry data models
-│       ├── src/score.ts      # Weighted health score engine with penalty logic
-│       ├── src/markdown.ts   # Structured audit report generator
-│       └── dist/
+│   └── shared/               # Data types, health score math, and markdown exporter
 ├── apps/
-│   ├── server/               # API Gateway & High-Performance Orchestrator (Node.js + Hono)
-│   │   ├── src/services/doh.ts        # Parallel Cloudflare DoH fan-out (A, AAAA, MX, TXT, CAA, DS)
-│   │   ├── src/services/subdomains.ts # Passive DNS OSINT + TLS SANs + DoH discovery
-│   │   ├── src/services/rdap.ts       # Official ICANN RDAP registration resolver
-│   │   ├── src/services/tls.ts        # Port 443 TLS handshake & certificate transparency
-│   │   ├── src/services/http-probe.ts # Web security headers & tech stack signatures
-│   │   ├── src/services/cache.ts      # Ephemeral 2-hour LRU cache (FR-08)
-│   │   ├── src/services/rate-limit.ts # Sliding-window rate limiting (30 req/min)
-│   │   └── src/index.ts               # Standalone Hono server entrypoint
+│   ├── server/               # API Gateway built with Node.js and Hono
+│   │   ├── src/services/doh.ts        # Parallel DNS-over-HTTPS queries via Cloudflare
+│   │   ├── src/services/subdomains.ts # Certificate Transparency + DNS subdomain discovery
+│   │   ├── src/services/rdap.ts       # ICANN RDAP domain registration lookup
+│   │   ├── src/services/tls.ts        # Port 443 TLS handshake & certificate inspection
+│   │   ├── src/services/http-probe.ts # HTTP security headers & tech stack signatures
+│   │   ├── src/services/cache.ts      # In-memory 2-hour cache
+│   │   └── src/index.ts               # Local server entry point
 │   │
-│   ├── extension/            # Chrome Extension MV3 (React 19 + Tailwind v4 + Lucide Icons)
-│   │   ├── public/
-│   │   │   ├── manifest.json # Chrome Manifest V3 with sidePanel & background service worker
-│   │   │   ├── branding/     # Freestanding vector logos and high-res assets
-│   │   │   └── icons/        # Transparent PNG icon suite (16x16 through 512x512)
-│   │   ├── src/
-│   │   │   ├── background.ts # Tab change listener & side panel launcher
-│   │   │   ├── lib/api.ts    # Dual-mode client (Volcano Cloud production + local dev fallback)
-│   │   │   ├── lib/i18n.ts   # 6-language localization engine
-│   │   │   ├── components/   # macOS-inspired HUD cards (ScoreGauge, DNS, Email, Headers)
-│   │   │   └── App.tsx       # Main side panel dashboard view
-│   │   └── sidepanel.html    # Native Chrome Side Panel entrypoint
+│   ├── extension/            # Chrome Side Panel extension (React 19 + Tailwind v4 + Vite)
+│   │   ├── public/manifest.json       # Chrome Manifest V3 configuration
+│   │   ├── src/background.ts          # Tab listener and side panel launcher
+│   │   └── src/components/            # UI cards (DNS, SSL, Email, Headers, Subdomains)
 │   │
-│   └── safari/               # Native macOS Safari Web Extension companion app
-│       └── DomainPulse/      # Xcode project & Swift host app generated with Apple CLI
+│   └── safari/               # Native macOS Safari Web Extension
+│       └── DomainPulse/      # Xcode project and Swift host application
 │
-├── release/                  # Production artifacts for store distribution
-│   ├── domain-pulse-v1.0.1.zip # Chrome Web Store upload archive
-│   ├── CHROME_STORE_LISTING.md # Store listing copy, keywords, and permissions disclosure
-│   ├── PRIVACY_POLICY.md       # Zero-data-collection privacy policy
-│   └── store-assets/           # Promo tiles (440x280, 1400x560) and 1280x800 screenshots
+├── release/                  # Store submission packages and promotional assets
+│   ├── domain-pulse-v1.0.1.zip
+│   ├── CHROME_STORE_LISTING.md
+│   └── PRIVACY_POLICY.md
 │
-└── volcano/                  # Volcano Cloud serverless deployment configuration
-    ├── functions/api/        # Production Node.js 24 serverless HTTP function
-    └── volcano-config.yaml   # Declarative deployment manifest
+└── volcano/                  # Volcano Cloud serverless deployment files
 ```
 
 ---
 
-## ⚡ Quickstart & Local Development
+## ⚡ Getting Started Locally
 
-### Prerequisites
-- **Node.js** >= 20 (tested on Node.js v24)
+### Requirements
+- **Node.js** >= 20
 - **pnpm** >= 9 (`corepack enable pnpm`)
-- **Google Chrome** (v114+ for Side Panel API) or **Safari** (macOS Sonoma / Sequoia)
+- **Google Chrome** (v114+ for Side Panel) or **Apple Safari** (macOS)
 
-### 1. Installation & Build
+### 1. Install & Build
 
 ```bash
 # Clone the repository
 git clone https://github.com/maquina-la/domain-pulse.git
 cd domain-pulse
 
-# Install dependencies across all workspaces
+# Install dependencies
 pnpm install
 
-# Build all packages (@domain-pulse/shared, server, extension)
+# Build all packages
 pnpm build
 ```
 
 ---
 
-### 2. Running the Local API Gateway
+### 2. Run the Local API Server
 
-The API gateway handles parallel DNS-over-HTTPS lookups, TLS inspections, RDAP queries, and security header evaluations:
+The API server handles DNS queries, TLS handshakes, RDAP lookups, and HTTP security header inspections:
 
 ```bash
 pnpm dev:server
 ```
 
-The gateway will start on **`http://localhost:3000`**.
+The server runs on **`http://localhost:3000`**.
 
-Verify health:
+Test it in your terminal:
 ```bash
+# Check server health
 curl http://localhost:3000/health
-# {"status":"ok","service":"domain-pulse-gateway",...}
 
-# Audit a domain:
+# Run an audit
 curl "http://localhost:3000/v1/audit?domain=github.com"
 ```
 
 ---
 
-### 3. Loading in Google Chrome (Side Panel)
+### 3. Load the Extension in Google Chrome
 
 1. Build the extension:
    ```bash
    pnpm build:extension
    ```
-2. Open Google Chrome and navigate to `chrome://extensions/`.
-3. Enable **Developer mode** using the toggle in the top-right corner.
+2. Open Chrome and go to `chrome://extensions/`.
+3. Turn on **Developer mode** in the top-right corner.
 4. Click **Load unpacked**.
-5. Select the `apps/extension/dist` directory:
+5. Select this folder from your machine:
    ```
-   /path/to/domain-pulse/apps/extension/dist
+   domain-pulse/apps/extension/dist
    ```
-6. Click the **Domain Pulse** icon in your Chrome toolbar. The HUD opens immediately in Chrome's native Side Panel and audits your active tab.
+6. Click the **Domain Pulse** icon in your Chrome toolbar. The HUD opens in the Side Panel and inspects your active tab.
 
 ---
 
-### 4. Running in Apple Safari (macOS)
+### 4. Run in Apple Safari (macOS)
 
-Domain Pulse includes a native macOS Safari Extension wrapper:
-
-1. Build and sign the Safari extension app:
+1. Build and sign the Safari app:
    ```bash
    pnpm build:safari
    ```
-2. Open the companion app:
+2. Launch the companion app:
    ```bash
    pnpm open:safari
    ```
 3. In **Safari**:
    - Go to **Safari > Settings > Advanced** and check **"Show features for web developers"**.
    - In Safari's top menu bar, click **Develop > Allow Unsigned Extensions**.
-   - In **Safari > Settings > Extensions**, enable **DomainPulse Extension**.
-4. The Domain Pulse icon will appear in Safari's toolbar. Click it to open the diagnostic HUD popover.
+   - In **Safari > Settings > Extensions**, turn on **DomainPulse Extension**.
+4. Click the Domain Pulse icon in Safari's toolbar to open the HUD popover.
 
 ---
 
-## 🎯 Domain Health Scoring Engine
+## 🎯 How the Health Score Works
 
-The domain health index is calculated on a weighted scale from **0 to 100** based on industry RFC standards and security hygiene:
+Each domain starts with **100 points**. Points are deducted for common security and configuration issues:
 
-| Check | Deduction | Description |
+| Check | Penalty | Why It Matters |
 |---|---|---|
-| **Invalid or Missing SSL/TLS** | `-40 pts` | Site does not serve valid HTTPS or certificate is untrusted |
-| **Domain Expiration < 30 Days** | `-20 pts` | Imminent domain lapse risk |
-| **SSL Expiration < 14 Days** | `-15 pts` | Certificate expiration warning |
+| **Invalid or Missing SSL/TLS** | `-40 pts` | Site does not have valid HTTPS or uses an untrusted certificate |
+| **Domain Expires in < 30 Days** | `-20 pts` | Imminent risk of domain expiration |
+| **SSL Expires in < 14 Days** | `-15 pts` | Certificate needs to be renewed soon |
 | **Missing DMARC Policy** | `-15 pts` | Domain is vulnerable to email spoofing and phishing |
-| **Missing or Invalid SPF** | `-10 pts` | Incomplete sender verification |
-| **DMARC in Monitor Mode (`p=none`)** | `-5 pts` | Policy does not block spoofed emails |
-| **No IPv6 Support (No AAAA Records)** | `-5 pts` | Incomplete modern networking coverage |
-| **Missing HSTS Header** | `-5 pts` | HTTP Strict Transport Security not enforced |
-| **Missing CAA Records** | `-5 pts` | Certificate Authority Authorization not restricted |
-| **SPF Exceeds 10 Lookups** | `-5 pts` | Violates RFC 7208 lookup limit (causes SPF PermError) |
+| **Missing or Invalid SPF** | `-10 pts` | Senders cannot be verified |
+| **DMARC in Monitor Mode (`p=none`)** | `-5 pts` | Policy does not block fraudulent emails |
+| **No IPv6 Support (No AAAA Records)** | `-5 pts` | Incomplete modern network support |
+| **Missing HSTS Header** | `-5 pts` | Browsers are not forced to connect via HTTPS |
+| **Missing CAA Records** | `-5 pts` | Any Certificate Authority can issue certificates for this domain |
+| **SPF Exceeds 10 Lookups** | `-5 pts` | Breaks RFC 7208 limits and can cause delivery errors |
 
 ---
 
-## 🌋 Cloud Deployment (Volcano)
+## 🌋 Cloud API (Volcano)
 
-The backend API gateway is deployed to [Volcano Cloud](https://volcano.dev) as a globally distributed Node.js 24 HTTP function:
+The backend is deployed to [Volcano Cloud](https://volcano.dev) as a globally distributed Node.js 24 serverless function:
 
 - **Production Endpoint:** `https://7cf17484-33bf-4348-9159-048674bdc509.functions.volcano.run/`
-- **Zero Configuration for End Users:** The production Chrome Web Store build connects directly to Domain Pulse Cloud with zero setup.
-- **Resilient Fallback:** When testing unpacked builds, the client automatically falls back to `http://localhost:3000` if local development servers are running.
+- **Zero Configuration:** The Chrome Web Store release connects to this cloud API automatically with no setup required.
+- **Local Fallback:** When developing locally, the extension automatically routes requests to `http://localhost:3000` if your local server is running.
 
 ---
 
 ## 🔒 Privacy & Security
 
-Domain Pulse is built with a strict **zero-data-collection** philosophy:
-- **No Personal Data:** No emails, usernames, IP tracking, or accounts required.
-- **No Browsing History:** We only inspect the active tab's domain name when an audit is performed.
-- **Read-Only OSINT:** Audits query public DNS over HTTPS, certificate transparency registries, and public HTTP response headers.
-- **No Third-Party Trackers:** Zero analytics beacons, telemetry, or embedded advertising.
+Domain Pulse does not collect personal information:
 
-See the complete [Privacy Policy](release/PRIVACY_POLICY.md).
+- **No accounts or logins:** You never need to sign up or log in.
+- **No browsing history:** We only check the hostname of the active tab when you run an audit.
+- **Public data only:** All checks use public DNS-over-HTTPS resolvers, public Certificate Transparency logs, and public HTTP response headers.
+- **No trackers or ads:** Zero tracking scripts, cookies, or analytics beacons.
+
+Read our complete [Privacy Policy](release/PRIVACY_POLICY.md).
 
 ---
 
 ## 📄 License
 
-Domain Pulse is licensed under the [MIT License](LICENSE).
+Domain Pulse is open source under the [MIT License](LICENSE).  
 Built with ❤️ by [Máquina](https://github.com/maquina-la).
