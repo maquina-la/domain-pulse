@@ -29,24 +29,24 @@ This document contains all listing metadata, store descriptions, permissions dis
 ### Detailed Description
 
 ```markdown
-⚡ Instant web infrastructure & domain health diagnosis right in Google Chrome's native Side Panel.
+⚡ Real-time web infrastructure and domain health diagnosis right in Google Chrome's native Side Panel.
 
-Domain Pulse combines a DNS checker, SSL certificate inspector, email security analyzer (SPF/DMARC/MTA-STS), passive subdomain finder, and tech stack detector into a single real-time HUD.
+Domain Pulse turns complex network and security diagnostics into an actionable, real-time dashboard. Audit any website you visit without leaving your active tab.
 
-Designed for web developers, DevOps engineers, site reliability teams, and cybersecurity enthusiasts, Domain Pulse transforms raw networking protocols into an elegant, real-time diagnostic dashboard.
+Designed for web developers, DevOps engineers, and security teams, Domain Pulse provides instant visibility into core domain configuration, security posture, and server technology.
 
 Key Features:
-- 🌐 Comprehensive DNS Audit: A, AAAA, MX, TXT, NS, CNAME, SOA, CAA, and DNSSEC validation with root-of-trust status.
-- 🔒 SSL/TLS Deep Inspection: Certificate validity countdown, issuer authority, SAN multi-domain coverage, TLS 1.3 protocol verification, and HSTS enforcement.
-- 🛡️ Email Authentication & Security: Full SPF lookup counter (detecting the 10-lookup RFC limit), DMARC policy enforcement (p=reject / quarantine / none), MTA-STS strict transport compliance, and BIMI visual email trust indicators.
-- 🔎 Real Subdomain Discovery: Detects active subdomains via Certificate Transparency OSINT + TLS SANs + DoH live probing (including staging, api, admin, and mail).
-- 💻 Tech Stack Detection: Identifies underlying CMS (WordPress, Shopify), web frameworks (Next.js, Nuxt), web servers (Cloudflare, Nginx), and analytics.
-- 📊 Health Score & Actionable Warnings: Instant 0–100 health rating with prioritized security recommendations.
-- 📋 One-Click Markdown Export: Export an audit report to your clipboard for GitHub issues, Jira tickets, or client reports.
-- 🌍 Multilingual Experience: Auto-detects your browser locale with full native support for English, Spanish, Portuguese, French, German, and Japanese.
+- 🌐 DNS Health & Validation: Inspect core zone configuration, mail routing records, and cryptographic DNSSEC chain-of-trust validation.
+- 🔒 SSL/TLS Certificate Analysis: View expiration countdowns, issuing certificate authorities, alternative names, protocol versions, and HSTS security enforcement.
+- 🛡️ Email Authentication & Deliverability: Check SPF lookup limits, DMARC policy enforcement, strict transport security, and brand indicator records.
+- 🔎 Subdomain Discovery: Passively discover active subdomains and public endpoints using Certificate Transparency logs and live DNS resolution.
+- 💻 Technology Detection: Identify underlying content management systems, modern frameworks, web servers, and analytics tools.
+- 📊 Health Score & Recommendations: Get an instant 0–100 domain health rating with prioritized security tips and actionable fixes.
+- 📋 One-Click Markdown Export: Copy complete audit summaries formatted for GitHub issues, pull requests, Jira tickets, or client reports.
+- 🌍 Multilingual Support: Automatically adapts to your browser locale, with support for English, Spanish, French, German, Portuguese, and Japanese.
 
 Privacy First:
-Domain Pulse does not track you, does not inject ads, does not collect cookies or personal data, and requires no account. Audits query public DNS and certificate logs over secure HTTPS.
+Domain Pulse does not track your browsing history, inject advertisements, collect cookies, or require an account. All audits are performed over secure HTTPS queries to public network registries.
 ```
 
 ---
