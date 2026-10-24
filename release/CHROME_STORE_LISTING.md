@@ -18,7 +18,7 @@ This document contains all listing metadata, store descriptions, permissions dis
 `Domain Pulse - Domain Health & Audit HUD`
 
 ### Short Summary (max 132 characters)
-`Audit domain health & web infrastructure in Chrome Side Panel: DNS records, SSL/TLS, SPF/DMARC, active subdomains, and tech stack.`
+`Audit domain health, DNS routing, SSL security, and web infrastructure directly in Chrome's native Side Panel.`
 
 ### Category
 - **Primary Category:** Developer Tools

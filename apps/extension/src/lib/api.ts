@@ -1,6 +1,6 @@
 import { AuditResponse } from '@domain-pulse/shared';
 
-export const VOLCANO_CLOUD_API_BASE = 'https://7cf17484-33bf-4348-9159-048674bdc509.functions.volcano.run';
+export const VOLCANO_CLOUD_API_BASE = 'https://3fc71fa5-667b-421e-9f33-a33f09e80101.functions.volcano.run';
 export const LOCAL_DEV_API_BASE = 'http://localhost:3000';
 
 const STORAGE_KEY_API_BASE = 'pulse_domain_api_base';

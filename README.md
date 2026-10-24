@@ -175,7 +175,7 @@ Each domain starts with **100 points**. Points are deducted for common security 
 
 The backend is deployed to [Volcano Cloud](https://volcano.dev) as a globally distributed Node.js 24 serverless function:
 
-- **Production Endpoint:** `https://7cf17484-33bf-4348-9159-048674bdc509.functions.volcano.run/`
+- **Production Endpoint:** `https://3fc71fa5-667b-421e-9f33-a33f09e80101.functions.volcano.run/`
 - **Zero Configuration:** The Chrome Web Store release connects to this cloud API automatically with no setup required.
 - **Local Fallback:** When developing locally, the extension automatically routes requests to `http://localhost:3000` if your local server is running.
 

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Domain Pulse - Domain Health & Audit HUD",
   "version": "1.0.1",
-  "description": "Audit domain health & web infrastructure in Chrome Side Panel: DNS records, SSL/TLS, SPF/DMARC, active subdomains, and tech stack.",
+  "description": "Audit domain health, DNS routing, SSL security, and web infrastructure directly in Chrome's native Side Panel.",
   "action": {
     "default_title": "Domain Pulse HUD",
     "default_icon": {
