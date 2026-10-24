@@ -23,7 +23,7 @@
     "storage"
   ],
   "host_permissions": [
-    "<all_urls>"
+    "https://*.functions.volcano.run/*"
   ],
   "side_panel": {
     "default_path": "sidepanel.html"

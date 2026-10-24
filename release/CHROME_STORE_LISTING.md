@@ -71,7 +71,7 @@ The following 4 screenshots have been generated at the exact **1280 x 800 px** r
 | **Store Icon** | 128 x 128 px | [`release/store-assets/icon-128x128.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/icon-128x128.png) |
 | **Small Promo Tile** | 440 x 280 px | [`release/store-assets/promo-small-440x280.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/promo-small-440x280.png) |
 | **Marquee Banner** | 1400 x 560 px | [`release/store-assets/marquee-1400x560.png`](file:///Users/carlos/code/domain-pulse/release/store-assets/marquee-1400x560.png) |
-| **Privacy Policy** | URL / Document | [`release/PRIVACY_POLICY.md`](file:///Users/carlos/code/domain-pulse/release/PRIVACY_POLICY.md) |
+| **Privacy Policy** | Public URL | `https://github.com/maquina-la/domain-pulse/blob/main/release/PRIVACY_POLICY.md` |
 
 ---
 
@@ -85,7 +85,7 @@ In the **Privacy** tab of the Google Chrome Web Store Developer Console:
    - *Justification:* Required only to read the hostname of the currently active tab when the user initiates an audit, ensuring the HUD knows which domain to evaluate.
 3. **`storage`**:
    - *Justification:* Used locally to remember user preferences, such as interface language and optional custom API gateway endpoints.
-4. **`host_permissions` (`<all_urls>`)**:
-   - *Justification:* The extension audits any public website the user navigates to. To query public DNS over HTTPS, certificate transparency records, and HTTP security response headers across any apex domain, broad host permission is necessary.
+4. **`host_permissions` (`https://*.functions.volcano.run/*`)**:
+   - *Justification:* Required solely to communicate with the Domain Pulse API Gateway hosted on Volcano Cloud to retrieve domain health, DNS, and security data. The extension never requests host access to audited websites or user page contents.
 5. **Single Purpose Description**:
    - *"Domain Pulse provides real-time web infrastructure, DNS, and security health auditing for web domains via the Chrome Side Panel."*
