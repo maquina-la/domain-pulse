@@ -64,7 +64,7 @@ domain-pulse/
 │       └── DomainPulse/      # Xcode project and Swift host application
 │
 ├── release/                  # Store submission packages and promotional assets
-│   ├── domain-pulse-v1.0.1.zip
+│   ├── domain-pulse-v1.0.2.zip
 │   ├── CHROME_STORE_LISTING.md
 │   └── PRIVACY_POLICY.md
 │

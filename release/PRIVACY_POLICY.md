@@ -24,8 +24,7 @@ Domain Pulse only requests permissions strictly required to perform its single p
 | Permission | Purpose |
 |---|---|
 | `sidePanel` | Allows the extension interface to open smoothly in the native Chrome Side Panel beside your active tab. |
-| `activeTab` & `tabs` | Used solely to detect the apex hostname (e.g., `example.com`) of the webpage currently in focus, so the audit HUD can inspect that domain upon request. |
-| `storage` | Saves user-specific interface preferences locally on your device (such as your chosen display language and optional custom API gateway endpoint). |
+| `tabs` | Used solely to detect the apex hostname (e.g., `example.com`) of the webpage currently in focus, so the audit HUD can inspect that domain upon request. |
 | `host_permissions` (`https://*.functions.volcano.run/*`) | Exclusively used to communicate with the Domain Pulse API Gateway to retrieve public domain health metrics. The extension never requests or receives host access to audited websites or browsing page content. |
 
 ---

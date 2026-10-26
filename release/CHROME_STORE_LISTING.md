@@ -6,7 +6,7 @@ This document contains all listing metadata, store descriptions, permissions dis
 
 ## 📦 1. Package Upload
 
-- **Zip File:** [`release/domain-pulse-v1.0.1.zip`](file:///Users/carlos/code/domain-pulse/release/domain-pulse-v1.0.1.zip)
+- **Zip File:** [`release/domain-pulse-v1.0.2.zip`](file:///Users/carlos/code/domain-pulse/release/domain-pulse-v1.0.2.zip)
 - **Manifest:** Manifest V3 (`side_panel` native API)
 - **Size:** ~2.0 MB (includes vector branding and optimized assets)
 
@@ -81,11 +81,9 @@ In the **Privacy** tab of the Google Chrome Web Store Developer Console:
 
 1. **`sidePanel`**:
    - *Justification:* Used to render the real-time audit HUD inside Chrome's native Side Panel adjacent to active browsing tabs without obstructing page content.
-2. **`activeTab` & `tabs`**:
-   - *Justification:* Required only to read the hostname of the currently active tab when the user initiates an audit, ensuring the HUD knows which domain to evaluate.
-3. **`storage`**:
-   - *Justification:* Used locally to remember user preferences, such as interface language and optional custom API gateway endpoints.
-4. **`host_permissions` (`https://*.functions.volcano.run/*`)**:
+2. **`tabs`**:
+   - *Justification:* Required solely to read the hostname of the currently active tab when the user initiates an audit, ensuring the HUD knows which domain to evaluate.
+3. **`host_permissions` (`https://*.functions.volcano.run/*`)**:
    - *Justification:* Required solely to communicate with the Domain Pulse API Gateway hosted on Volcano Cloud to retrieve domain health, DNS, and security data. The extension never requests host access to audited websites or user page contents.
-5. **Single Purpose Description**:
+4. **Single Purpose Description**:
    - *"Domain Pulse provides real-time web infrastructure, DNS, and security health auditing for web domains via the Chrome Side Panel."*

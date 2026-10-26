@@ -1,6 +1,6 @@
 {
   "name": "domain-pulse-monorepo",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "description": "Real-time domain health & security audit HUD in Chrome Side Panel. Inspect DNS, SSL/TLS, SPF, DMARC, subdomains, and web tech stack.",
   "scripts": {

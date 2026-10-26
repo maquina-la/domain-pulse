@@ -34,7 +34,7 @@ export async function fetchDomainAudit(domain: string): Promise<AuditResponse> {
   try {
     const res = await fetch(url, {
       headers: {
-        'X-Client-Version': '1.0.1',
+        'X-Client-Version': '1.0.2',
         Accept: 'application/json',
       },
     });
@@ -46,7 +46,7 @@ export async function fetchDomainAudit(domain: string): Promise<AuditResponse> {
       if (apiBase !== LOCAL_DEV_API_BASE) {
         try {
           const localRes = await fetch(`${LOCAL_DEV_API_BASE}/v1/audit?domain=${encodeURIComponent(domain)}`, {
-            headers: { 'X-Client-Version': '1.0.1', Accept: 'application/json' },
+            headers: { 'X-Client-Version': '1.0.2', Accept: 'application/json' },
           });
           if (localRes.ok) {
             return (await localRes.json()) as AuditResponse;
@@ -66,7 +66,7 @@ export async function fetchDomainAudit(domain: string): Promise<AuditResponse> {
     if (apiBase !== LOCAL_DEV_API_BASE) {
       try {
         const localRes = await fetch(`${LOCAL_DEV_API_BASE}/v1/audit?domain=${encodeURIComponent(domain)}`, {
-          headers: { 'X-Client-Version': '1.0.1', Accept: 'application/json' },
+          headers: { 'X-Client-Version': '1.0.2', Accept: 'application/json' },
         });
         if (localRes.ok) {
           return (await localRes.json()) as AuditResponse;
